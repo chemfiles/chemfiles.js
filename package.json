@@ -1,0 +1,19 @@
+{
+  "name": "chemfiles",
+  "version": "0.9.3",
+  "description": "Modern library for chemistry trajectories reading and writing ",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chemfiles/chemfiles.js.git"
+  },
+  "author": "Guillaume Fraux <guillaume.fraux@epfl.ch>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/chemfiles/chemfiles.js/issues"
+  },
+  "homepage": "https://github.com/chemfiles/chemfiles.js#readme"
+}
