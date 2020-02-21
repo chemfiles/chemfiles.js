@@ -4,7 +4,9 @@
   "description": "Modern library for chemistry trajectories reading and writing ",
   "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cmake -E make_directory lib build && cd build && emcmake cmake .. && cmake --build . && npm run copy-libchemfiles",
+    "copy-libchemfiles": "cmake -E copy build/libchemfiles.js lib/libchemfiles.js && cmake -E copy build/libchemfiles.wasm lib/libchemfiles.wasm"
   },
   "repository": {
     "type": "git",
