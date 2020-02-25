@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "target": "es5",
+        "esModuleInterop": true,
+        "declaration": true,
+        "declarationDir": "dist/",
+        "lib": [
+            "dom",
+            "es5"
+        ]
+    },
+}

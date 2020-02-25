@@ -1,4 +1,3 @@
-node_modules
-build
-lib/libchemfiles.js
-lib/libchemfiles.wasm
+node_modules/
+build/
+dist/
