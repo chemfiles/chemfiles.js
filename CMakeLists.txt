@@ -27,7 +27,7 @@ else()
     message(FATAL_ERROR "Missing the chemfiles library. Please run `git submodule update --init`.")
 endif()
 
-include(exported.cmake)
+include(src/libchemfiles/exported.cmake)
 set(EXTRA_EXPORTED_RUNTIME_METHODS "['getValue', 'stringToUTF8', 'UTF8ToString']")
 
 set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -s ASSERTIONS=1 -O0")
