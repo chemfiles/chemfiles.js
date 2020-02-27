@@ -38,6 +38,10 @@ export declare function getValue(ptr: POINTER, type: LLVMType): number;
 export declare function UTF8ToString(ptr: c_char_ptr, maxBytesToRead?: number): string;
 export declare function stringToUTF8(str: string, ptr: c_char_ptr, maxBytesToWrite: number): void;
 
+export declare function stackSave(): number;
+export declare function stackAlloc(size: number): POINTER;
+export declare function stackRestore(saved: number): void;
+
 export declare function malloc(size: number): POINTER;
 export declare function free(ptr: POINTER): void;
 

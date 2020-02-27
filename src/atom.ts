@@ -1,14 +1,16 @@
 import {ffi} from './libchemfiles';
-import {str2wasm, ref, autogrowStrBuffer} from './utils';
+import {stackAlloc, stackAutoclean, getValue} from './stack';
+import {autogrowStrBuffer} from './utils';
 
 export class Atom {
     private handle!: ffi.CHFL_ATOM;
 
     constructor(name: string) {
-        const ptr = str2wasm(name);
-        const handle = ffi.chfl_atom(ptr);
-        ffi.free(ptr);
-        return Atom.from_ptr(handle);
+        return stackAutoclean(() => {
+            const value = stackAlloc("char*", name);
+            const handle = ffi.chfl_atom(value.ptr);
+            return Atom.from_ptr(handle);
+        });
     }
 
     delete() {
@@ -26,11 +28,11 @@ export class Atom {
     }
 
     get mass(): number {
-        const value = ref("double");
-        ffi.chfl_atom_mass(this.handle, value.ptr);
-        const result = value.get();
-        value.free();
-        return result;
+        return stackAutoclean(() => {
+            const value = stackAlloc("double");
+            ffi.chfl_atom_mass(this.handle, value.ptr);
+            return getValue(value);
+        });
     }
 
     set mass(mass: number) {
@@ -38,11 +40,11 @@ export class Atom {
     }
 
     get charge(): number {
-        const value = ref("double");
-        ffi.chfl_atom_charge(this.handle, value.ptr);
-        const result = value.get();
-        value.free();
-        return result;
+        return stackAutoclean(() => {
+            const value = stackAlloc("double");
+            ffi.chfl_atom_charge(this.handle, value.ptr);
+            return getValue(value);
+        });
     }
 
     set charge(charge: number) {
@@ -56,9 +58,10 @@ export class Atom {
     }
 
     set name(name: string) {
-        const ptr = str2wasm(name);
-        ffi.chfl_atom_set_name(this.handle, ptr);
-        ffi.free(ptr);
+        stackAutoclean(() => {
+            const value = stackAlloc("char*", name);
+            ffi.chfl_atom_set_name(this.handle, value.ptr);
+        });
     }
 
     get type(): string {
@@ -68,9 +71,10 @@ export class Atom {
     }
 
     set type(type: string) {
-        const ptr = str2wasm(type);
-        ffi.chfl_atom_set_type(this.handle, ptr);
-        ffi.free(ptr);
+        stackAutoclean(() => {
+            const value = stackAlloc("char*", type);
+            ffi.chfl_atom_set_type(this.handle, value.ptr);
+        });
     }
 
     get fullName(): string {
@@ -80,26 +84,26 @@ export class Atom {
     }
 
     get VdWRadius(): number {
-        const value = ref("double");
-        ffi.chfl_atom_vdw_radius(this.handle, value.ptr);
-        const result = value.get();
-        value.free();
-        return result;
+        return stackAutoclean(() => {
+            const value = stackAlloc("double");
+            ffi.chfl_atom_vdw_radius(this.handle, value.ptr);
+            return getValue(value);
+        });
     }
 
     get covalentRadius(): number {
-        const value = ref("double");
-        ffi.chfl_atom_covalent_radius(this.handle, value.ptr);
-        const result = value.get();
-        value.free();
-        return result;
+        return stackAutoclean(() => {
+            const value = stackAlloc("double");
+            ffi.chfl_atom_covalent_radius(this.handle, value.ptr);
+            return getValue(value);
+        });
     }
 
     get atomicNumber(): number {
-        const value = ref("uint64_t");
-        ffi.chfl_atom_atomic_number(this.handle, value.ptr);
-        const result = value.get();
-        value.free();
-        return result;
+        return stackAutoclean(() => {
+            const value = stackAlloc("uint64_t");
+            ffi.chfl_atom_atomic_number(this.handle, value.ptr);
+            return getValue(value);
+        });
     }
 }

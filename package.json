@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha -r ts-node/register tests/*.ts",
     "build": "webpack --mode production",
-    "build-libchemfiles": "cmake -E make_directory lib build && cd build && emcmake cmake .. && cmake --build . && npm run copy-libchemfiles",
+    "generate-sizeof": "node -e \"require('./build/sizeof')();\" > lib/wasm-sizes.ts",
+    "build-libchemfiles": "cmake -E make_directory lib build && cd build && emcmake cmake .. && cmake --build . && npm run copy-libchemfiles && npm run generate-sizeof",
     "copy-libchemfiles": "cmake -E copy build/libchemfiles.js lib/libchemfiles.js && cmake -E copy build/libchemfiles.wasm lib/libchemfiles.wasm"
   },
   "repository": {

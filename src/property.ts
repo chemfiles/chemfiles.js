@@ -1,5 +1,6 @@
 import {ffi, chfl_property_kind} from './libchemfiles';
-import {vector3d, str2wasm, ref} from './utils';
+import {vector3d, autogrowStrBuffer} from './utils';
+import {stackAutoclean, stackAlloc, getValue} from './stack';
 
 export class Property {
     private handle!: ffi.CHFL_PROPERTY;
@@ -7,9 +8,10 @@ export class Property {
     constructor(value: string | number | boolean | vector3d) {
         let handle;
         if (typeof value === "string") {
-            const ptr = str2wasm(value);
-            handle = ffi.chfl_property_string(ptr);
-            ffi.free(ptr);
+            handle = stackAutoclean(() => {
+                const ref = stackAlloc("char*", value);
+                return ffi.chfl_property_string(ref.ptr);
+            });
         } else if (typeof value === "number") {
             handle = ffi.chfl_property_double(value);
         } else if (typeof value === "boolean") {
@@ -28,24 +30,26 @@ export class Property {
     }
 
     get(): string | number | boolean | vector3d {
-        const k = this.kind();
-        if (k === chfl_property_kind.CHFL_PROPERTY_BOOL) {
-            const value = ref("bool");
-            ffi.chfl_property_get_bool(this.handle, value.ptr);
-            const result = value.get();
-            return result;
-        } else if (k === chfl_property_kind.CHFL_PROPERTY_DOUBLE) {
-            const value = ref("double");
-            ffi.chfl_property_get_double(this.handle, value.ptr);
-            const result = value.get();
-            return result;
-        } else if (k === chfl_property_kind.CHFL_PROPERTY_STRING) {
-            throw Error("not yet implemented");
-        } else if (k === chfl_property_kind.CHFL_PROPERTY_VECTOR3D) {
-            throw Error("not yet implemented");
-        } else {
-            throw Error("invalid type");
-        }
+        return stackAutoclean(() => {
+            const k = this.kind();
+            if (k === chfl_property_kind.CHFL_PROPERTY_BOOL) {
+                const value = stackAlloc("bool");
+                ffi.chfl_property_get_bool(this.handle, value.ptr);
+                return getValue(value);
+            } else if (k === chfl_property_kind.CHFL_PROPERTY_DOUBLE) {
+                const value = stackAlloc("double");
+                ffi.chfl_property_get_double(this.handle, value.ptr);
+                return getValue(value);
+            } else if (k === chfl_property_kind.CHFL_PROPERTY_STRING) {
+                return autogrowStrBuffer((ptr, size) => {
+                    ffi.chfl_property_get_string(this.handle, ptr, size, 0);
+                });
+            } else if (k === chfl_property_kind.CHFL_PROPERTY_VECTOR3D) {
+                throw Error("not yet implemented");
+            } else {
+                throw Error("invalid type");
+            }
+        })
     }
 
     private kind(): ffi.chfl_property_kind {
