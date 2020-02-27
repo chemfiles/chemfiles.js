@@ -1,6 +1,7 @@
 import {ffi} from './libchemfiles';
 import {stackAlloc, stackAutoclean, getValue} from './stack';
 import {autogrowStrBuffer} from './utils';
+import {PropertyType, getProperty, createProperty} from './property';
 
 export class Atom {
     private handle!: ffi.CHFL_ATOM;
@@ -16,6 +17,11 @@ export class Atom {
     delete() {
         ffi.chfl_free(this.handle);
         this.handle = 0 as ffi.CHFL_ATOM;
+    }
+
+    static clone(other: Atom): Atom {
+        const handle = ffi.chfl_atom_copy(other.handle);
+        return Atom.from_ptr(handle);
     }
 
     static from_ptr(handle: ffi.CHFL_ATOM): Atom {
@@ -105,5 +111,28 @@ export class Atom {
             ffi.chfl_atom_atomic_number(this.handle, value.ptr);
             return getValue(value);
         });
+    }
+
+    get(name: string): PropertyType | undefined {
+        return stackAutoclean(() => {
+            const value = stackAlloc("char*", name);
+            const property = ffi.chfl_atom_get_property(this.handle, value.ptr);
+            if (property === 0) {
+                return undefined;
+            } else {
+                const result = getProperty(property);
+                ffi.chfl_free(property);
+                return result;
+            }
+        });
+    }
+
+    set(name: string, value: PropertyType): void {
+        return stackAutoclean(() => {
+            const property = createProperty(value);
+            const wasmName = stackAlloc("char*", name);
+            ffi.chfl_atom_set_property(this.handle, wasmName.ptr, property);
+            ffi.chfl_free(property);
+        })
     }
 }

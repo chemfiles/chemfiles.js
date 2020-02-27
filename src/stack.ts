@@ -1,5 +1,6 @@
 import {strict as assert} from 'assert';
 import {ffi} from './libchemfiles';
+import {offset, vector3d} from './utils';
 import * as sizes from '../lib/wasm-sizes';
 
 /**
@@ -22,6 +23,8 @@ type TypeMap = {
     'double': [ffi.c_double_ptr, number];
     'bool': [ffi.c_bool_ptr, boolean];
     'char*': [ffi.c_char_ptr, string];
+    'chfl_vector3d': [ffi.chfl_vector3d, vector3d];
+    'chfl_property_kind': [ffi.chfl_property_kind_ptr, number];
 }
 
 /**
@@ -60,14 +63,19 @@ export function stackAlloc<T extends keyof TypeMap>(type: T, value?: string): Re
         const size = 4 * value!.length + 1;
         ptr = ffi.stackAlloc(size) as ffi.c_char_ptr;
         ffi.stringToUTF8(value!, ptr, size);
+    } else if (type === "chfl_vector3d") {
+        ptr = ffi.stackAlloc(sizes.SIZEOF_CHFL_VECTOR3D) as ffi.chfl_vector3d;
+    } else if (type === "chfl_property_kind") {
+        ptr = ffi.stackAlloc(sizes.SIZEOF_CHFL_PROPERTY_KIND) as ffi.chfl_property_kind_ptr;
     } else {
         throw Error("invalid type passed to stackAlloc")
     }
     return {ptr, type};
 }
 
-// required for the below call with 'i8' as LLVM type
+// required for the ffi.getValue call with LLVM types
 assert(sizes.SIZEOF_BOOL == 1, "sizeof(bool) should be 1 in WASM");
+assert(sizes.SIZEOF_CHFL_PROPERTY_KIND == 4, "sizeof(chfl_property_kind) should be 4 in WASM");
 
 export function getValue<T extends keyof TypeMap>(ref: Ref<T>): TypeMap[T][1] {
     if (ref.type === "uint64_t") {
@@ -81,6 +89,13 @@ export function getValue<T extends keyof TypeMap>(ref: Ref<T>): TypeMap[T][1] {
         return ffi.getValue(ref.ptr, "i8") !== 0;
     } else if (ref.type === "char*") {
         return ffi.UTF8ToString(ref.ptr);
+    } else if (ref.type === "chfl_vector3d") {
+        // const x = ffi.getValue(offset(ref.ptr, 0), "double");
+        // const y = ffi.getValue(offset(ref.ptr, 1), "double");
+        // const z = ffi.getValue(offset(ref.ptr, 2), "double");
+        return ffi.HEAPF64[ref.ptr, ref.ptr + 3];
+    } else if (ref.type === "chfl_property_kind") {
+        return ffi.getValue(ref.ptr, "i32");
     } else {
         throw Error("invalid type passed to getValue")
     }

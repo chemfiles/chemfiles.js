@@ -18,6 +18,7 @@ module.exports = {
     ready: ffi.then,
     malloc: ffi._malloc,
     free: ffi._free,
+    HEAPF64: ffi.HEAPF64,
     chfl_version: ffi._chfl_version,
     chfl_free: ffi._chfl_free,
     chfl_last_error: ffi._chfl_last_error,

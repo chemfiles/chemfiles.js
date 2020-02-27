@@ -20,6 +20,7 @@ type chfl_bond_order_ptr = POINTER & { readonly [tag]: 'chfl_bond_order pointer'
 type chfl_property_kind_ptr = POINTER & { readonly [tag]: 'chfl_property_kind pointer' };
 type chfl_cellshape_ptr = POINTER & { readonly [tag]: 'chfl_cellshape pointer' };
 
+type c_char = number;
 type c_bool = number;
 type c_double = number;
 
@@ -28,8 +29,7 @@ type chfl_property_kind = number;
 type chfl_cellshape = number;
 type chfl_status = number;
 
-type c_char = "TODO";
-type chfl_vector3d = "TODO";
+type chfl_vector3d = c_double_ptr;
 type chfl_match_ptr = "TODO";
 // === End of manual declatations
 
@@ -46,6 +46,8 @@ export declare function malloc(size: number): POINTER;
 export declare function free(ptr: POINTER): void;
 
 export declare function ready(callback: () => void): void;
+
+export declare const HEAPF64: number[];
 export type CHFL_TRAJECTORY = CHFL_PTR & { readonly [tag]: 'CHFL_TRAJECTORY' };
 export type CHFL_CELL = CHFL_PTR & { readonly [tag]: 'CHFL_CELL' };
 export type CHFL_ATOM = CHFL_PTR & { readonly [tag]: 'CHFL_ATOM' };

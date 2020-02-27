@@ -1,8 +1,30 @@
 import {assert}  from 'chai';
 import {ready, Atom} from '../src/index';
 
+type vector3d = [number, number, number];
+function assert_approx(a: vector3d, b: vector3d, eps: number): void {
+    assert.approximately(a[0], b[0], eps);
+    assert.approximately(a[1], b[1], eps);
+    assert.approximately(a[2], b[2], eps);
+}
+
 describe('Atom', () => {
     before((done) => {ready(() => done());});
+
+    it('can be cloned', () => {
+        const atom = new Atom("He");
+        const copy = Atom.clone(atom);
+
+        assert.equal(atom.name, "He");
+        assert.equal(copy.name, "He");
+
+        atom.name = "Zn";
+        assert.equal(atom.name, "Zn");
+        assert.equal(copy.name, "He");
+
+        atom.delete();
+        copy.delete();
+    });
 
     it('has a name', () => {
         const atom = new Atom("He");
@@ -82,6 +104,26 @@ describe('Atom', () => {
 
         atom = new Atom("C1");
         assert.equal(atom.atomicNumber, 0);
+        atom.delete();
+    });
+
+    it('can have properties', () => {
+        const atom = new Atom("C");
+        assert.equal(atom.get("foo"), undefined);
+
+        atom.set("foo", 5);
+        atom.set("bar", false);
+        atom.set("baz", [3, 4.5, -7]);
+        atom.set("hey", "test");
+
+        assert.equal(atom.get("foo"), 5);
+        assert.equal(atom.get("bar"), false);
+        assert_approx(atom.get("baz") as vector3d, [3, 4.5, -7], 1e-30);
+        assert.equal(atom.get("hey"), "test");
+
+        atom.set("foo", "56");
+        assert.equal(atom.get("foo"), "56");
+
         atom.delete();
     });
 });
