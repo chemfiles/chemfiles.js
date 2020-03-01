@@ -6,9 +6,7 @@
 // the generation code (https://github.com/chemfiles/bindgen).
 // This file contains emscripten/typescript interface to the C API
 // ===========================================================================
-
-import * as ffi from './cdecl';
-export { ffi };
+export * from './cdecl';
 
 export enum chfl_status {
     CHFL_SUCCESS = 0,

@@ -1,6 +1,10 @@
 import {strict as assert} from 'assert';
-import {ffi} from './libchemfiles';
-import {offset, vector3d} from './utils';
+
+import * as lib from './libchemfiles';
+import {c_uint64_ptr, c_double_ptr, c_bool_ptr, c_char_ptr} from './libchemfiles';
+import {chfl_property_kind_ptr, chfl_vector3d} from './libchemfiles';
+
+import {vector3d} from './utils';
 import * as sizes from '../lib/wasm-sizes';
 
 /**
@@ -9,9 +13,9 @@ import * as sizes from '../lib/wasm-sizes';
  * @return the values returned by the `callback`
  */
 export function stackAutoclean<T>(callback: () => T): T {
-    const position = ffi.stackSave();
+    const position = lib.stackSave();
     const value = callback();
-    ffi.stackRestore(position);
+    lib.stackRestore(position);
     return value;
 }
 
@@ -19,12 +23,12 @@ export function stackAutoclean<T>(callback: () => T): T {
  * Mapping between c types => [WASM types, javascript type]
  */
 type TypeMap = {
-    'uint64_t': [ffi.c_uint64_ptr, number];
-    'double': [ffi.c_double_ptr, number];
-    'bool': [ffi.c_bool_ptr, boolean];
-    'char*': [ffi.c_char_ptr, string];
-    'chfl_vector3d': [ffi.chfl_vector3d, vector3d];
-    'chfl_property_kind': [ffi.chfl_property_kind_ptr, number];
+    'uint64_t': [c_uint64_ptr, number];
+    'double': [c_double_ptr, number];
+    'bool': [c_bool_ptr, boolean];
+    'char*': [c_char_ptr, string];
+    'chfl_vector3d': [chfl_vector3d, vector3d];
+    'chfl_property_kind': [chfl_property_kind_ptr, number];
 }
 
 /**
@@ -53,27 +57,27 @@ export function stackAlloc<T extends keyof TypeMap>(type: T, value?: string): Re
     }
 
     if (type === "uint64_t") {
-        ptr = ffi.stackAlloc(sizes.SIZEOF_UINT64_T) as ffi.c_uint64_ptr;
+        ptr = lib.stackAlloc(sizes.SIZEOF_UINT64_T) as c_uint64_ptr;
     } else if (type === "double") {
-        ptr = ffi.stackAlloc(sizes.SIZEOF_DOUBLE) as ffi.c_double_ptr;
+        ptr = lib.stackAlloc(sizes.SIZEOF_DOUBLE) as c_double_ptr;
     } else if (type === "bool") {
-        ptr = ffi.stackAlloc(sizes.SIZEOF_BOOL) as ffi.c_bool_ptr;
+        ptr = lib.stackAlloc(sizes.SIZEOF_BOOL) as c_bool_ptr;
     } else if (type === "char*") {
         assert(value !== undefined);
         const size = 4 * value!.length + 1;
-        ptr = ffi.stackAlloc(size) as ffi.c_char_ptr;
-        ffi.stringToUTF8(value!, ptr, size);
+        ptr = lib.stackAlloc(size) as c_char_ptr;
+        lib.stringToUTF8(value!, ptr, size);
     } else if (type === "chfl_vector3d") {
-        ptr = ffi.stackAlloc(sizes.SIZEOF_CHFL_VECTOR3D) as ffi.chfl_vector3d;
+        ptr = lib.stackAlloc(sizes.SIZEOF_CHFL_VECTOR3D) as chfl_vector3d;
     } else if (type === "chfl_property_kind") {
-        ptr = ffi.stackAlloc(sizes.SIZEOF_CHFL_PROPERTY_KIND) as ffi.chfl_property_kind_ptr;
+        ptr = lib.stackAlloc(sizes.SIZEOF_CHFL_PROPERTY_KIND) as chfl_property_kind_ptr;
     } else {
         throw Error("invalid type passed to stackAlloc")
     }
     return {ptr, type};
 }
 
-// required for the ffi.getValue call with LLVM types
+// required for the lib.getValue call with LLVM types
 assert(sizes.SIZEOF_BOOL == 1, "sizeof(bool) should be 1 in WASM");
 assert(sizes.SIZEOF_CHFL_PROPERTY_KIND == 4, "sizeof(chfl_property_kind) should be 4 in WASM");
 
@@ -82,20 +86,20 @@ export function getValue<T extends keyof TypeMap>(ref: Ref<T>): TypeMap[T][1] {
         // there is no u64 exposed with getValue, but i64 should be fine for
         // values below INT64_MAX. This should always be the case since
         // uint64_t are used to pass size_t values, and WASM is 32-bit only
-        return ffi.getValue(ref.ptr, "i64");
+        return lib.getValue(ref.ptr, "i64");
     } else if (ref.type === "double") {
-        return ffi.getValue(ref.ptr, "double");
+        return lib.getValue(ref.ptr, "double");
     } else if (ref.type === "bool") {
-        return ffi.getValue(ref.ptr, "i8") !== 0;
+        return lib.getValue(ref.ptr, "i8") !== 0;
     } else if (ref.type === "char*") {
-        return ffi.UTF8ToString(ref.ptr);
+        return lib.UTF8ToString(ref.ptr);
     } else if (ref.type === "chfl_vector3d") {
-        // const x = ffi.getValue(offset(ref.ptr, 0), "double");
-        // const y = ffi.getValue(offset(ref.ptr, 1), "double");
-        // const z = ffi.getValue(offset(ref.ptr, 2), "double");
-        return ffi.HEAPF64[ref.ptr, ref.ptr + 3];
+        // const x = lib.getValue(offset(ref.ptr, 0), "double");
+        // const y = lib.getValue(offset(ref.ptr, 1), "double");
+        // const z = lib.getValue(offset(ref.ptr, 2), "double");
+        return lib.HEAPF64[ref.ptr, ref.ptr + 3];
     } else if (ref.type === "chfl_property_kind") {
-        return ffi.getValue(ref.ptr, "i32");
+        return lib.getValue(ref.ptr, "i32");
     } else {
         throw Error("invalid type passed to getValue")
     }
