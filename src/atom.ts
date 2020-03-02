@@ -4,7 +4,7 @@ import {CHFL_ATOM} from './libchemfiles';
 import {Pointer} from './c_ptr';
 
 import {stackAlloc, stackAutoclean, getValue} from './stack';
-import {autogrowStrBuffer} from './utils';
+import {autogrowStrBuffer, check} from './utils';
 import {PropertyType, getProperty, createProperty} from './property';
 
 export class Atom extends Pointer<CHFL_ATOM> {
@@ -24,7 +24,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
     get mass(): number {
         return stackAutoclean(() => {
             const value = stackAlloc("double");
-            lib._chfl_atom_mass(this.const_ptr, value.ptr);
+            check(lib._chfl_atom_mass(this.const_ptr, value.ptr));
             return getValue(value);
         });
     }
@@ -36,51 +36,51 @@ export class Atom extends Pointer<CHFL_ATOM> {
     get charge(): number {
         return stackAutoclean(() => {
             const value = stackAlloc("double");
-            lib._chfl_atom_charge(this.const_ptr, value.ptr);
+            check(lib._chfl_atom_charge(this.const_ptr, value.ptr));
             return getValue(value);
         });
     }
 
     set charge(charge: number) {
-        lib._chfl_atom_set_charge(this.ptr, charge);
+        check(lib._chfl_atom_set_charge(this.ptr, charge));
     }
 
     get name(): string {
         return autogrowStrBuffer((ptr, size) => {
-            lib._chfl_atom_name(this.const_ptr, ptr, size, 0);
+            check(lib._chfl_atom_name(this.const_ptr, ptr, size, 0));
         });
     }
 
     set name(name: string) {
         stackAutoclean(() => {
             const value = stackAlloc("char*", name);
-            lib._chfl_atom_set_name(this.ptr, value.ptr);
+            check(lib._chfl_atom_set_name(this.ptr, value.ptr));
         });
     }
 
     get type(): string {
         return autogrowStrBuffer((ptr, size) => {
-            lib._chfl_atom_type(this.const_ptr, ptr, size, 0);
+            check(lib._chfl_atom_type(this.const_ptr, ptr, size, 0));
         });
     }
 
     set type(type: string) {
         stackAutoclean(() => {
             const value = stackAlloc("char*", type);
-            lib._chfl_atom_set_type(this.ptr, value.ptr);
+            check(lib._chfl_atom_set_type(this.ptr, value.ptr));
         });
     }
 
     get fullName(): string {
         return autogrowStrBuffer((ptr, size) => {
-            lib._chfl_atom_full_name(this.const_ptr, ptr, size, 0);
+            check(lib._chfl_atom_full_name(this.const_ptr, ptr, size, 0));
         });
     }
 
     get VdWRadius(): number {
         return stackAutoclean(() => {
             const value = stackAlloc("double");
-            lib._chfl_atom_vdw_radius(this.const_ptr, value.ptr);
+            check(lib._chfl_atom_vdw_radius(this.const_ptr, value.ptr));
             return getValue(value);
         });
     }
@@ -88,7 +88,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
     get covalentRadius(): number {
         return stackAutoclean(() => {
             const value = stackAlloc("double");
-            lib._chfl_atom_covalent_radius(this.const_ptr, value.ptr);
+            check(lib._chfl_atom_covalent_radius(this.const_ptr, value.ptr));
             return getValue(value);
         });
     }
@@ -96,7 +96,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
     get atomicNumber(): number {
         return stackAutoclean(() => {
             const value = stackAlloc("uint64_t");
-            lib._chfl_atom_atomic_number(this.const_ptr, value.ptr);
+            check(lib._chfl_atom_atomic_number(this.const_ptr, value.ptr));
             return getValue(value);
         });
     }
@@ -119,7 +119,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
         return stackAutoclean(() => {
             const property = createProperty(value);
             const wasmName = stackAlloc("char*", name);
-            lib._chfl_atom_set_property(this.ptr, wasmName.ptr, property);
+            check(lib._chfl_atom_set_property(this.ptr, wasmName.ptr, property));
             lib._chfl_free(property);
         })
     }

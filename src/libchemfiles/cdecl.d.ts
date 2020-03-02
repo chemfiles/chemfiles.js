@@ -47,6 +47,7 @@ export declare function free(ptr: POINTER): void;
 
 export declare function then(callback: () => void): void;
 
+export declare const HEAP8: number[];
 export declare const HEAPF64: number[];
 // === End of manual declatations
 export type CHFL_TRAJECTORY = CHFL_PTR & { readonly [tag]: 'CHFL_TRAJECTORY' };

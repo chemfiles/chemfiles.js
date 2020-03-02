@@ -1,16 +1,17 @@
-import {strict as assert} from 'assert';
-
 import * as lib from './libchemfiles';
-import {POINTER, c_char_ptr} from './libchemfiles';
+import {c_char_ptr} from './libchemfiles';
 
 import {stackAlloc} from './stack';
+import {lastError} from './misc';
 
 export type vector3d = [number, number, number];
 
-export function offset(ptr: POINTER, size: number): POINTER {
-    assert(size >= 0), "size should be positive";
-    assert(size % 1 === 0, "size should be an integer");
-    return (ptr + size) as POINTER;
+export function check(status: lib.chfl_status) {
+    if (status === lib.chfl_status.CHFL_SUCCESS) {
+        return;
+    } else {
+        throw Error(lastError())
+    }
 }
 
 type StrCallback = (ptr: c_char_ptr, size: number) => void;
@@ -19,7 +20,7 @@ export function autogrowStrBuffer(callback: StrCallback, initial = 128): string 
         if (size < 2) {
             return false;
         } else {
-            return lib.getValue(offset(ptr, size - 2), 'i8') === 0;
+            return lib.HEAP8[ptr + size - 2] === 0;
         }
     }
 
