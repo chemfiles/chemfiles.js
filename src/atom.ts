@@ -1,100 +1,86 @@
 import * as lib from './libchemfiles';
 import {CHFL_ATOM} from './libchemfiles';
 
+import {Pointer} from './c_ptr';
+
 import {stackAlloc, stackAutoclean, getValue} from './stack';
 import {autogrowStrBuffer} from './utils';
 import {PropertyType, getProperty, createProperty} from './property';
 
-export class Atom {
-    private handle!: CHFL_ATOM;
-
+export class Atom extends Pointer<CHFL_ATOM> {
     constructor(name: string) {
-        return stackAutoclean(() => {
+        const ptr = stackAutoclean(() => {
             const value = stackAlloc("char*", name);
-            const handle = lib._chfl_atom(value.ptr);
-            return Atom.from_ptr(handle);
+            return lib._chfl_atom(value.ptr);
         });
-    }
-
-    delete() {
-        lib._chfl_free(this.handle);
-        this.handle = 0 as CHFL_ATOM;
+        super(ptr, false);
     }
 
     static clone(other: Atom): Atom {
-        const handle = lib._chfl_atom_copy(other.handle);
-        return Atom.from_ptr(handle);
-    }
-
-    static from_ptr(handle: CHFL_ATOM): Atom {
-        if (handle === 0) {
-            throw Error("null");
-        }
-        const atom = Object.create(this.prototype);
-        atom.handle = handle;
-        return atom;
+        const ptr = lib._chfl_atom_copy(other.const_ptr);
+        return Atom.__from_ptr(ptr);
     }
 
     get mass(): number {
         return stackAutoclean(() => {
             const value = stackAlloc("double");
-            lib._chfl_atom_mass(this.handle, value.ptr);
+            lib._chfl_atom_mass(this.const_ptr, value.ptr);
             return getValue(value);
         });
     }
 
     set mass(mass: number) {
-        lib._chfl_atom_set_mass(this.handle, mass);
+        lib._chfl_atom_set_mass(this.ptr, mass);
     }
 
     get charge(): number {
         return stackAutoclean(() => {
             const value = stackAlloc("double");
-            lib._chfl_atom_charge(this.handle, value.ptr);
+            lib._chfl_atom_charge(this.const_ptr, value.ptr);
             return getValue(value);
         });
     }
 
     set charge(charge: number) {
-        lib._chfl_atom_set_charge(this.handle, charge);
+        lib._chfl_atom_set_charge(this.ptr, charge);
     }
 
     get name(): string {
         return autogrowStrBuffer((ptr, size) => {
-            lib._chfl_atom_name(this.handle, ptr, size, 0);
+            lib._chfl_atom_name(this.const_ptr, ptr, size, 0);
         });
     }
 
     set name(name: string) {
         stackAutoclean(() => {
             const value = stackAlloc("char*", name);
-            lib._chfl_atom_set_name(this.handle, value.ptr);
+            lib._chfl_atom_set_name(this.ptr, value.ptr);
         });
     }
 
     get type(): string {
         return autogrowStrBuffer((ptr, size) => {
-            lib._chfl_atom_type(this.handle, ptr, size, 0);
+            lib._chfl_atom_type(this.const_ptr, ptr, size, 0);
         });
     }
 
     set type(type: string) {
         stackAutoclean(() => {
             const value = stackAlloc("char*", type);
-            lib._chfl_atom_set_type(this.handle, value.ptr);
+            lib._chfl_atom_set_type(this.ptr, value.ptr);
         });
     }
 
     get fullName(): string {
         return autogrowStrBuffer((ptr, size) => {
-            lib._chfl_atom_full_name(this.handle, ptr, size, 0);
+            lib._chfl_atom_full_name(this.const_ptr, ptr, size, 0);
         });
     }
 
     get VdWRadius(): number {
         return stackAutoclean(() => {
             const value = stackAlloc("double");
-            lib._chfl_atom_vdw_radius(this.handle, value.ptr);
+            lib._chfl_atom_vdw_radius(this.const_ptr, value.ptr);
             return getValue(value);
         });
     }
@@ -102,7 +88,7 @@ export class Atom {
     get covalentRadius(): number {
         return stackAutoclean(() => {
             const value = stackAlloc("double");
-            lib._chfl_atom_covalent_radius(this.handle, value.ptr);
+            lib._chfl_atom_covalent_radius(this.const_ptr, value.ptr);
             return getValue(value);
         });
     }
@@ -110,7 +96,7 @@ export class Atom {
     get atomicNumber(): number {
         return stackAutoclean(() => {
             const value = stackAlloc("uint64_t");
-            lib._chfl_atom_atomic_number(this.handle, value.ptr);
+            lib._chfl_atom_atomic_number(this.const_ptr, value.ptr);
             return getValue(value);
         });
     }
@@ -118,7 +104,7 @@ export class Atom {
     get(name: string): PropertyType | undefined {
         return stackAutoclean(() => {
             const value = stackAlloc("char*", name);
-            const property = lib._chfl_atom_get_property(this.handle, value.ptr);
+            const property = lib._chfl_atom_get_property(this.const_ptr, value.ptr);
             if (property === 0) {
                 return undefined;
             } else {
@@ -133,8 +119,15 @@ export class Atom {
         return stackAutoclean(() => {
             const property = createProperty(value);
             const wasmName = stackAlloc("char*", name);
-            lib._chfl_atom_set_property(this.handle, wasmName.ptr, property);
+            lib._chfl_atom_set_property(this.ptr, wasmName.ptr, property);
             lib._chfl_free(property);
         })
+    }
+
+    static __from_ptr(ptr: CHFL_ATOM): Atom {
+        const parent = new Pointer(ptr, true);
+        const atom = Object.create(Atom.prototype);
+        Object.assign(atom, parent);
+        return atom;
     }
 }

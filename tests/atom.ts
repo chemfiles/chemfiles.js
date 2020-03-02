@@ -1,12 +1,8 @@
 import {assert}  from 'chai';
+
 import {ready, Atom} from '../src/index';
 
-type vector3d = [number, number, number];
-function assert_approx(a: vector3d, b: vector3d, eps: number): void {
-    assert.approximately(a[0], b[0], eps);
-    assert.approximately(a[1], b[1], eps);
-    assert.approximately(a[2], b[2], eps);
-}
+import {assert_approx, vector3d} from './utils';
 
 describe('Atom', () => {
     before((done) => {ready(() => done());});
