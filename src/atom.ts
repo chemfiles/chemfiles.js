@@ -124,6 +124,9 @@ export class Atom extends Pointer<CHFL_ATOM> {
         })
     }
 
+    /** @internal
+     * Create a new Atom from a raw pointer
+     */
     static __from_ptr(ptr: CHFL_ATOM): Atom {
         const parent = new Pointer(ptr, true);
         const atom = Object.create(Atom.prototype);

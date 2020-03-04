@@ -3,7 +3,6 @@ import {CHFL_PROPERTY, chfl_property_kind} from './libchemfiles';
 
 import {vector3d, autogrowStrBuffer} from './utils';
 import {stackAutoclean, stackAlloc, getValue} from './stack';
-import {SIZEOF_DOUBLE} from '../lib/wasm-sizes';
 
 export type PropertyType = string | boolean | number | vector3d;
 
@@ -25,8 +24,7 @@ export function getProperty(property: CHFL_PROPERTY) {
         } else if (kind === chfl_property_kind.CHFL_PROPERTY_VECTOR3D) {
             const ref = stackAlloc("chfl_vector3d");
             lib._chfl_property_get_vector3d(property, ref.ptr)
-            const start = ref.ptr / SIZEOF_DOUBLE;
-            return lib.HEAPF64.slice(start, start + 3) as vector3d;
+            return getValue(ref);
         } else {
             throw Error("unknown chfl_property_kind, this is a bug");
         }
@@ -46,11 +44,7 @@ export function createProperty(value: PropertyType): CHFL_PROPERTY {
         property = lib._chfl_property_bool(Number(value));
     } else if (typeof value === "object") {
         property = stackAutoclean(() => {
-            const ref = stackAlloc("chfl_vector3d");
-            const start = ref.ptr / SIZEOF_DOUBLE;
-            lib.HEAPF64[start + 0] = value[0];
-            lib.HEAPF64[start + 1] = value[1];
-            lib.HEAPF64[start + 2] = value[2];
+            const ref = stackAlloc("chfl_vector3d", value);
             return lib._chfl_property_vector3d(ref.ptr);
         });
     } else {

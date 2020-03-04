@@ -33,7 +33,7 @@ export class Pointer<T extends CHFL_PTR> {
      * have no way to inject behavior when the GC is called, users need to call
      * this function manually when they are done with the object.
      */
-    delete(): void {
+    public delete(): void {
         lib._chfl_free(this._ptr);
         this._ptr = 0 as T;
     }
@@ -41,7 +41,7 @@ export class Pointer<T extends CHFL_PTR> {
     /** @hidden
      * get the value of the pointer as a NON-CONST pointer
      */
-    get ptr(): T {
+    protected get ptr(): T {
         if (this._isConst) {
             throw Error("mutable access to const pointer, this is a bug in chemfiles");
         }
@@ -51,7 +51,7 @@ export class Pointer<T extends CHFL_PTR> {
     /** @hidden
      * get the value of the pointer as a CONST pointer
      */
-    get const_ptr(): T {
+    protected get const_ptr(): T {
         if (this._ptr === 0) {
             throw Error("trying to access an object after calling delete()");
         }

@@ -5,6 +5,7 @@ import {stackAlloc} from './stack';
 import {lastError} from './misc';
 
 export type vector3d = [number, number, number];
+export type matrix3 = [vector3d, vector3d, vector3d];
 
 export function check(status: lib.chfl_status) {
     if (status === lib.chfl_status.CHFL_SUCCESS) {

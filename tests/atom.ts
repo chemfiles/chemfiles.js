@@ -1,8 +1,8 @@
 import {assert}  from 'chai';
 
-import {ready, Atom} from '../src/index';
+import {ready, Atom, vector3d} from '../src/index';
 
-import {assert_approx, vector3d} from './utils';
+import {assert_approx} from './utils';
 
 describe('Atom', () => {
     before((done) => {ready(() => done());});
@@ -114,7 +114,7 @@ describe('Atom', () => {
 
         assert.equal(atom.get("foo"), 5);
         assert.equal(atom.get("bar"), false);
-        assert_approx(atom.get("baz") as vector3d, [3, 4.5, -7], 1e-30);
+        assert_approx(atom.get("baz") as vector3d, [3, 4.5, -7]);
         assert.equal(atom.get("hey"), "test");
 
         atom.set("foo", "56");

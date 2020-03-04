@@ -18,7 +18,12 @@ int main() {
     PRINT_SIZE(double);
     PRINT_SIZE(bool);
     PRINT_SIZE(uint64_t);
-    PRINT_SIZE(chfl_property_kind);
+
     PRINT_SIZE(chfl_vector3d);
+
+    PRINT_SIZE(chfl_property_kind);
+    PRINT_SIZE(chfl_cellshape);
+    PRINT_SIZE(chfl_bond_order);
+
     return 0;
 }
