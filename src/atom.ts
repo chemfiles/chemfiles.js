@@ -30,7 +30,9 @@ export class Atom extends Pointer<CHFL_ATOM> {
     }
 
     set mass(mass: number) {
-        lib._chfl_atom_set_mass(this.ptr, mass);
+        check(
+            lib._chfl_atom_set_mass(this.ptr, mass)
+        );
     }
 
     get charge(): number {

@@ -4,11 +4,12 @@
   "description": "Modern library for chemistry trajectories reading and writing ",
   "main": "src/index.ts",
   "scripts": {
-    "test": "mocha -r ts-node/register tests/*.ts",
+    "test": "mocha -r ts-node/register tests/*.ts && npm run lint",
     "build": "webpack --mode production",
     "generate-sizeof": "node -e \"require('./build/sizeof')();\" > lib/wasm-sizes.ts",
     "build-libchemfiles": "cmake -E make_directory lib build && cd build && emcmake cmake .. $CHFL_CMAKE_ARGS && cmake --build . && npm run copy-libchemfiles && npm run generate-sizeof",
-    "copy-libchemfiles": "cmake -E copy build/libchemfiles.js lib/libchemfiles.js && cmake -E copy build/libchemfiles.wasm lib/libchemfiles.wasm"
+    "copy-libchemfiles": "cmake -E copy build/libchemfiles.js lib/libchemfiles.js && cmake -E copy build/libchemfiles.wasm lib/libchemfiles.wasm",
+    "lint": "npx ts-node scripts/lint.ts"
   },
   "repository": {
     "type": "git",
@@ -23,11 +24,13 @@
   "devDependencies": {
     "@types/chai": "^4.2.9",
     "@types/copy-webpack-plugin": "^5.0.0",
+    "@types/glob": "^7.1.1",
     "@types/mocha": "^7.0.1",
     "@types/node": "^13.7.4",
     "@types/webpack": "^4.41.6",
     "chai": "^4.2.0",
     "copy-webpack-plugin": "^5.1.1",
+    "glob": "^7.1.6",
     "mocha": "^7.0.1",
     "ts-loader": "^6.2.1",
     "ts-node": "^8.6.2",
