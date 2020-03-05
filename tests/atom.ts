@@ -2,7 +2,7 @@ import {assert}  from 'chai';
 
 import {ready, Atom, vector3d} from '../src/index';
 
-import {assert_approx} from './utils';
+import {assert_approx, disableWarnings} from './utils';
 
 describe('Atom', () => {
     before((done) => {ready(() => done());});
@@ -105,7 +105,10 @@ describe('Atom', () => {
 
     it('can have properties', () => {
         const atom = new Atom("C");
-        assert.equal(atom.get("foo"), undefined);
+
+        disableWarnings(() => {
+            assert.equal(atom.get("foo"), undefined);
+        });
 
         atom.set("foo", 5);
         atom.set("bar", false);

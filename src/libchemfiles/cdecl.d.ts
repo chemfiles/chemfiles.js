@@ -19,6 +19,7 @@ type c_uint64_ptr = POINTER & { readonly [tag]: 'uint64_t pointer' };
 type chfl_bond_order_ptr = POINTER & { readonly [tag]: 'chfl_bond_order pointer' };
 type chfl_property_kind_ptr = POINTER & { readonly [tag]: 'chfl_property_kind pointer' };
 type chfl_cellshape_ptr = POINTER & { readonly [tag]: 'chfl_cellshape pointer' };
+type function_ptr = POINTER & { readonly [tag]: 'function pointer' };
 
 type c_char = number;
 type c_bool = number;
@@ -42,8 +43,10 @@ export declare function stackSave(): number;
 export declare function stackAlloc(size: number): POINTER;
 export declare function stackRestore(saved: number): void;
 
-export declare function malloc(size: number): POINTER;
-export declare function free(ptr: POINTER): void;
+export declare function addFunction(fn: Function, signature: string): function_ptr;
+
+export declare function _malloc(size: number): POINTER;
+export declare function _free(ptr: POINTER): void;
 
 export declare function then(callback: () => void): void;
 
@@ -72,7 +75,7 @@ export declare function _chfl_last_error(): c_char_ptr;
 export declare function _chfl_clear_errors(): chfl_status;
 
 // 'chfl_set_warning_callback' at misc.h:40
-export declare function _chfl_set_warning_callback(callback: "chfl_warning_callback"): chfl_status;
+export declare function _chfl_set_warning_callback(callback: number): chfl_status;
 
 // 'chfl_add_configuration' at misc.h:56
 export declare function _chfl_add_configuration(path: c_char_ptr): chfl_status;

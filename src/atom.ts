@@ -8,12 +8,16 @@ import {autogrowStrBuffer, check} from './utils';
 import {PropertyType, getProperty, createProperty} from './property';
 
 export class Atom extends Pointer<CHFL_ATOM> {
-    constructor(name: string) {
+    constructor(name: string, type?: string) {
         const ptr = stackAutoclean(() => {
             const value = stackAlloc("char*", name);
             return lib._chfl_atom(value.ptr);
         });
         super(ptr, false);
+
+        if (type !== undefined) {
+            this.type = type;
+        }
     }
 
     static clone(other: Atom): Atom {
