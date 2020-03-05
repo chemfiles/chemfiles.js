@@ -13,6 +13,7 @@ type POINTER = number & { readonly [tag]: 'pointer' };
 
 export type CHFL_PTR = POINTER & { readonly [tag]: 'chemfile pointer' };
 type c_char_ptr = POINTER & { readonly [tag]: 'char pointer' };
+type c_char_ptr_ptr = POINTER & { readonly [tag]: 'char array pointer' };
 type c_bool_ptr = POINTER & { readonly [tag]: 'bool pointer' };
 type c_double_ptr = POINTER & { readonly [tag]: 'double pointer' };
 type c_uint64_ptr = POINTER & { readonly [tag]: 'uint64_t pointer' };
@@ -36,6 +37,7 @@ type chfl_match_ptr = "TODO";
 // === Manual functions declarations
 type LLVMType = "i8" | "i16" | "i32" | "i64" | "float" | "double" | "*";
 export declare function getValue(ptr: POINTER, type: LLVMType): number;
+export declare function setValue(ptr: POINTER, value: any, type: LLVMType): void;
 export declare function UTF8ToString(ptr: c_char_ptr, maxBytesToRead?: number): string;
 export declare function stringToUTF8(str: string, ptr: c_char_ptr, maxBytesToWrite: number): void;
 
@@ -159,7 +161,7 @@ export declare function _chfl_atom_atomic_number(atom: CHFL_ATOM, number: c_uint
 export declare function _chfl_atom_properties_count(atom: CHFL_ATOM, count: c_uint64_ptr): chfl_status;
 
 // 'chfl_atom_list_properties' at atom.h:228
-export declare function _chfl_atom_list_properties(atom: CHFL_ATOM, names: c_char_ptr, count_lo: number, count_hi: number): chfl_status;
+export declare function _chfl_atom_list_properties(atom: CHFL_ATOM, names: c_char_ptr_ptr, count_lo: number, count_hi: number): chfl_status;
 
 // 'chfl_atom_set_property' at atom.h:240
 export declare function _chfl_atom_set_property(atom: CHFL_ATOM, name: c_char_ptr, property: CHFL_PROPERTY): chfl_status;
@@ -204,7 +206,7 @@ export declare function _chfl_residue_contains(residue: CHFL_RESIDUE, i_lo: numb
 export declare function _chfl_residue_properties_count(residue: CHFL_RESIDUE, count: c_uint64_ptr): chfl_status;
 
 // 'chfl_residue_list_properties' at residue.h:192
-export declare function _chfl_residue_list_properties(residue: CHFL_RESIDUE, names: c_char_ptr, count_lo: number, count_hi: number): chfl_status;
+export declare function _chfl_residue_list_properties(residue: CHFL_RESIDUE, names: c_char_ptr_ptr, count_lo: number, count_hi: number): chfl_status;
 
 // 'chfl_residue_set_property' at residue.h:204
 export declare function _chfl_residue_set_property(residue: CHFL_RESIDUE, name: c_char_ptr, property: CHFL_PROPERTY): chfl_status;
@@ -381,7 +383,7 @@ export declare function _chfl_frame_out_of_plane(frame: CHFL_FRAME, i_lo: number
 export declare function _chfl_frame_properties_count(frame: CHFL_FRAME, count: c_uint64_ptr): chfl_status;
 
 // 'chfl_frame_list_properties' at frame.h:264
-export declare function _chfl_frame_list_properties(frame: CHFL_FRAME, names: c_char_ptr, count_lo: number, count_hi: number): chfl_status;
+export declare function _chfl_frame_list_properties(frame: CHFL_FRAME, names: c_char_ptr_ptr, count_lo: number, count_hi: number): chfl_status;
 
 // 'chfl_frame_set_property' at frame.h:276
 export declare function _chfl_frame_set_property(frame: CHFL_FRAME, name: c_char_ptr, property: CHFL_PROPERTY): chfl_status;
@@ -408,7 +410,7 @@ export declare function _chfl_trajectory_open(path: c_char_ptr, mode: c_char): C
 export declare function _chfl_trajectory_with_format(path: c_char_ptr, mode: c_char, format: c_char_ptr): CHFL_TRAJECTORY;
 
 // 'chfl_trajectory_path' at trajectory.h:56
-export declare function _chfl_trajectory_path(trajectory: CHFL_TRAJECTORY, path: c_char_ptr): chfl_status;
+export declare function _chfl_trajectory_path(trajectory: CHFL_TRAJECTORY, path: c_char_ptr_ptr): chfl_status;
 
 // 'chfl_trajectory_read' at trajectory.h:68
 export declare function _chfl_trajectory_read(trajectory: CHFL_TRAJECTORY, frame: CHFL_FRAME): chfl_status;

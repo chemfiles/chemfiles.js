@@ -16,11 +16,11 @@ export class UnitCell extends Pointer<CHFL_CELL> {
     constructor(lengths: vector3d, angles?: vector3d) {
         let ptr = stackAutoclean(() => {
             if (angles === undefined) {
-                const ref = stackAlloc("chfl_vector3d", lengths);
+                const ref = stackAlloc("chfl_vector3d", {initial: lengths});
                 return lib._chfl_cell(ref.ptr);
             } else {
-                const length_ref = stackAlloc("chfl_vector3d", lengths);
-                const angles_ref = stackAlloc("chfl_vector3d", angles);
+                const length_ref = stackAlloc("chfl_vector3d", {initial: lengths});
+                const angles_ref = stackAlloc("chfl_vector3d", {initial: angles});
                 return lib._chfl_cell_triclinic(length_ref.ptr, angles_ref.ptr);
             }
         });
@@ -37,7 +37,7 @@ export class UnitCell extends Pointer<CHFL_CELL> {
 
     set lengths(value: vector3d) {
         stackAutoclean(() => {
-            const ref = stackAlloc("chfl_vector3d", value);
+            const ref = stackAlloc("chfl_vector3d", {initial: value});
             check(lib._chfl_cell_set_lengths(this.ptr, ref.ptr));
         });
     }
@@ -52,7 +52,7 @@ export class UnitCell extends Pointer<CHFL_CELL> {
 
     set angles(value: vector3d) {
         stackAutoclean(() => {
-            const ref = stackAlloc("chfl_vector3d", value);
+            const ref = stackAlloc("chfl_vector3d", {initial: value});
             check(lib._chfl_cell_set_angles(this.ptr, ref.ptr));
         });
     }
@@ -79,7 +79,7 @@ export class UnitCell extends Pointer<CHFL_CELL> {
 
     wrap(vector: vector3d): vector3d {
         return stackAutoclean(() => {
-            const ref = stackAlloc("chfl_vector3d", vector);
+            const ref = stackAlloc("chfl_vector3d", {initial: vector});
             check(lib._chfl_cell_wrap(this.const_ptr, ref.ptr));
             return getValue(ref);
         });

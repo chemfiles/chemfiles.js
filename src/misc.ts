@@ -18,7 +18,7 @@ export function clearErrors(): void {
 
 export function addConfiguration(path: string): void {
     stackAutoclean(() => {
-        const ref = stackAlloc("char*", path);
+        const ref = stackAlloc("char*", {initial: path});
         check(lib._chfl_add_configuration(ref.ptr));
     });
 }

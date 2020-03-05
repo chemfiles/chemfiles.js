@@ -27,14 +27,14 @@ export function autogrowStrBuffer(callback: StrCallback, initial = 128): string 
 
     const sp = lib.stackSave();
     let size = initial;
-    let value = stackAlloc("char*", "\0".repeat(size));
+    let value = stackAlloc("char*", {initial: "\0".repeat(size)});
     callback(value.ptr, size);
 
     while (!buffer_was_big_enough(value.ptr, size)) {
         // grow the buffer and retry
         size *= 2;
         lib.stackRestore(sp);
-        value = stackAlloc("char*", "\0".repeat(size));
+        value = stackAlloc("char*", {initial: "\0".repeat(size)});
         callback(value.ptr, size);
     }
 

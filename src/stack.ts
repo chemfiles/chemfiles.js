@@ -1,9 +1,9 @@
 import {strict as assert} from 'assert';
 
 import * as lib from './libchemfiles';
-import {c_uint64_ptr, c_double_ptr, c_bool_ptr, c_char_ptr} from './libchemfiles';
+import {c_uint64_ptr, c_double_ptr, c_bool_ptr, c_char_ptr, c_char_ptr_ptr} from './libchemfiles';
 import {chfl_property_kind_ptr, chfl_cellshape_ptr, chfl_bond_order_ptr} from './libchemfiles';
-import {chfl_vector3d} from './libchemfiles';
+import {chfl_vector3d, POINTER} from './libchemfiles';
 
 import {vector3d, matrix3} from './utils';
 import * as sizes from '../lib/wasm-sizes';
@@ -28,6 +28,7 @@ type TypeMap = {
     'double': [c_double_ptr, number];
     'bool': [c_bool_ptr, boolean];
     'char*': [c_char_ptr, string];
+    'char**': [c_char_ptr_ptr, Array<string>];
     'chfl_vector3d': [chfl_vector3d, vector3d];
     'chfl_matrix3': [c_double_ptr, matrix3]
     'chfl_property_kind': [chfl_property_kind_ptr, number];
@@ -45,6 +46,11 @@ interface Ref<T extends keyof TypeMap> {
     readonly type: T,
 }
 
+interface AllocOptions {
+    initial: string | vector3d;
+    count: number;
+}
+
 /**
  * Allocate memory for the given type on the WASM stack and return a pointer
  * to it.
@@ -53,10 +59,10 @@ interface Ref<T extends keyof TypeMap> {
  * stack. The returned pointer will point to the first character. In this case,
  * the `type` should be `'char*'`.
  */
-export function stackAlloc<T extends keyof TypeMap>(type: T, value?: string | vector3d): Ref<T> {
+export function stackAlloc<T extends keyof TypeMap>(type: T, opts: Partial<AllocOptions> = {}): Ref<T> {
     let ptr;
 
-    if (value !== undefined) {
+    if (opts.initial !== undefined) {
         assert(
             type === 'char*' || type === 'chfl_vector3d',
             "Can only pass string value to stackAlloc if type is char* or chfl_vector3d"
@@ -70,18 +76,25 @@ export function stackAlloc<T extends keyof TypeMap>(type: T, value?: string | ve
     } else if (type === "bool") {
         ptr = lib.stackAlloc(sizes.SIZEOF_BOOL) as c_bool_ptr;
     } else if (type === "char*") {
-        checkString(value);
-        const size = 4 * value.length + 1;
+        checkString(opts.initial);
+        const size = 4 * opts.initial.length + 1;
         ptr = lib.stackAlloc(size) as c_char_ptr;
-        lib.stringToUTF8(value, ptr, size);
+        lib.stringToUTF8(opts.initial, ptr, size);
+    } else if (type === "char**") {
+        if (opts.count === undefined) {
+            throw Error("expected a number of pointers to allocate")
+        }
+        ptr = lib.stackAlloc(sizes.SIZEOF_VOID_P * (opts.count + 1)) as c_char_ptr_ptr;
+        const last = ptr + opts.count * sizes.SIZEOF_VOID_P as POINTER;
+        lib.setValue(last, 0, '*');
     } else if (type === "chfl_vector3d") {
         ptr = lib.stackAlloc(sizes.SIZEOF_CHFL_VECTOR3D) as chfl_vector3d;
-        if (value !== undefined) {
-            checkVector3d(value);
+        if (opts.initial !== undefined) {
+            checkVector3d(opts.initial);
             const start = ptr / sizes.SIZEOF_DOUBLE;
-            lib.HEAPF64[start + 0] = value[0];
-            lib.HEAPF64[start + 1] = value[1];
-            lib.HEAPF64[start + 2] = value[2];
+            lib.HEAPF64[start + 0] = opts.initial[0];
+            lib.HEAPF64[start + 1] = opts.initial[1];
+            lib.HEAPF64[start + 2] = opts.initial[2];
         }
     } else if (type === "chfl_matrix3") {
         ptr = lib.stackAlloc(sizes.SIZEOF_CHFL_VECTOR3D * 3) as c_double_ptr;
@@ -115,6 +128,18 @@ export function getValue<T extends keyof TypeMap>(ref: Ref<T>): TypeMap[T][1] {
         return lib.getValue(ref.ptr, "i8") !== 0;
     } else if (ref.type === "char*") {
         return lib.UTF8ToString(ref.ptr);
+    } else if (ref.type === "char**") {
+        const values = [];
+        let current = ref.ptr as POINTER;
+        while (true) {
+            const ptr = lib.getValue(current, '*') as c_char_ptr;
+            if (ptr === 0) {
+                break;
+            }
+            values.push(lib.UTF8ToString(ptr));
+            current = current + sizes.SIZEOF_VOID_P as POINTER;
+        }
+        return values;
     } else if (ref.type === "chfl_vector3d") {
         const start = ref.ptr / sizes.SIZEOF_DOUBLE;
         return lib.HEAPF64.slice(start, start + 3) as vector3d;

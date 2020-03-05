@@ -10,7 +10,7 @@ import {PropertyType, getProperty, createProperty} from './property';
 export class Atom extends Pointer<CHFL_ATOM> {
     constructor(name: string, type?: string) {
         const ptr = stackAutoclean(() => {
-            const value = stackAlloc("char*", name);
+            const value = stackAlloc("char*", {initial: name});
             return lib._chfl_atom(value.ptr);
         });
         super(ptr, false);
@@ -59,7 +59,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
 
     set name(name: string) {
         stackAutoclean(() => {
-            const value = stackAlloc("char*", name);
+            const value = stackAlloc("char*", {initial: name});
             check(lib._chfl_atom_set_name(this.ptr, value.ptr));
         });
     }
@@ -72,7 +72,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
 
     set type(type: string) {
         stackAutoclean(() => {
-            const value = stackAlloc("char*", type);
+            const value = stackAlloc("char*", {initial: type});
             check(lib._chfl_atom_set_type(this.ptr, value.ptr));
         });
     }
@@ -109,7 +109,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
 
     get(name: string): PropertyType | undefined {
         return stackAutoclean(() => {
-            const value = stackAlloc("char*", name);
+            const value = stackAlloc("char*", {initial: name});
             const property = lib._chfl_atom_get_property(this.const_ptr, value.ptr);
             if (property === 0) {
                 return undefined;
@@ -124,10 +124,22 @@ export class Atom extends Pointer<CHFL_ATOM> {
     set(name: string, value: PropertyType): void {
         return stackAutoclean(() => {
             const property = createProperty(value);
-            const wasmName = stackAlloc("char*", name);
+            const wasmName = stackAlloc("char*", {initial: name});
             check(lib._chfl_atom_set_property(this.ptr, wasmName.ptr, property));
             lib._chfl_free(property);
         })
+    }
+
+    properties(): string[] {
+        return stackAutoclean(() => {
+            const countRef = stackAlloc("uint64_t");
+            check(lib._chfl_atom_properties_count(this.ptr, countRef.ptr));
+            const count = getValue(countRef);
+
+            const names = stackAlloc("char**", {count});
+            check(lib._chfl_atom_list_properties(this.ptr, names.ptr, count, 0));
+            return getValue(names);
+        });
     }
 
     /** @internal

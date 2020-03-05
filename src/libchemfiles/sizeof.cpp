@@ -15,6 +15,7 @@ void print_size(std::string name, size_t size) {
 #define PRINT_SIZE(type) print_size("SIZEOF_" #type, sizeof (type))
 
 int main() {
+    print_size("SIZEOF_VOID_P", sizeof (void*));
     PRINT_SIZE(double);
     PRINT_SIZE(bool);
     PRINT_SIZE(uint64_t);

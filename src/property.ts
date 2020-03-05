@@ -35,7 +35,7 @@ export function createProperty(value: PropertyType): CHFL_PROPERTY {
     let property;
     if (typeof value === "string") {
         property = stackAutoclean(() => {
-            const ref = stackAlloc("char*", value);
+            const ref = stackAlloc("char*", {initial: value});
             return lib._chfl_property_string(ref.ptr);
         });
     } else if (typeof value === "number") {
@@ -44,7 +44,7 @@ export function createProperty(value: PropertyType): CHFL_PROPERTY {
         property = lib._chfl_property_bool(Number(value));
     } else if (typeof value === "object" && value.length === 3) {
         property = stackAutoclean(() => {
-            const ref = stackAlloc("chfl_vector3d", value);
+            const ref = stackAlloc("chfl_vector3d", {initial: value});
             return lib._chfl_property_vector3d(ref.ptr);
         });
     } else {

@@ -123,6 +123,8 @@ describe('Atom', () => {
         atom.set("foo", "56");
         assert.equal(atom.get("foo"), "56");
 
+        assert.deepEqual(atom.properties(), ['hey', 'bar', 'baz', 'foo']);
+
         atom.delete();
     });
 });
