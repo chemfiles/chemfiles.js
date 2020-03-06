@@ -1,8 +1,9 @@
-import {assert}  from 'chai';
 import * as vm from 'vm';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as glob from 'glob';
+
+import {assert} from './utils';
 
 import {ready} from '../src/index';
 import * as chemfiles from '../src/index';
@@ -26,6 +27,9 @@ describe('Doctests', () => {
         };
 
         const code = fs.readFileSync(file, {encoding: "utf8"});
+        if (code.includes("chemfiles-doctest-dont-run")) {
+            continue;
+        }
         vm.runInNewContext(code, context, options);
     }
 });

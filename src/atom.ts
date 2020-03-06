@@ -64,7 +64,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
      *
      * ```typescript doctest
      * const atom = new chemfiles.Atom("C");
-     * const copy = new chemfiles.Atom.clone(atom);
+     * const copy = chemfiles.Atom.clone(atom);
      *
      * assert.equal(atom.name, "C");
      * assert.equal(copy.name, "C");
@@ -77,7 +77,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
      * copy.delete();
      * ```
      *
-     * @param  other [[Atom]] to copy
+     * @param  atom [[Atom]] to copy
      */
     static clone(atom: Atom): Atom {
         const ptr = lib._chfl_atom_copy(atom.const_ptr);
