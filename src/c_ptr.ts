@@ -29,16 +29,18 @@ export class Pointer<T extends CHFL_PTR> {
     }
 
     /**
-     * Delete the object and release the corresponding memory. Since JavaScript
-     * have no way to inject behavior when the GC is called, users need to call
-     * this function manually when they are done with the object.
+     * Delete the WASM-allocated object and release the corresponding memory.
+     *
+     * Since JavaScript have no way to inject behavior when the GC is called,
+     * users need to call this function manually when they are done with the
+     * object.
      */
     public delete(): void {
         lib._chfl_free(this._ptr);
         this._ptr = 0 as T;
     }
 
-    /** @hidden
+    /**
      * get the value of the pointer as a NON-CONST pointer
      */
     protected get ptr(): T {
@@ -48,7 +50,7 @@ export class Pointer<T extends CHFL_PTR> {
         return this.const_ptr;
     }
 
-    /** @hidden
+    /**
      * get the value of the pointer as a CONST pointer
      */
     protected get const_ptr(): T {

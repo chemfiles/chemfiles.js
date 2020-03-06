@@ -10,7 +10,7 @@
     "build-libchemfiles": "cmake -E make_directory lib build && cd build && emcmake cmake .. $CHFL_CMAKE_ARGS && cmake --build . && npm run copy-libchemfiles && npm run generate-sizeof",
     "copy-libchemfiles": "cmake -E copy build/libchemfiles.js lib/libchemfiles.js && cmake -E copy build/libchemfiles.wasm lib/libchemfiles.wasm",
     "lint": "ts-node scripts/lint.ts",
-    "build-docs": "typedoc --out docs src"
+    "docs": "typedoc && ts-node scripts/add-docs-css.ts"
   },
   "repository": {
     "type": "git",
@@ -35,10 +35,12 @@
     "mocha": "^7.0.1",
     "ts-loader": "^6.2.1",
     "ts-node": "^8.6.2",
-    "typedoc": "^0.16.11",
     "typescript": "^3.8.2",
     "typescript-doctest": "git+https://gitlab.com/Luthaf/ts-doctest/#b983e1117c2ca211cdbd8760b4ffbfb36d5b54b0",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "typedoc": "^0.17.0-3"
   }
 }

@@ -7,7 +7,43 @@ import {stackAlloc, stackAutoclean, getValue} from './stack';
 import {autogrowStrBuffer, check} from './utils';
 import {PropertyType, getProperty, createProperty} from './property';
 
+/**
+ * An [[Atom]] is a particle in the current [[Frame]]. It stores the following
+ * atomic properties:
+ * - atom name;
+ * - atom type;
+ * - atom mass;
+ * - atom charge.
+ *
+ * The atom name is usually an unique identifier (``"H1"``, ``"C_a"``) while
+ * the atom type will be shared between all particles of the same type:
+ * ``"H"``, ``"Ow"``, ``"CH3"``.
+ */
 export class Atom extends Pointer<CHFL_ATOM> {
+    /**
+     * Create a new [[Atom]] with the given `name`. If `type` is given, use
+     * it as the atom type. Else the atom name is used as atom type.
+     *
+     * This function allocate memory in WASM, so users should release this
+     * allocated memory with [[Atom.delete]]
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom('Fe');
+     * assert.equal(atom.name, 'Fe');
+     * assert.equal(atom.type, 'Fe');
+     * atom.delete();
+     * ```
+     * &nbsp;
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom('Fe-3', 'Fe');
+     * assert.equal(atom.name, 'Fe-3');
+     * assert.equal(atom.type, 'Fe');
+     * atom.delete();
+     * ```
+     *
+     * @param name name of the new Atom
+     * @param type atomic type of the new Atom
+     */
     constructor(name: string, type?: string) {
         const ptr = stackAutoclean(() => {
             const value = stackAlloc("char*", {initial: name});
@@ -20,11 +56,43 @@ export class Atom extends Pointer<CHFL_ATOM> {
         }
     }
 
-    static clone(other: Atom): Atom {
-        const ptr = lib._chfl_atom_copy(other.const_ptr);
+    /**
+     * Create a new independant copy of the given `atom`.
+     *
+     * The new copy allocates WASM memory which should be released with
+     * [[Atom.delete]].
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C");
+     * const copy = new chemfiles.Atom.clone(atom);
+     *
+     * assert.equal(atom.name, "C");
+     * assert.equal(copy.name, "C");
+     *
+     * atom.name = "O";
+     * assert.equal(atom.name, "O");
+     * assert.equal(copy.name, "C");
+     *
+     * atom.delete();
+     * copy.delete();
+     * ```
+     *
+     * @param  other [[Atom]] to copy
+     */
+    static clone(atom: Atom): Atom {
+        const ptr = lib._chfl_atom_copy(atom.const_ptr);
         return Atom.__from_ptr(ptr);
     }
 
+    /**
+     * Get the mass of this [[Atom]], in atomic mass units.
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C");
+     * assert.equal(atom.mass, 12.011);
+     * atom.delete();
+     * ```
+     */
     get mass(): number {
         return stackAutoclean(() => {
             const value = stackAlloc("double");
@@ -33,12 +101,35 @@ export class Atom extends Pointer<CHFL_ATOM> {
         });
     }
 
+    /**
+     * Set the mass of this [[Atom]], in atomic mass units.
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C");
+     * assert.equal(atom.mass, 12.011);
+     *
+     * atom.mass = 14.0
+     * assert.equal(atom.mass, 14.0);
+     * atom.delete();
+     * ```
+     *
+     * @param  mass new mass for the atom
+     */
     set mass(mass: number) {
         check(
             lib._chfl_atom_set_mass(this.ptr, mass)
         );
     }
 
+    /**
+     * Get the charge of this [[Atom]], in number of the electron charge *e*.
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C");
+     * assert.equal(atom.charge, 0);
+     * atom.delete();
+     * ```
+     */
     get charge(): number {
         return stackAutoclean(() => {
             const value = stackAlloc("double");
@@ -47,16 +138,53 @@ export class Atom extends Pointer<CHFL_ATOM> {
         });
     }
 
+    /**
+     * Set the charge of this [[Atom]], in number of the electron charge *e*.
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C");
+     * assert.equal(atom.charge, 0);
+     *
+     * atom.charge = 1.2;
+     * assert.equal(atom.charge, 1.2);
+     * atom.delete();
+     * ```
+     *
+     * @param  charge new charge for the atom
+     */
     set charge(charge: number) {
         check(lib._chfl_atom_set_charge(this.ptr, charge));
     }
 
+    /**
+     * Get the name of this [[Atom]]
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C");
+     * assert.equal(atom.name, "C");
+     * atom.delete();
+     * ```
+     */
     get name(): string {
         return autogrowStrBuffer((ptr, size) => {
             check(lib._chfl_atom_name(this.const_ptr, ptr, size, 0));
         });
     }
 
+    /**
+     * Set the name of this [[Atom]]
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C");
+     * assert.equal(atom.name, "C");
+     *
+     * atom.name = "O";
+     * assert.equal(atom.name, "O");
+     * atom.delete();
+     * ```
+     *
+     * @param  name new name for the atom
+     */
     set name(name: string) {
         stackAutoclean(() => {
             const value = stackAlloc("char*", {initial: name});
@@ -64,12 +192,35 @@ export class Atom extends Pointer<CHFL_ATOM> {
         });
     }
 
+    /**
+     * Get the type of this [[Atom]]
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C1", "C");
+     * assert.equal(atom.type, "C");
+     * atom.delete();
+     * ```
+     */
     get type(): string {
         return autogrowStrBuffer((ptr, size) => {
             check(lib._chfl_atom_type(this.const_ptr, ptr, size, 0));
         });
     }
 
+    /**
+     * Set the type of this [[Atom]]
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C1", "C");
+     * assert.equal(atom.type, "C");
+     *
+     * atom.type = "O";
+     * assert.equal(atom.type, "O");
+     * atom.delete();
+     * ```
+     *
+     * @param  type new atomic type for this atom
+     */
     set type(type: string) {
         stackAutoclean(() => {
             const value = stackAlloc("char*", {initial: type});
@@ -77,12 +228,47 @@ export class Atom extends Pointer<CHFL_ATOM> {
         });
     }
 
+    /**
+     * Full name of this [[Atom]], as guessed from the type.
+     *
+     * For example, the full name associated with `type = "He"` is `"Helium"`.
+     * If no name can be found, the full name will be an empty string.
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C");
+     * assert.equal(atom.fullName, "Carbon");
+     * atom.delete();
+     * ```
+     * &nbsp;
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("CH4");
+     * assert.equal(atom.fullName, "");
+     * atom.delete();
+     * ```
+     */
     get fullName(): string {
         return autogrowStrBuffer((ptr, size) => {
             check(lib._chfl_atom_full_name(this.const_ptr, ptr, size, 0));
         });
     }
 
+    /**
+     * Van der Walls radius of this [[Atom]], as guessed from the type.
+     *
+     * If no radius can be found, the radius will be 0.
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C");
+     * assert.equal(atom.VdWRadius, 1.7);
+     * atom.delete();
+     * ```
+     * &nbsp;
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("CH4");
+     * assert.equal(atom.VdWRadius, 0);
+     * atom.delete();
+     * ```
+     */
     get VdWRadius(): number {
         return stackAutoclean(() => {
             const value = stackAlloc("double");
@@ -91,6 +277,23 @@ export class Atom extends Pointer<CHFL_ATOM> {
         });
     }
 
+    /**
+     * Covalent radius of this [[Atom]], as guessed from the type.
+     *
+     * If no radius can be found, the radius will be 0.
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C");
+     * assert.equal(atom.covalentRadius, 0.77);
+     * atom.delete();
+     * ```
+     * &nbsp;
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("CH4");
+     * assert.equal(atom.covalentRadius, 0);
+     * atom.delete();
+     * ```
+     */
     get covalentRadius(): number {
         return stackAutoclean(() => {
             const value = stackAlloc("double");
@@ -99,6 +302,23 @@ export class Atom extends Pointer<CHFL_ATOM> {
         });
     }
 
+    /**
+     * Atomic number of this [[Atom]], as guessed from the type.
+     *
+     * If no number can be found, it will be 0.
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C");
+     * assert.equal(atom.atomicNumber, 6);
+     * atom.delete();
+     * ```
+     * &nbsp;
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("CH4");
+     * assert.equal(atom.atomicNumber, 0);
+     * atom.delete();
+     * ```
+     */
     get atomicNumber(): number {
         return stackAutoclean(() => {
             const value = stackAlloc("uint64_t");
@@ -107,6 +327,23 @@ export class Atom extends Pointer<CHFL_ATOM> {
         });
     }
 
+    /**
+     * Get the property of this atom with the given `name`, or undefined
+     * if the property does not exists.
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C");
+     *
+     * atom.set("number", 3);
+     * assert.equal(atom.get("number"), 3);
+     * assert.equal(atom.get("not existing"), undefined);
+     *
+     * atom.delete();
+     * ```
+     *
+     * @param  name name of the property
+     * @return      value of the property if it exists
+     */
     get(name: string): PropertyType | undefined {
         return stackAutoclean(() => {
             const value = stackAlloc("char*", {initial: name});
@@ -121,6 +358,31 @@ export class Atom extends Pointer<CHFL_ATOM> {
         });
     }
 
+    /**
+     * Set a property of this atom, with the given `name` and `value`.
+     *
+     * The new value overwrite any pre-existing property with the same name.
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C");
+     *
+     * // number property
+     * atom.set("number", 3);
+     *
+     * // string property
+     * atom.set("string", "val");
+     *
+     * // boolean property
+     * atom.set("bool", false);
+     *
+     * // vector3d property
+     * atom.set("vector", [3, 4, -2]);
+     * atom.delete();
+     * ```
+     *
+     * @param name  name of the new property
+     * @param value value of the new property
+     */
     set(name: string, value: PropertyType): void {
         return stackAutoclean(() => {
             const property = createProperty(value);
@@ -130,6 +392,20 @@ export class Atom extends Pointer<CHFL_ATOM> {
         })
     }
 
+    /**
+     * Get the name of all properties set on this [[Atom]].
+     *
+     * ```typescript doctest
+     * const atom = new chemfiles.Atom("C");
+     * atom.set("number", 3);
+     * atom.set("string", "val");
+     *
+     * assert.deepEqual(atom.properties(), ["string", "number"])
+     * atom.delete();
+     * ```
+     *
+     * @return array containing the name of all properties
+     */
     properties(): string[] {
         return stackAutoclean(() => {
             const countRef = stackAlloc("uint64_t");
@@ -142,7 +418,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
         });
     }
 
-    /** @internal
+    /** @hidden
      * Create a new Atom from a raw pointer
      */
     static __from_ptr(ptr: CHFL_ATOM): Atom {

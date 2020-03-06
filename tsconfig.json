@@ -11,5 +11,17 @@
             "es5"
         ]
     },
-    "exclude": ["./tests"]
+    "exclude": ["./tests"],
+    "include": ["./src"],
+    "typedocOptions": {
+        "mode": "library",
+        "inputFiles": "src/index.ts",
+        "out": "dist/docs/",
+        "excludePrivate": true,
+        "excludeProtected": true,
+        "excludeNotExported": true,
+        "hideGenerator": true,
+        "includeVersion": true,
+        "readme": "none"
+    }
 }

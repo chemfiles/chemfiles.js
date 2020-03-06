@@ -4,8 +4,15 @@ import {CHFL_PROPERTY, chfl_property_kind} from './libchemfiles';
 import {vector3d, autogrowStrBuffer, check} from './utils';
 import {stackAutoclean, stackAlloc, getValue} from './stack';
 
+/**
+ * Possible types for properties natively stored in [[Atom]], [[Residue]] or
+ * [[Frame]].
+ */
 export type PropertyType = string | boolean | number | vector3d;
 
+/**
+ * Get the javascript value from a CHFL_PROPERTY
+ */
 export function getProperty(property: CHFL_PROPERTY) {
     return stackAutoclean(() => {
         const kind = propertyKind(property);
@@ -31,6 +38,9 @@ export function getProperty(property: CHFL_PROPERTY) {
     })
 }
 
+/**
+ * Create a CHFL_PROPERTY from a javascript value
+ */
 export function createProperty(value: PropertyType): CHFL_PROPERTY {
     let property;
     if (typeof value === "string") {
@@ -58,6 +68,9 @@ export function createProperty(value: PropertyType): CHFL_PROPERTY {
     return property;
 }
 
+/**
+ * Get the kind of a CHFL_PROPERTY
+ */
 function propertyKind(property: CHFL_PROPERTY): chfl_property_kind {
     return stackAutoclean(() => {
         const ref = stackAlloc("chfl_property_kind");

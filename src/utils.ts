@@ -4,7 +4,10 @@ import {c_char_ptr} from './libchemfiles';
 import {stackAlloc} from './stack';
 import {lastError} from './misc';
 
+/** Simple 3D vector */
 export type vector3d = [number, number, number];
+
+/** 3x3 matrix */
 export type matrix3 = [vector3d, vector3d, vector3d];
 
 export function check(status: lib.chfl_status) {

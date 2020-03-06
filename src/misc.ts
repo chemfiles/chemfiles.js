@@ -38,7 +38,7 @@ function actualCallback(message: c_char_ptr): void {
     }
 }
 
-export function __setupWarningCallback() {
+function __setupWarningCallback() {
     // register 'actualCallback' as the warning callback so that a single
     // function is registered.
     //
