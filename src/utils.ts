@@ -18,6 +18,16 @@ export function check(status: lib.chfl_status) {
     }
 }
 
+export function numberToInt64(value: number): {lo: number, hi: number} {
+    const lo = value & 0x7fffffff;
+    const hi = (value - lo) / 0x40000000;
+    return { lo, hi };
+}
+
+export function isUnsignedInteger(value: number): boolean {
+    return Number.isInteger(value) && value >= 0;
+}
+
 type StrCallback = (ptr: c_char_ptr, size: number) => void;
 export function autogrowStrBuffer(callback: StrCallback, initial = 128): string {
     const buffer_was_big_enough = (ptr: c_char_ptr, size: number) => {

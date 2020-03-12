@@ -19,7 +19,7 @@ import {PropertyType, getProperty, createProperty} from './property';
  * the atom type will be shared between all particles of the same type:
  * ``"H"``, ``"Ow"``, ``"CH3"``.
  */
-export class Atom extends Pointer<CHFL_ATOM> {
+export class Atom extends Pointer<CHFL_ATOM, {}> {
     /**
      * Create a new [[Atom]] with the given `name`. If `type` is given, use
      * it as the atom type. Else the atom name is used as atom type.
@@ -81,7 +81,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
      */
     static clone(atom: Atom): Atom {
         const ptr = lib._chfl_atom_copy(atom.const_ptr);
-        return Atom.__from_ptr(ptr);
+        return Atom.__from_ptr(ptr, false);
     }
 
     /**
@@ -412,17 +412,17 @@ export class Atom extends Pointer<CHFL_ATOM> {
             check(lib._chfl_atom_properties_count(this.ptr, countRef.ptr));
             const count = getValue(countRef);
 
-            const names = stackAlloc("char**", {count});
+            const names = stackAlloc("char*[]", {count});
             check(lib._chfl_atom_list_properties(this.ptr, names.ptr, count, 0));
-            return getValue(names);
+            return getValue(names, {count});
         });
     }
 
     /** @hidden
      * Create a new Atom from a raw pointer
      */
-    static __from_ptr(ptr: CHFL_ATOM): Atom {
-        const parent = new Pointer(ptr, true);
+    static __from_ptr(ptr: CHFL_ATOM, isConst: boolean): Atom {
+        const parent = new Pointer(ptr, isConst);
         const atom = Object.create(Atom.prototype);
         Object.assign(atom, parent);
         return atom;

@@ -35,7 +35,7 @@ export enum CellShape {
  * |  0     0    c_z |
  * ```
  */
-export class UnitCell extends Pointer<CHFL_CELL> {
+export class UnitCell extends Pointer<CHFL_CELL, {}> {
     /**
      * Create a new [[UnitCell]] with given cell `lengths`. If the cell `angles`
      * are given, the cell [[shape|CellShape]] will be `Triclinic`, else it will
@@ -271,14 +271,14 @@ export class UnitCell extends Pointer<CHFL_CELL> {
      */
     static clone(cell: UnitCell): UnitCell {
         const ptr = lib._chfl_cell_copy(cell.const_ptr);
-        return UnitCell.__from_ptr(ptr);
+        return UnitCell.__from_ptr(ptr, false);
     }
 
     /** @hidden
      * Create a new UnitCell from a raw pointer
      */
-    static __from_ptr(ptr: CHFL_CELL): UnitCell {
-        const parent = new Pointer(ptr, true);
+    static __from_ptr(ptr: CHFL_CELL, isConst: boolean): UnitCell {
+        const parent = new Pointer(ptr, isConst);
         const cell = Object.create(UnitCell.prototype);
         Object.assign(cell, parent);
         return cell;

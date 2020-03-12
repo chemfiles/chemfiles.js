@@ -12,6 +12,7 @@ import * as chemfiles from '../src/index';
 describe('Doctests', () => {
     before((done) => {ready(() => done());});
 
+    chemfiles.setWarningCallback(() => {});
     for (const file of glob.sync(path.join(__dirname, 'doc', '**/*.ts'))) {
         const context = {
             test: it,

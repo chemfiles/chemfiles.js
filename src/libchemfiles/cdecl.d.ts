@@ -52,8 +52,14 @@ export declare function _free(ptr: POINTER): void;
 
 export declare function then(callback: () => void): void;
 
-export declare const HEAP8: number[];
-export declare const HEAPF64: number[];
+export declare const HEAP8: Int8Array;
+export declare const HEAP16: Int16Array;
+export declare const HEAP32: Int32Array;
+export declare const HEAPU8: Uint8Array;
+export declare const HEAPU16: Uint16Array;
+export declare const HEAPU32: Uint32Array;
+export declare const HEAPF32: Float32Array;
+export declare const HEAPF64: Float64Array;
 // === End of manual declatations
 export type CHFL_TRAJECTORY = CHFL_PTR & { readonly [tag]: 'CHFL_TRAJECTORY' };
 export type CHFL_CELL = CHFL_PTR & { readonly [tag]: 'CHFL_CELL' };

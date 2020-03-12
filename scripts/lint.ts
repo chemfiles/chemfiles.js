@@ -77,6 +77,12 @@ function statusIsChecked() {
         for (let i=0; i<lines.length; i++) {
             const match = lines[i].match(/_chfl_\w*/);
             if (match && all.has(match[0])) {
+                if (match[0] === "_chfl_residue_id") {
+                    // we need to manually check the status to differenciate
+                    // between error and no residue id.
+                    continue
+                }
+
                 let check = lines[i];
                 if (check.match(/^\s*[\w\d]+\._chfl_\w*\(/)) {
                     // the line starts with the function call, check the

@@ -6,9 +6,10 @@ import {CHFL_PTR} from './libchemfiles';
  * internal class, used to implement the main functionality of Chemfiles'
  * objects.
  */
-export class Pointer<T extends CHFL_PTR> {
+export class Pointer<T extends CHFL_PTR, Extra> {
     private _ptr: T;
     private _isConst: boolean;
+    protected _extra: Partial<Extra>;
 
     /**
      * Create a new Pointer<T> from the given value. `isConst` indicate if the
@@ -25,6 +26,7 @@ export class Pointer<T extends CHFL_PTR> {
         }
         this._ptr = ptr;
         this._isConst = isConst;
+        this._extra = {};
         Object.preventExtensions(this);
     }
 
