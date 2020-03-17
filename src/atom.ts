@@ -24,8 +24,8 @@ export class Atom extends Pointer<CHFL_ATOM, {}> {
      * Create a new [[Atom]] with the given `name`. If `type` is given, use
      * it as the atom type. Else the atom name is used as atom type.
      *
-     * This function allocate memory in WASM, so users should release this
-     * allocated memory with [[Atom.delete]]
+     * This function allocate WASM memory, which must be released with
+     * [[Atom.delete]].
      *
      * ```typescript doctest
      * const atom = new chemfiles.Atom('Fe');
@@ -59,7 +59,7 @@ export class Atom extends Pointer<CHFL_ATOM, {}> {
     /**
      * Create a new independant copy of the given `atom`.
      *
-     * The new copy allocates WASM memory which should be released with
+     * This function allocate WASM memory, which must be released with
      * [[Atom.delete]].
      *
      * ```typescript doctest
@@ -69,6 +69,7 @@ export class Atom extends Pointer<CHFL_ATOM, {}> {
      * assert.equal(atom.name, "C");
      * assert.equal(copy.name, "C");
      *
+     * // only atom is modified, not copy
      * atom.name = "O";
      * assert.equal(atom.name, "O");
      * assert.equal(copy.name, "C");
@@ -419,7 +420,7 @@ export class Atom extends Pointer<CHFL_ATOM, {}> {
     }
 
     /** @hidden
-     * Create a new Atom from a raw pointer
+     * Create a new [[Atom]] from a raw pointer
      */
     static __from_ptr(ptr: CHFL_ATOM, isConst: boolean): Atom {
         const parent = new Pointer(ptr, isConst);

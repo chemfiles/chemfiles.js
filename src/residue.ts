@@ -22,6 +22,9 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
     /**
      * Create a new [[Residue]] with the given `name` and optional residue `id`.
      *
+     * This function allocate WASM memory, which must be released with
+     * [[Residue.delete]].
+     *
      * ```typescript doctest
      * const residue = new chemfiles.Residue("ALA");
      * assert.equal(residue.name, "ALA");
@@ -57,7 +60,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
     /**
      * Create a new independant copy of the given `residue`.
      *
-     * The new copy allocates WASM memory which should be released with
+     * This function allocate WASM memory, which must be released with
      * [[Residue.delete]].
      *
      * ```typescript doctest
@@ -67,6 +70,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
      * assert.equal(residue.atoms.length, 0);
      * assert.equal(copy.atoms.length, 0);
      *
+     * // only residue is modified, not copy
      * residue.addAtom(33);
      * assert.equal(residue.atoms.length, 1);
      * assert.equal(copy.atoms.length, 0);
@@ -294,7 +298,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
     }
 
     /** @hidden
-     * Create a new Atom from a raw pointer
+     * Create a new [[Residue]] from a raw pointer
      */
     static __from_ptr(ptr: CHFL_RESIDUE, isConst: boolean): Residue {
         const parent = new Pointer(ptr, isConst);

@@ -11,8 +11,6 @@
             "es5"
         ]
     },
-    "exclude": ["./tests"],
-    "include": ["./src"],
     "typedocOptions": {
         "mode": "library",
         "inputFiles": "src/index.ts",

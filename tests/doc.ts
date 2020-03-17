@@ -13,13 +13,13 @@ describe('Doctests', () => {
     before((done) => {ready(() => done());});
 
     chemfiles.setWarningCallback(() => {});
-    for (const file of glob.sync(path.join(__dirname, 'doc', '**/*.ts'))) {
-        const context = {
-            test: it,
-            assert: assert,
-            chemfiles: chemfiles,
-        };
+    const context = vm.createContext({
+        test: it,
+        assert: assert,
+        chemfiles: chemfiles,
+    });
 
+    for (const file of glob.sync(path.join(__dirname, 'doc', '**/*.ts'))) {
         const basename = path.basename(file);
         const options = {
             filename: basename.split('.').slice(0, 2).join('.'),
@@ -31,6 +31,6 @@ describe('Doctests', () => {
         if (code.includes("chemfiles-doctest-dont-run")) {
             continue;
         }
-        vm.runInNewContext(code, context, options);
+        vm.runInContext(code, context, options);
     }
 });

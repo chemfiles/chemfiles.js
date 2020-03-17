@@ -41,6 +41,9 @@ export class UnitCell extends Pointer<CHFL_CELL, {}> {
      * are given, the cell [[shape|CellShape]] will be `Triclinic`, else it will
      * be `Orthorhombic`.
      *
+     * This function allocate WASM memory, which must be released with
+     * [[UnitCell.delete]].
+     *
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 10, 10]);
      * assert.equal(cell.shape, chemfiles.CellShape.Orthorhombic);
@@ -72,6 +75,35 @@ export class UnitCell extends Pointer<CHFL_CELL, {}> {
             }
         });
         super(ptr, false);
+    }
+
+    /**
+     * Create a new independant copy of the given `cell`.
+     *
+     * This function allocate WASM memory, which must be released with
+     * [[UnitCell.delete]].
+     *
+     * ```typescript doctest
+     * const cell = new chemfiles.UnitCell([10, 22, 12]);
+     * const copy = chemfiles.UnitCell.clone(cell);
+     *
+     * assert.arrayEqual(cell.lengths, [10, 22, 12]);
+     * assert.arrayEqual(copy.lengths, [10, 22, 12]);
+     *
+     * // only cell is modified, not copy
+     * cell.lengths = [33, 33, 33];
+     * assert.arrayEqual(cell.lengths, [33, 33, 33]);
+     * assert.arrayEqual(copy.lengths, [10, 22, 12]);
+     *
+     * cell.delete();
+     * copy.delete();
+     * ```
+     *
+     * @param  cell [[UnitCell]] to copy
+     */
+    static clone(cell: UnitCell): UnitCell {
+        const ptr = lib._chfl_cell_copy(cell.const_ptr);
+        return UnitCell.__from_ptr(ptr, false);
     }
 
     /**
@@ -246,36 +278,8 @@ export class UnitCell extends Pointer<CHFL_CELL, {}> {
         });
     }
 
-    /**
-     * Create a new independant copy of the given `cell`.
-     *
-     * The new copy allocates WASM memory which should be released with
-     * [[UnitCell.delete]].
-     *
-     * ```typescript doctest
-     * const cell = new chemfiles.UnitCell([10, 22, 12]);
-     * const copy = chemfiles.UnitCell.clone(cell);
-     *
-     * assert.arrayEqual(cell.lengths, [10, 22, 12]);
-     * assert.arrayEqual(copy.lengths, [10, 22, 12]);
-     *
-     * cell.lengths = [33, 33, 33];
-     * assert.arrayEqual(cell.lengths, [33, 33, 33]);
-     * assert.arrayEqual(copy.lengths, [10, 22, 12]);
-     *
-     * cell.delete();
-     * copy.delete();
-     * ```
-     *
-     * @param  cell [[UnitCell]] to copy
-     */
-    static clone(cell: UnitCell): UnitCell {
-        const ptr = lib._chfl_cell_copy(cell.const_ptr);
-        return UnitCell.__from_ptr(ptr, false);
-    }
-
     /** @hidden
-     * Create a new UnitCell from a raw pointer
+     * Create a new [[UnitCell]] from a raw pointer
      */
     static __from_ptr(ptr: CHFL_CELL, isConst: boolean): UnitCell {
         const parent = new Pointer(ptr, isConst);

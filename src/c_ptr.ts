@@ -42,20 +42,20 @@ export class Pointer<T extends CHFL_PTR, Extra> {
         this._ptr = 0 as T;
     }
 
-    /**
+    /** @hidden
      * get the value of the pointer as a NON-CONST pointer
      */
-    protected get ptr(): T {
+    get ptr(): T {
         if (this._isConst) {
             throw Error("mutable access to const pointer, this is a bug in chemfiles");
         }
         return this.const_ptr;
     }
 
-    /**
+    /** @hidden
      * get the value of the pointer as a CONST pointer
      */
-    protected get const_ptr(): T {
+    get const_ptr(): T {
         if (this._ptr === 0) {
             throw Error("trying to access an object after calling delete()");
         }

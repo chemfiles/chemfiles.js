@@ -6,6 +6,8 @@ import {chfl_property_kind_ptr, chfl_cellshape_ptr, chfl_bond_order_ptr} from '.
 import {chfl_vector3d, POINTER} from './libchemfiles';
 
 import {vector3d, matrix3} from './utils';
+import {BondOrder} from './topology';
+import {CellShape} from './cell';
 import * as sizes from '../lib/wasm-sizes';
 
 /**
@@ -33,8 +35,9 @@ type TypeMap = {
     'chfl_vector3d': [chfl_vector3d, vector3d];
     'chfl_matrix3': [c_double_ptr, matrix3]
     'chfl_property_kind': [chfl_property_kind_ptr, number];
-    'chfl_cellshape': [chfl_cellshape_ptr, number];
-    'chfl_bond_order': [chfl_bond_order_ptr, number];
+    'chfl_cellshape': [chfl_cellshape_ptr, CellShape];
+    'chfl_bond_order': [chfl_bond_order_ptr, BondOrder];
+    'chfl_bond_order[]': [chfl_bond_order_ptr, BondOrder[]];
 }
 
 /**
@@ -109,6 +112,8 @@ export function stackAlloc<T extends keyof TypeMap>(type: T, opts: Partial<Alloc
                 ptr = lib.stackAlloc(sizes.SIZEOF_VOID_P * opts.count) as c_char_ptr_ptr;
             } else if (type === "uint64_t[]") {
                 ptr = lib.stackAlloc(sizes.SIZEOF_UINT64_T * opts.count) as c_double_ptr;
+            } else if (type === "chfl_bond_order[]") {
+                ptr = lib.stackAlloc(sizes.SIZEOF_CHFL_BOND_ORDER * opts.count) as chfl_bond_order_ptr;
             } else {
                 throw Error(`invalid array type '${type}' passed to stackAlloc`)
             }
@@ -145,6 +150,13 @@ export function getValue<T extends keyof TypeMap>(ref: Ref<T>, opts: {count?: nu
             for (let i=0; i<opts.count; i++) {
                 values.push(getUint64(current));
                 current = current + sizes.SIZEOF_UINT64_T as POINTER;
+            }
+            return values;
+        } else if (ref.type === "chfl_bond_order[]") {
+            const values = [];
+            for (let i=0; i<opts.count; i++) {
+                values.push(lib.getValue(current, 'i32'));
+                current = current + sizes.SIZEOF_CHFL_BOND_ORDER as POINTER;
             }
             return values;
         } else {
