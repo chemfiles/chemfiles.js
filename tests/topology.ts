@@ -1,5 +1,5 @@
 import {ready, Topology, Atom, Residue} from '../src/index';
-import {assert} from './utils';
+import {assert, disableWarnings} from './utils';
 
 describe('Topology', () => {
     before((done) => {ready(() => done());});
@@ -58,6 +58,10 @@ describe('Topology', () => {
         assert.equal(atom.name, "");
         atom.delete();
 
+        disableWarnings(() => {
+            assert.throw(() => topology.atom(70));
+        });
+
         topology.delete();
     })
 
@@ -112,6 +116,10 @@ describe('Topology', () => {
         assert.equal(topology.residuesLinked(first, second!), false);
         topology.addBond(0, 2);
         assert.equal(topology.residuesLinked(first, second!), true);
+
+        disableWarnings(() => {
+            assert.throw(() => topology.residue(70));
+        })
 
         first.delete();
         second!.delete();

@@ -184,11 +184,8 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
     /**
      * Get the atom at the given index inside this [[Topology]].
      *
-     * This function allocate WASM memory, which must be released with
-     * [[Atom.delete]]. Memory allocated through chemfiles is reference-counted,
-     * ensuring that the topology will not be released before the atom. This
-     * also means that all references must be released with a call to the
-     * corresponding `delete` function before memory is actually released.
+     * This function increase the reference count of this topology, memory will
+     * not be released before the atom is itself released with [[Atom.delete]].
      *
      * ```typescript doctest
      * const topology = new chemfiles.Topology();
@@ -196,10 +193,8 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      *
      * const atom = topology.atom(2);
      * atom.name = 'C';
-     * // decrease the reference counter for the atom
      * atom.delete();
      *
-     * // decrease the reference counter for the topology and release memory
      * topology.delete();
      * ```
      *
@@ -236,7 +231,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
     /**
      * Remove the [[Atom]] at the given `index` from this [[Topology]].
      *
-     * This shifts all the atoms indexes after `index` by 1 (`n` becomes
+     * This shifts all the atoms indexes larger than `index` by 1 (`n` becomes
      * `n - 1`).
      *
      * ```typescript doctest
@@ -295,12 +290,9 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * The residue index in the topology does not necessarily match the residue
      * id.
      *
-     * This function allocate WASM memory, which must be released with
-     * [[Residue.delete]]. Memory allocated through chemfiles is
-     * reference-counted, ensuring that the topology will not be released
-     * before the residue. This also means that all references must be released
-     * with a call to the corresponding `delete` function before memory is
-     * actually released.
+     * This function increase the reference count of this topology, memory will
+     * not be released before the residue is itself released with
+     * [[Residue.delete]].
      *
      * ```typescript doctest
      * const topology = new chemfiles.Topology();
@@ -309,6 +301,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * let residue = new chemfiles.Residue('ALA', 3);
      * topology.addResidue(residue);
      * residue.delete();
+     *
      * residue = new chemfiles.Residue('GLU');
      * topology.addResidue(residue);
      * residue.delete();
@@ -334,12 +327,9 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * Get read-only access to the residue containing the atom with given
      * `index`, or `undefined` if the atom is not part of a residue.
      *
-     * This function allocate WASM memory, which must be released with
-     * [[Residue.delete]]. Memory allocated through chemfiles is
-     * reference-counted, ensuring that the topology will not be released
-     * before the residue. This also means that all references must be released
-     * with a call to the corresponding `delete` function before memory is
-     * actually released.
+     * This function increase the reference count of this topology, memory will
+     * not be released before the residue is itself released with
+     * [[Residue.delete]].
      *
      * ```typescript doctest
      * const topology = new chemfiles.Topology();
@@ -400,7 +390,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * topology.delete();
      * ```
      *
-     * @param residue [[Residue]] to be added to the topology
+     * @param residue residue to be added to the topology
      */
     addResidue(residue: Residue): void {
         check(lib._chfl_topology_add_residue(this.ptr, residue.const_ptr));

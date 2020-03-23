@@ -21,7 +21,7 @@ export enum CellShape {
  *
  * An unit cell is fully represented by three lengths (a, b, c); and three
  * angles (alpha, beta, gamma). The angles are stored in degrees, and the
- * lengths in Angstroms. The cell angles are defined as follow: alpha is the
+ * lengths in Ångströms. The cell angles are defined as follow: alpha is the
  * angles between the cell vectors `b` and `c`; beta as the angle between `a`
  * and `c`; and gamma as the angle between `a` and `b`.
  *

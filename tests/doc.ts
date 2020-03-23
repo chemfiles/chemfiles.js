@@ -5,12 +5,11 @@ import * as glob from 'glob';
 
 import {assert} from './utils';
 
-import {ready} from '../src/index';
 import * as chemfiles from '../src/index';
 
 // run dynamically generated doctest files
 describe('Doctests', () => {
-    before((done) => {ready(() => done());});
+    before((done) => {chemfiles.ready(() => done());});
 
     chemfiles.setWarningCallback(() => {});
     const context = vm.createContext({

@@ -5,10 +5,22 @@ import {stackAlloc} from './stack';
 import {lastError} from './misc';
 
 /** Simple 3D vector */
-export type vector3d = [number, number, number];
+export interface vector3d {
+    0: number;
+    1: number;
+    2: number;
+
+    length: number;
+}
 
 /** 3x3 matrix */
-export type matrix3 = [vector3d, vector3d, vector3d];
+export interface matrix3 {
+    0: vector3d;
+    1: vector3d;
+    2: vector3d;
+
+    length: number;
+}
 
 export function check(status: lib.chfl_status) {
     if (status === lib.chfl_status.CHFL_SUCCESS) {
