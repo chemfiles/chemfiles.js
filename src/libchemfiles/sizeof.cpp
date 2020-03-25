@@ -21,6 +21,7 @@ int main() {
     PRINT_SIZE(uint64_t);
 
     PRINT_SIZE(chfl_vector3d);
+    PRINT_SIZE(chfl_match);
 
     PRINT_SIZE(chfl_property_kind);
     PRINT_SIZE(chfl_cellshape);

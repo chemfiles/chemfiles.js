@@ -32,7 +32,7 @@ type chfl_cellshape = number;
 type chfl_status = number;
 
 type chfl_vector3d = c_double_ptr;
-type chfl_match_ptr = "TODO";
+type chfl_match_ptr = POINTER;
 
 // === Manual functions declarations
 type LLVMType = "i8" | "i16" | "i32" | "i64" | "float" | "double" | "*";

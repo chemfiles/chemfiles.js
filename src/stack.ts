@@ -203,7 +203,7 @@ function checkVector3d(value?: any): asserts value is vector3d {
     assert(value !== undefined && typeof value === "object" && value.length === 3);
 }
 
-function getUint64(ptr: POINTER): number {
+export function getUint64(ptr: POINTER): number {
     // little dance to extract an unsigned 64-bit integer without using
     // `BigUint64Array`, which is not yet available on all browsers
     const SIZEOF_UINT32_T = sizes.SIZEOF_UINT64_T / 2;
