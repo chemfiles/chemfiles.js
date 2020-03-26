@@ -1,6 +1,6 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as glob from 'glob';
+import fs from 'fs';
+import path from 'path';
+import glob from 'glob';
 
 let ERRORS = 0;
 function error(message: string) {
@@ -101,9 +101,6 @@ function statusIsChecked() {
 // ============== start of main script
 
 allFunctionAreUsed();
-// allow the lint above to fail for now
-ERRORS = 0;
-
 statusIsChecked();
 
 if (ERRORS !== 0) {

@@ -1,6 +1,8 @@
 import * as lib from './libchemfiles';
 import {CHFL_PTR} from './libchemfiles';
 
+import {lastError} from './misc';
+
 /**
  * A wrapper for all commong behavior for C++ allocated pointers. This is an
  * internal class, used to implement the main functionality of Chemfiles'
@@ -22,7 +24,7 @@ export class Pointer<T extends CHFL_PTR, Extra> {
      */
     constructor(ptr: T, isConst: boolean) {
         if (ptr === 0) {
-            throw Error("got a null pointer when trying to create a C++ object");
+            throw Error("got nullptr when creating C++ object: " + lastError());
         }
         this._ptr = ptr;
         this._isConst = isConst;

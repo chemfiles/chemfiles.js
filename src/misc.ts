@@ -44,8 +44,7 @@ export function clearErrors(): void {
  * [configuration](http://chemfiles.org/chemfiles/latest/configuration.html)
  * file at the given `path`
  *
- * ```typescript doctest
- * # // chemfiles-doctest-dont-run
+ * ```typescript
  * chemfiles.addConfiguration('path/to/config.toml');
  * ```
  *

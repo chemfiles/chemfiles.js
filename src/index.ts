@@ -5,5 +5,6 @@ export {PropertyType} from './property';
 export {UnitCell, CellShape} from './cell';
 export {Frame, Array3D} from './frame';
 export {Selection} from './selection';
+export {Trajectory} from './trajectory';
 export {vector3d, matrix3} from './utils';
 export * from './misc';

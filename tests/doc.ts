@@ -27,9 +27,6 @@ describe('Doctests', () => {
         };
 
         const code = fs.readFileSync(file, {encoding: "utf8"});
-        if (code.includes("chemfiles-doctest-dont-run")) {
-            continue;
-        }
         vm.runInContext(code, context, options);
     }
 });
