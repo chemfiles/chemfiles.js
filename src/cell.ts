@@ -3,8 +3,8 @@ import {CHFL_CELL, chfl_cellshape} from './libchemfiles';
 
 import {Pointer} from './c_ptr';
 
-import {stackAlloc, stackAutoclean, getValue} from './stack';
-import {check, vector3d, matrix3} from './utils';
+import {getValue, stackAlloc, stackAutoclean} from './stack';
+import {check, Matrix3, Vector3d} from './utils';
 
 /** Available cell shapes in Chemfiles */
 export enum CellShape {
@@ -36,6 +36,45 @@ export enum CellShape {
  * ```
  */
 export class UnitCell extends Pointer<CHFL_CELL, {}> {
+    /** @hidden
+     * Create a new [[UnitCell]] from a raw pointer
+     */
+    public static __from_ptr(ptr: CHFL_CELL, isConst: boolean): UnitCell {
+        const parent = new Pointer(ptr, isConst);
+        const cell = Object.create(UnitCell.prototype);
+        Object.assign(cell, parent);
+        return cell;
+    }
+
+    /**
+     * Create a new independant copy of the given `cell`.
+     *
+     * This function allocate WASM memory, which must be released with
+     * [[UnitCell.delete]].
+     *
+     * ```typescript doctest
+     * const cell = new chemfiles.UnitCell([10, 22, 12]);
+     * const copy = chemfiles.UnitCell.clone(cell);
+     *
+     * assert.arrayEqual(cell.lengths, [10, 22, 12]);
+     * assert.arrayEqual(copy.lengths, [10, 22, 12]);
+     *
+     * // only cell is modified, not copy
+     * cell.lengths = [33, 33, 33];
+     * assert.arrayEqual(cell.lengths, [33, 33, 33]);
+     * assert.arrayEqual(copy.lengths, [10, 22, 12]);
+     *
+     * cell.delete();
+     * copy.delete();
+     * ```
+     *
+     * @param  cell [[UnitCell]] to copy
+     */
+    public static clone(cell: UnitCell): UnitCell {
+        const ptr = lib._chfl_cell_copy(cell.const_ptr);
+        return UnitCell.__from_ptr(ptr, false);
+    }
+
     /**
      * Create a new [[UnitCell]] with given cell `lengths`. If the cell `angles`
      * are given, the cell [[shape|CellShape]] will be `Triclinic`, else it will
@@ -63,47 +102,18 @@ export class UnitCell extends Pointer<CHFL_CELL, {}> {
      * @param lengths lengths of the unit cell vectors, in Ångströms
      * @param angles  angles between the unit cell vectors, in degrees
      */
-    constructor(lengths: vector3d, angles?: vector3d) {
-        let ptr = stackAutoclean(() => {
+    constructor(lengths: Vector3d, angles?: Vector3d) {
+        const ptr = stackAutoclean(() => {
             if (angles === undefined) {
-                const ref = stackAlloc("chfl_vector3d", {initial: lengths});
+                const ref = stackAlloc('chfl_vector3d', {initial: lengths});
                 return lib._chfl_cell(ref.ptr);
             } else {
-                const length_ref = stackAlloc("chfl_vector3d", {initial: lengths});
-                const angles_ref = stackAlloc("chfl_vector3d", {initial: angles});
-                return lib._chfl_cell_triclinic(length_ref.ptr, angles_ref.ptr);
+                const lengthRef = stackAlloc('chfl_vector3d', {initial: lengths});
+                const anglesRef = stackAlloc('chfl_vector3d', {initial: angles});
+                return lib._chfl_cell_triclinic(lengthRef.ptr, anglesRef.ptr);
             }
         });
         super(ptr, false);
-    }
-
-    /**
-     * Create a new independant copy of the given `cell`.
-     *
-     * This function allocate WASM memory, which must be released with
-     * [[UnitCell.delete]].
-     *
-     * ```typescript doctest
-     * const cell = new chemfiles.UnitCell([10, 22, 12]);
-     * const copy = chemfiles.UnitCell.clone(cell);
-     *
-     * assert.arrayEqual(cell.lengths, [10, 22, 12]);
-     * assert.arrayEqual(copy.lengths, [10, 22, 12]);
-     *
-     * // only cell is modified, not copy
-     * cell.lengths = [33, 33, 33];
-     * assert.arrayEqual(cell.lengths, [33, 33, 33]);
-     * assert.arrayEqual(copy.lengths, [10, 22, 12]);
-     *
-     * cell.delete();
-     * copy.delete();
-     * ```
-     *
-     * @param  cell [[UnitCell]] to copy
-     */
-    static clone(cell: UnitCell): UnitCell {
-        const ptr = lib._chfl_cell_copy(cell.const_ptr);
-        return UnitCell.__from_ptr(ptr, false);
     }
 
     /**
@@ -115,9 +125,9 @@ export class UnitCell extends Pointer<CHFL_CELL, {}> {
      * cell.delete();
      * ```
      */
-    get lengths(): vector3d {
+    get lengths(): Vector3d {
         return stackAutoclean(() => {
-            const ref = stackAlloc("chfl_vector3d");
+            const ref = stackAlloc('chfl_vector3d');
             check(lib._chfl_cell_lengths(this.const_ptr, ref.ptr));
             return getValue(ref);
         });
@@ -135,9 +145,9 @@ export class UnitCell extends Pointer<CHFL_CELL, {}> {
      * cell.delete();
      * ```
      */
-    set lengths(value: vector3d) {
+    set lengths(value: Vector3d) {
         stackAutoclean(() => {
-            const ref = stackAlloc("chfl_vector3d", {initial: value});
+            const ref = stackAlloc('chfl_vector3d', {initial: value});
             check(lib._chfl_cell_set_lengths(this.ptr, ref.ptr));
         });
     }
@@ -151,9 +161,9 @@ export class UnitCell extends Pointer<CHFL_CELL, {}> {
      * cell.delete();
      * ```
      */
-    get angles(): vector3d {
+    get angles(): Vector3d {
         return stackAutoclean(() => {
-            const ref = stackAlloc("chfl_vector3d");
+            const ref = stackAlloc('chfl_vector3d');
             check(lib._chfl_cell_angles(this.const_ptr, ref.ptr));
             return getValue(ref);
         });
@@ -175,9 +185,9 @@ export class UnitCell extends Pointer<CHFL_CELL, {}> {
      * cell.delete();
      * ```
      */
-    set angles(value: vector3d) {
+    set angles(value: Vector3d) {
         stackAutoclean(() => {
-            const ref = stackAlloc("chfl_vector3d", {initial: value});
+            const ref = stackAlloc('chfl_vector3d', {initial: value});
             check(lib._chfl_cell_set_angles(this.ptr, ref.ptr));
         });
     }
@@ -193,7 +203,7 @@ export class UnitCell extends Pointer<CHFL_CELL, {}> {
      */
     get shape(): CellShape {
         return stackAutoclean(() => {
-            const ref = stackAlloc("chfl_cellshape");
+            const ref = stackAlloc('chfl_cellshape');
             check(lib._chfl_cell_shape(this.const_ptr, ref.ptr));
             return getValue(ref);
         });
@@ -231,7 +241,7 @@ export class UnitCell extends Pointer<CHFL_CELL, {}> {
      */
     get volume(): number {
         return stackAutoclean(() => {
-            const ref = stackAlloc("double");
+            const ref = stackAlloc('double');
             check(lib._chfl_cell_volume(this.const_ptr, ref.ptr));
             return getValue(ref);
         });
@@ -249,9 +259,9 @@ export class UnitCell extends Pointer<CHFL_CELL, {}> {
      * cell.delete();
      * ```
      */
-    get matrix(): matrix3 {
+    get matrix(): Matrix3 {
         return stackAutoclean(() => {
-            const ref = stackAlloc("chfl_matrix3");
+            const ref = stackAlloc('chfl_matrix3');
             check(lib._chfl_cell_matrix(this.const_ptr, ref.ptr));
             return getValue(ref);
         });
@@ -270,21 +280,11 @@ export class UnitCell extends Pointer<CHFL_CELL, {}> {
      * @param  vector vector to be wrapped inside the cell, in Ångströms
      * @return        wrapped vector
      */
-    wrap(vector: vector3d): vector3d {
+    public wrap(vector: Vector3d): Vector3d {
         return stackAutoclean(() => {
-            const ref = stackAlloc("chfl_vector3d", {initial: vector});
+            const ref = stackAlloc('chfl_vector3d', {initial: vector});
             check(lib._chfl_cell_wrap(this.const_ptr, ref.ptr));
             return getValue(ref);
         });
-    }
-
-    /** @hidden
-     * Create a new [[UnitCell]] from a raw pointer
-     */
-    static __from_ptr(ptr: CHFL_CELL, isConst: boolean): UnitCell {
-        const parent = new Pointer(ptr, isConst);
-        const cell = Object.create(UnitCell.prototype);
-        Object.assign(cell, parent);
-        return cell;
     }
 }

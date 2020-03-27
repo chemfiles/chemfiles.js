@@ -1,11 +1,11 @@
 import * as lib from './libchemfiles';
 import {c_char_ptr} from './libchemfiles';
 
-import {stackAlloc, getValue} from './stack';
 import {lastError} from './misc';
+import {getValue, stackAlloc} from './stack';
 
 /** Simple 3D vector */
-export interface vector3d {
+export interface Vector3d {
     0: number;
     1: number;
     2: number;
@@ -14,10 +14,10 @@ export interface vector3d {
 }
 
 /** 3x3 matrix */
-export interface matrix3 {
-    0: vector3d;
-    1: vector3d;
-    2: vector3d;
+export interface Matrix3 {
+    0: Vector3d;
+    1: Vector3d;
+    2: Vector3d;
 
     length: number;
 }
@@ -26,11 +26,12 @@ export function check(status: lib.chfl_status) {
     if (status === lib.chfl_status.CHFL_SUCCESS) {
         return;
     } else {
-        throw Error(lastError())
+        throw Error(lastError());
     }
 }
 
-export function numberToInt64(value: number): {lo: number, hi: number} {
+export function numberEmscriptenUint64(value: number): {lo: number, hi: number} {
+    // tslint:disable-next-line:no-bitwise
     const lo = value & 0x7fffffff;
     const hi = (value - lo) / 0x40000000;
     return { lo, hi };
@@ -42,24 +43,24 @@ export function isUnsignedInteger(value: number): boolean {
 
 type StrCallback = (ptr: c_char_ptr, size: number) => void;
 export function autogrowStrBuffer(callback: StrCallback, initial = 128): string {
-    const buffer_was_big_enough = (ptr: c_char_ptr, size: number) => {
-        if (size < 2) {
+    const bigEnoughBuffer = (ptr: c_char_ptr, len: number) => {
+        if (len < 2) {
             return false;
         } else {
-            return lib.HEAP8[ptr + size - 2] === 0;
+            return lib.HEAP8[ptr + len - 2] === 0;
         }
-    }
+    };
 
     const sp = lib.stackSave();
     let size = initial;
-    let value = stackAlloc("char*", {initial: "\0".repeat(size)});
+    let value = stackAlloc('char*', {initial: '\0'.repeat(size)});
     callback(value.ptr, size);
 
-    while (!buffer_was_big_enough(value.ptr, size)) {
+    while (!bigEnoughBuffer(value.ptr, size)) {
         // grow the buffer and retry
         size *= 2;
         lib.stackRestore(sp);
-        value = stackAlloc("char*", {initial: "\0".repeat(size)});
+        value = stackAlloc('char*', {initial: '\0'.repeat(size)});
         callback(value.ptr, size);
     }
 

@@ -1,8 +1,8 @@
 import * as lib from './libchemfiles';
 import {c_char_ptr} from './libchemfiles';
 
-import {check} from './utils';
 import {stackAlloc, stackAutoclean} from './stack';
+import {check} from './utils';
 
 /**
  * Get the version of chemfiles being used as a string
@@ -52,13 +52,15 @@ export function clearErrors(): void {
  */
 export function addConfiguration(path: string): void {
     stackAutoclean(() => {
-        const ref = stackAlloc("char*", {initial: path});
+        const ref = stackAlloc('char*', {initial: path});
         check(lib._chfl_add_configuration(ref.ptr));
     });
 }
 
 /** Type of callbacks used by chemfiles' warning systems */
 export type WarningCallback = (message: string) => void;
+
+// tslint:disable-next-line:no-console
 let CURRENT_CALLBACK: WarningCallback = (message) => console.warn(`[chemfiles] ${message}`);
 
 /**
@@ -77,7 +79,8 @@ function actualCallback(message: c_char_ptr): void {
     try {
         CURRENT_CALLBACK(lib.UTF8ToString(message));
     } catch (e) {
-        console.warn(`exception raised in warning callback: ${e}`)
+        // tslint:disable-next-line:no-console
+        console.warn(`exception raised in warning callback: ${e}`);
     }
 }
 
@@ -91,6 +94,7 @@ function __setupWarningCallback() {
     check(lib._chfl_set_warning_callback(lib.addFunction(actualCallback as any, 'vi')));
 }
 
+// tslint:disable-next-line:no-empty
 let READY_CALLBACK = () => {};
 let IS_READY = false;
 
@@ -112,4 +116,4 @@ lib.then(() => {
     __setupWarningCallback();
     READY_CALLBACK();
     IS_READY = true;
-})
+});

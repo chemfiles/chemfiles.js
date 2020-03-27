@@ -4,11 +4,11 @@ import * as lib from './libchemfiles';
 import {CHFL_TRAJECTORY} from './libchemfiles';
 
 import {Pointer} from './c_ptr';
+import {UnitCell} from './cell';
 import {Frame} from './frame';
 import {Topology} from './topology';
-import {UnitCell} from './cell';
 
-import {stackAlloc, stackAutoclean, getValue} from './stack';
+import {getValue, stackAlloc, stackAutoclean} from './stack';
 import {check, isUnsignedInteger} from './utils';
 
 /**
@@ -50,11 +50,11 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, {}> {
      */
     constructor(path: string, mode: string = 'r', format?: string) {
         const ptr = stackAutoclean(() => {
-            const pathRef = stackAlloc("char*", {initial: path});
+            const pathRef = stackAlloc('char*', {initial: path});
             if (format === undefined) {
                 return lib._chfl_trajectory_open(pathRef.ptr, mode.charCodeAt(0));
             } else {
-                const formatRef = stackAlloc("char*", {initial: format});
+                const formatRef = stackAlloc('char*', {initial: format});
                 return lib._chfl_trajectory_with_format(pathRef.ptr, mode.charCodeAt(0), formatRef.ptr);
             }
         });
@@ -72,7 +72,7 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, {}> {
      */
     get path(): string {
         return stackAutoclean(() => {
-            const value = stackAlloc("char*[]", {count: 1});
+            const value = stackAlloc('char*[]', {count: 1});
             check(lib._chfl_trajectory_path(this.const_ptr, value.ptr));
             return getValue(value, {count: 1})[0];
         });
@@ -89,7 +89,7 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, {}> {
      */
     get nsteps(): number {
         return stackAutoclean(() => {
-            const value = stackAlloc("uint64_t");
+            const value = stackAlloc('uint64_t');
             check(lib._chfl_trajectory_nsteps(this.const_ptr, value.ptr));
             return getValue(value);
         });
@@ -111,7 +111,7 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, {}> {
      *
      * @param frame frame to be filled with data from the trajectory
      */
-    read(frame: Frame): void {
+    public read(frame: Frame): void {
         check(lib._chfl_trajectory_read(this.ptr, frame.ptr));
     }
 
@@ -135,8 +135,8 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, {}> {
      * @param step  step (starting at 0) to read from the trajectory
      * @param frame frame to be filled with data from the trajectory
      */
-    readStep(step: number, frame: Frame): void {
-        assert(isUnsignedInteger(step), "step must be an unsigned integer");
+    public readStep(step: number, frame: Frame): void {
+        assert(isUnsignedInteger(step), 'step must be an unsigned integer');
         check(lib._chfl_trajectory_read_step(this.ptr, step, 0, frame.ptr));
     }
 
@@ -156,7 +156,7 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, {}> {
      * ```
      * @param frame single frame to be written
      */
-    write(frame: Frame): void {
+    public write(frame: Frame): void {
         check(lib._chfl_trajectory_write(this.ptr, frame.const_ptr));
     }
 
@@ -200,17 +200,17 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, {}> {
      * @param topology new topology use with this trajectory
      * @param format   format to use when reading the `topology` file
      */
-    setTopology(topology: string | Topology, format?: string): void {
+    public setTopology(topology: string | Topology, format?: string): void {
         stackAutoclean(() => {
-            if (typeof topology === "string") {
-                const formatRef = stackAlloc("char*", {initial: (format === undefined ? "" : format)});
-                const path = stackAlloc("char*", {initial: topology});
+            if (typeof topology === 'string') {
+                const formatRef = stackAlloc('char*', {initial: (format === undefined ? '' : format)});
+                const path = stackAlloc('char*', {initial: topology});
                 check(lib._chfl_trajectory_topology_file(this.ptr, path.ptr, formatRef.ptr));
             } else {
-                assert(format === undefined, "can not have a format when topology is not a file path")
+                assert(format === undefined, 'can not have a format when topology is not a file path');
                 check(lib._chfl_trajectory_set_topology(this.ptr, topology.const_ptr));
             }
-        })
+        });
     }
 
     /**
@@ -238,7 +238,7 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, {}> {
      *
      * @param cell unit cell to use for all read and write operations
      */
-    setCell(cell: UnitCell): void {
+    public setCell(cell: UnitCell): void {
         check(lib._chfl_trajectory_set_cell(this.ptr, cell.const_ptr));
     }
 
@@ -253,13 +253,13 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, {}> {
      * trajectory.close();
      * ```
      */
-    close(): void {
+    public close(): void {
         // does the same as lib._chfl_trajectory_close
         this.delete();
     }
 
     /** @hidden */
-    delete(): void {
+    public delete(): void {
         super.delete();
     }
 }

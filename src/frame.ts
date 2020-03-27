@@ -1,21 +1,21 @@
 import {strict as assert} from 'assert';
 
+import * as sizes from '../lib/wasm-sizes';
 import * as lib from './libchemfiles';
 import {CHFL_FRAME, chfl_vector3d} from './libchemfiles';
-import * as sizes from '../lib/wasm-sizes';
 
-import {Pointer} from './c_ptr';
 import {Atom} from './atom';
-import {Topology, BondOrder} from './topology';
-import {Residue} from './residue';
+import {Pointer} from './c_ptr';
 import {UnitCell} from './cell';
+import {Residue} from './residue';
+import {BondOrder, Topology} from './topology';
 
-import {stackAlloc, stackAutoclean, getValue} from './stack';
-import {isUnsignedInteger, check, vector3d} from './utils';
-import {PropertyType, getProperty, createProperty} from './property';
+import {createProperty, getProperty, PropertyType} from './property';
+import {getValue, stackAlloc, stackAutoclean} from './stack';
+import {check, isUnsignedInteger, Vector3d} from './utils';
 
 /**
- * An Array of vector3d allowing direct access into WASM memory. It can be
+ * An Array of Vector3d allowing direct access into WASM memory. It can be
  * indexed and iterated over.
  *
  * ```typescript doctest
@@ -45,9 +45,9 @@ import {PropertyType, getProperty, createProperty} from './property';
 export interface Array3D {
     readonly length: number;
     /** @hidden */
-    [i: number]: vector3d;
+    [i: number]: Vector3d;
     /** @hidden */
-    [Symbol.iterator](): Generator<vector3d, void, void>;
+    [Symbol.iterator](): Generator<Vector3d, void, void>;
 }
 
 /**
@@ -58,14 +58,14 @@ function createArray3D(ptr: chfl_vector3d, length: number): Array3D {
     const start = ptr / sizes.SIZEOF_DOUBLE;
     const buffer = lib.HEAPF64.subarray(start, start + 3 * length);
     const iterator = function*() {
-        for (let i=0; i<length; i++) {
+        for (let i = 0; i < length; i++) {
             yield buffer.subarray(3 * i, 3 * i + 3);
         }
-    }
+    };
 
     const object = {
-        length: length,
         __buffer: buffer,
+        length: length,
         [Symbol.iterator]: iterator,
     };
 
@@ -90,7 +90,7 @@ function createArray3D(ptr: chfl_vector3d, length: number): Array3D {
                 self.__buffer.set(value, 3 * i);
                 return true;
             }
-        }
+        },
     }) as Array3D;
 }
 
@@ -101,23 +101,6 @@ function createArray3D(ptr: chfl_vector3d, length: number): Array3D {
  * cell), the corresponding data is filled with a default value.
  */
 export class Frame extends Pointer<CHFL_FRAME, {}> {
-    /**
-     * Create a new empty [[Frame]].
-     *
-     * This function allocate WASM memory, which must be released with
-     * [[Frame.delete]].
-     *
-     * ```typescript doctest
-     * const frame = new chemfiles.Frame();
-     * assert.equal(frame.size, 0);
-     * frame.delete();
-     * ```
-     */
-    constructor() {
-        const ptr = lib._chfl_frame();
-        super(ptr, false);
-    }
-
     /**
      * Create a new independant copy of the given `frame`.
      *
@@ -141,12 +124,29 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * ```
      * @param  frame [[Frame]] to copy
      */
-    static clone(frame: Frame): Frame {
+    public static clone(frame: Frame): Frame {
         const ptr = lib._chfl_frame_copy(frame.const_ptr);
         const parent = new Pointer(ptr, false);
         const copy = Object.create(Frame.prototype);
         Object.assign(copy, parent);
         return copy;
+    }
+
+    /**
+     * Create a new empty [[Frame]].
+     *
+     * This function allocate WASM memory, which must be released with
+     * [[Frame.delete]].
+     *
+     * ```typescript doctest
+     * const frame = new chemfiles.Frame();
+     * assert.equal(frame.size, 0);
+     * frame.delete();
+     * ```
+     */
+    constructor() {
+        const ptr = lib._chfl_frame();
+        super(ptr, false);
     }
 
     /**
@@ -160,7 +160,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      */
     get step(): number {
         return stackAutoclean(() => {
-            const value = stackAlloc("uint64_t");
+            const value = stackAlloc('uint64_t');
             check(lib._chfl_frame_step(this.const_ptr, value.ptr));
             return getValue(value);
         });
@@ -178,7 +178,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * @param  value new value for this frame step
      */
     set step(value: number) {
-        assert(isUnsignedInteger(value), "step value shoudl be a positive integer");
+        assert(isUnsignedInteger(value), 'step value should be a positive integer');
         check(lib._chfl_frame_set_step(this.ptr, value, 0));
     }
 
@@ -205,7 +205,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * frame.delete();
      * ```
      */
-    cell(): UnitCell {
+    public cell(): UnitCell {
         const ptr = lib._chfl_cell_from_frame(this.ptr);
         return UnitCell.__from_ptr(ptr, false);
     }
@@ -228,7 +228,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * ```
      * @param cell new cell for this frame
      */
-    setCell(cell: UnitCell): void {
+    public setCell(cell: UnitCell): void {
         check(lib._chfl_frame_set_cell(this.ptr, cell.const_ptr));
     }
 
@@ -240,10 +240,10 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * accessing it can produce random results, even in unrelated parts of the
      * code
      *
-     *```typescript doctest
+     * ```typescript doctest
      * const frame = new chemfiles.Frame();
      *
-     * const atom = new chemfiles.Atom("");
+     * const atom = new chemfiles.Atom('');
      * frame.addAtom(atom, [1, 2, 3]);
      * frame.addAtom(atom, [-1, 2, 3]);
      * frame.addAtom(atom, [1, -2, 3]);
@@ -266,11 +266,11 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      */
     get positions(): Array3D {
         return stackAutoclean(() => {
-            const size = stackAlloc("uint64_t");
+            const size = stackAlloc('uint64_t');
             const positions = lib.stackAlloc(sizes.SIZEOF_VOID_P) as chfl_vector3d;
             check(lib._chfl_frame_positions(this.ptr, positions, size.ptr));
 
-            const ptr = lib.getValue(positions, "*") as chfl_vector3d;
+            const ptr = lib.getValue(positions, '*') as chfl_vector3d;
             const length = getValue(size);
             return createArray3D(ptr, length);
         });
@@ -289,11 +289,11 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * accessing it can produce random results, even in unrelated parts of the
      * code.
      *
-     *```typescript doctest
+     * ```typescript doctest
      * const frame = new chemfiles.Frame();
      * frame.addVelocities();
      *
-     * const atom = new chemfiles.Atom("");
+     * const atom = new chemfiles.Atom('');
      * frame.addAtom(atom, [1, 2, 3]);
      * frame.addAtom(atom, [-1, 2, 3], [4, 5, 6]);
      * frame.addAtom(atom, [1, -2, 3], [4, -5, 6]);
@@ -318,17 +318,17 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      */
     get velocities(): Array3D | undefined {
         return stackAutoclean(() => {
-            const hasVelocities = stackAlloc("bool");
+            const hasVelocities = stackAlloc('bool');
             check(lib._chfl_frame_has_velocities(this.const_ptr, hasVelocities.ptr));
             if (!getValue(hasVelocities)) {
                 return undefined;
             }
 
-            const size = stackAlloc("uint64_t");
+            const size = stackAlloc('uint64_t');
             const positions = lib.stackAlloc(sizes.SIZEOF_VOID_P) as chfl_vector3d;
             check(lib._chfl_frame_velocities(this.ptr, positions, size.ptr));
 
-            const ptr = lib.getValue(positions, "*") as chfl_vector3d;
+            const ptr = lib.getValue(positions, '*') as chfl_vector3d;
             const length = getValue(size);
             return createArray3D(ptr, length);
         });
@@ -349,7 +349,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * frame.delete();
      * ```
      */
-    addVelocities(): void {
+    public addVelocities(): void {
         check(lib._chfl_frame_add_velocities(this.ptr));
     }
 
@@ -367,10 +367,10 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      */
     get size(): number {
         return stackAutoclean(() => {
-            const value = stackAlloc("uint64_t");
+            const value = stackAlloc('uint64_t');
             check(lib._chfl_frame_atoms_count(this.const_ptr, value.ptr));
             return getValue(value);
-        })
+        });
     }
 
     /**
@@ -392,8 +392,8 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * @param  index index of the atom in the frame
      * @return       A modifiable reference to the Atom
      */
-    atom(index: number): Atom {
-        assert(isUnsignedInteger(index), "atom index should be a positive integer");
+    public atom(index: number): Atom {
+        assert(isUnsignedInteger(index), 'atom index should be a positive integer');
         const ptr = lib._chfl_atom_from_frame(this.ptr, index, 0);
         return Atom.__from_ptr(ptr, false);
     }
@@ -409,8 +409,8 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * const frame = new chemfiles.Frame();
      *
      * // create a vibrating CO2 molecule
-     * const O = new chemfiles.Atom("O");
-     * const C = new chemfiles.Atom("C");
+     * const O = new chemfiles.Atom('O');
+     * const C = new chemfiles.Atom('C');
      * frame.addAtom(O, [-1.2, 0, 0], [-0.1, 0.0, 0.1]);
      * frame.addAtom(C, [0, 0, 0],    [0.1, 0.0, -0.1]);
      * frame.addAtom(O, [1.2, 0, 0],  [-0.1, 0.0, 0.1]);
@@ -424,7 +424,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * @param position   position of the atom, in Ångströms
      * @param velocities velocity of the atom, in Å/fs
      */
-    addAtom(atom: Atom, position: vector3d, velocities?: vector3d): void {
+    public addAtom(atom: Atom, position: Vector3d, velocities?: Vector3d): void {
         return stackAutoclean(() => {
             const pos = stackAlloc('chfl_vector3d', {initial: position});
             if (velocities === undefined) {
@@ -433,7 +433,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
                 const vel = stackAlloc('chfl_vector3d', {initial: velocities});
                 check(lib._chfl_frame_add_atom(this.ptr, atom.const_ptr, pos.ptr, vel.ptr));
             }
-        })
+        });
     }
 
     /**
@@ -447,11 +447,11 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * const frame = new chemfiles.Frame();
      * assert.equal(frame.size, 0);
      *
-     * let atom = new chemfiles.Atom("Mg");
+     * let atom = new chemfiles.Atom('Mg');
      * frame.addAtom(atom);
      * atom.delete();
      *
-     * atom = new chemfiles.Atom("Na");
+     * atom = new chemfiles.Atom('Na');
      * frame.addAtom(atom);
      * atom.delete();
      * assert.equal(frame.size, 2);
@@ -459,15 +459,15 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * frame.remove(0);
      * assert.equal(frame.size, 1);
      * atom = frame.atom(0);
-     * assert.equal(atom.name, "Na");
+     * assert.equal(atom.name, 'Na');
      * atom.delete();
      *
      * frame.delete();
      * ```
      * @param index index of the atom to remove
      */
-    remove(index: number): void {
-        assert(isUnsignedInteger(index), "atom index should be a positive integer");
+    public remove(index: number): void {
+        assert(isUnsignedInteger(index), 'atom index should be a positive integer');
         check(lib._chfl_frame_remove(this.ptr, index, 0));
     }
 
@@ -488,16 +488,16 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * assert.equal(frame.size, 12);
      *
      * const atom = frame.atom(0);
-     * assert.equal(atom.name, "");
-     * assert.equal(atom.type, "");
+     * assert.equal(atom.name, '');
+     * assert.equal(atom.type, '');
      * atom.delete();
      *
      * frame.delete();
      * ```
      * @param size the new size of the frame
      */
-    resize(size: number): void {
-        assert(isUnsignedInteger(size), "size should be a positive integer");
+    public resize(size: number): void {
+        assert(isUnsignedInteger(size), 'size should be a positive integer');
         check(lib._chfl_frame_resize(this.ptr, size, 0));
     }
 
@@ -525,7 +525,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * frame.delete();
      * ```
      */
-    topology(): Topology {
+    public topology(): Topology {
         const ptr = lib._chfl_topology_from_frame(this.ptr);
         return Topology.__from_ptr(ptr, true);
     }
@@ -551,7 +551,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * ```
      * @param topology the new topology of the frame
      */
-    setTopology(topology: Topology): void {
+    public setTopology(topology: Topology): void {
         check(lib._chfl_frame_set_topology(this.ptr, topology.const_ptr));
     }
 
@@ -567,7 +567,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
      *
-     * const atom = new chemfiles.Atom("C");
+     * const atom = new chemfiles.Atom('C');
      * frame.addAtom(atom, [0, 0, 0]);
      * frame.addAtom(atom, [1.5, 0, 0]);
      * frame.addAtom(atom, [0, 1.5, 0]);
@@ -582,7 +582,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * frame.delete();
      * ```
      */
-    guessBonds(): void {
+    public guessBonds(): void {
         check(lib._chfl_frame_guess_bonds(this.ptr));
     }
 
@@ -608,9 +608,9 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * @param j     index of the second atom of the bond
      * @param order order of the bond
      */
-    addBond(i: number, j: number, order?: BondOrder): void {
-        assert(isUnsignedInteger(i), "atom index should be a positive integer");
-        assert(isUnsignedInteger(j), "atom index should be a positive integer");
+    public addBond(i: number, j: number, order?: BondOrder): void {
+        assert(isUnsignedInteger(i), 'atom index should be a positive integer');
+        assert(isUnsignedInteger(j), 'atom index should be a positive integer');
         if (order === undefined) {
             check(lib._chfl_frame_add_bond(this.ptr, i, 0, j, 0));
         } else {
@@ -647,9 +647,9 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * @param i index of the first atom of the bond
      * @param i index of the second atom of the bond
      */
-    removeBond(i: number, j: number): void {
-        assert(isUnsignedInteger(i), "atom index should be a positive integer");
-        assert(isUnsignedInteger(j), "atom index should be a positive integer");
+    public removeBond(i: number, j: number): void {
+        assert(isUnsignedInteger(i), 'atom index should be a positive integer');
+        assert(isUnsignedInteger(j), 'atom index should be a positive integer');
         check(lib._chfl_frame_remove_bond(this.ptr, i, 0, j, 0));
     }
 
@@ -685,7 +685,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      *
      * @param residue residue to be added to this frame's topology
      */
-    addResidue(residue: Residue): void {
+    public addResidue(residue: Residue): void {
         check(lib._chfl_frame_add_residue(this.ptr, residue.const_ptr));
     }
     /**
@@ -695,7 +695,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
      *
-     * const atom = new chemfiles.Atom("");
+     * const atom = new chemfiles.Atom('');
      * frame.addAtom(atom, [0, 0, 0]);
      * frame.addAtom(atom, [1, 2, 3]);
      * atom.delete();
@@ -709,9 +709,9 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * @param  j index of the second atom in the pair
      * @return   the distance between atoms `i` and `j`
      */
-    distance(i: number, j: number): number {
-        assert(isUnsignedInteger(i), "atom index should be a positive integer");
-        assert(isUnsignedInteger(j), "atom index should be a positive integer");
+    public distance(i: number, j: number): number {
+        assert(isUnsignedInteger(i), 'atom index should be a positive integer');
+        assert(isUnsignedInteger(j), 'atom index should be a positive integer');
         return stackAutoclean(() => {
             const value = stackAlloc('double');
             check(lib._chfl_frame_distance(this.ptr, i, 0, j, 0, value.ptr));
@@ -726,7 +726,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
      *
-     * const atom = new chemfiles.Atom("");
+     * const atom = new chemfiles.Atom('');
      * frame.addAtom(atom, [1, 0, 0]);
      * frame.addAtom(atom, [0, 0, 0]);
      * frame.addAtom(atom, [0, 1, 0]);
@@ -742,10 +742,10 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * @param  k index of the third atom in the angle
      * @return   the angle defined by `i`, `j`, and `k`
      */
-    angle(i: number, j: number, k: number): number {
-        assert(isUnsignedInteger(i), "atom index should be a positive integer");
-        assert(isUnsignedInteger(j), "atom index should be a positive integer");
-        assert(isUnsignedInteger(k), "atom index should be a positive integer");
+    public angle(i: number, j: number, k: number): number {
+        assert(isUnsignedInteger(i), 'atom index should be a positive integer');
+        assert(isUnsignedInteger(j), 'atom index should be a positive integer');
+        assert(isUnsignedInteger(k), 'atom index should be a positive integer');
         return stackAutoclean(() => {
             const value = stackAlloc('double');
             check(lib._chfl_frame_angle(this.ptr, i, 0, j, 0, k, 0, value.ptr));
@@ -761,7 +761,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
      *
-     * const atom = new chemfiles.Atom("");
+     * const atom = new chemfiles.Atom('');
      * frame.addAtom(atom, [1, 0, 0]);
      * frame.addAtom(atom, [0, 0, 0]);
      * frame.addAtom(atom, [0, 1, 0]);
@@ -779,11 +779,11 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * @param  m index of the fourth atom in the dihedral
      * @return   the dihedral angle defined by `i`, `j`, `k`, and `m`
      */
-    dihedral(i: number, j: number, k: number, m: number): number {
-        assert(isUnsignedInteger(i), "atom index should be a positive integer");
-        assert(isUnsignedInteger(j), "atom index should be a positive integer");
-        assert(isUnsignedInteger(k), "atom index should be a positive integer");
-        assert(isUnsignedInteger(m), "atom index should be a positive integer");
+    public dihedral(i: number, j: number, k: number, m: number): number {
+        assert(isUnsignedInteger(i), 'atom index should be a positive integer');
+        assert(isUnsignedInteger(j), 'atom index should be a positive integer');
+        assert(isUnsignedInteger(k), 'atom index should be a positive integer');
+        assert(isUnsignedInteger(m), 'atom index should be a positive integer');
         return stackAutoclean(() => {
             const value = stackAlloc('double');
             check(lib._chfl_frame_dihedral(this.ptr, i, 0, j, 0, k, 0, m, 0, value.ptr));
@@ -802,7 +802,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
      *
-     * const atom = new chemfiles.Atom("");
+     * const atom = new chemfiles.Atom('');
      * frame.addAtom(atom, [0, 0, 0]);
      * frame.addAtom(atom, [0, 0, 2]);
      * frame.addAtom(atom, [1, 0, 0]);
@@ -820,11 +820,11 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * @param  m index of the fourth atom in the improper dihedral
      * @return   the out of plane distance defined by `i`, `j`, `k`, and `m`
      */
-    outOfPlane(i: number, j: number, k: number, m: number): number {
-        assert(isUnsignedInteger(i), "atom index should be a positive integer");
-        assert(isUnsignedInteger(j), "atom index should be a positive integer");
-        assert(isUnsignedInteger(k), "atom index should be a positive integer");
-        assert(isUnsignedInteger(m), "atom index should be a positive integer");
+    public outOfPlane(i: number, j: number, k: number, m: number): number {
+        assert(isUnsignedInteger(i), 'atom index should be a positive integer');
+        assert(isUnsignedInteger(j), 'atom index should be a positive integer');
+        assert(isUnsignedInteger(k), 'atom index should be a positive integer');
+        assert(isUnsignedInteger(m), 'atom index should be a positive integer');
         return stackAutoclean(() => {
             const value = stackAlloc('double');
             check(lib._chfl_frame_out_of_plane(this.ptr, i, 0, j, 0, k, 0, m, 0, value.ptr));
@@ -839,9 +839,9 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
      *
-     * frame.set("number", 3);
-     * assert.equal(frame.get("number"), 3);
-     * assert.equal(frame.get("not existing"), undefined);
+     * frame.set('number', 3);
+     * assert.equal(frame.get('number'), 3);
+     * assert.equal(frame.get('not existing'), undefined);
      *
      * frame.delete();
      * ```
@@ -849,9 +849,9 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * @param  name name of the property
      * @return      value of the property if it exists
      */
-    get(name: string): PropertyType | undefined {
+    public get(name: string): PropertyType | undefined {
         return stackAutoclean(() => {
-            const value = stackAlloc("char*", {initial: name});
+            const value = stackAlloc('char*', {initial: name});
             const property = lib._chfl_frame_get_property(this.const_ptr, value.ptr);
             if (property === 0) {
                 return undefined;
@@ -872,29 +872,29 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      * const frame = new chemfiles.Frame();
      *
      * // number property
-     * frame.set("number", 3);
+     * frame.set('number', 3);
      *
      * // string property
-     * frame.set("string", "val");
+     * frame.set('string', 'val');
      *
      * // boolean property
-     * frame.set("bool", false);
+     * frame.set('bool', false);
      *
-     * // vector3d property
-     * frame.set("vector", [3, 4, -2]);
+     * // Vector3d property
+     * frame.set('vector', [3, 4, -2]);
      * frame.delete();
      * ```
      *
      * @param name  name of the new property
      * @param value value of the new property
      */
-    set(name: string, value: PropertyType): void {
+    public set(name: string, value: PropertyType): void {
         return stackAutoclean(() => {
             const property = createProperty(value);
-            const wasmName = stackAlloc("char*", {initial: name});
+            const wasmName = stackAlloc('char*', {initial: name});
             check(lib._chfl_frame_set_property(this.ptr, wasmName.ptr, property));
             lib._chfl_free(property);
-        })
+        });
     }
 
     /**
@@ -902,22 +902,22 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
-     * frame.set("number", 3);
-     * frame.set("string", "val");
+     * frame.set('number', 3);
+     * frame.set('string', 'val');
      *
-     * assert.deepEqual(frame.properties(), ["string", "number"])
+     * assert.deepEqual(frame.properties(), ['string', 'number'])
      * frame.delete();
      * ```
      *
      * @return array containing the name of all properties
      */
-    properties(): string[] {
+    public properties(): string[] {
         return stackAutoclean(() => {
-            const countRef = stackAlloc("uint64_t");
+            const countRef = stackAlloc('uint64_t');
             check(lib._chfl_frame_properties_count(this.ptr, countRef.ptr));
             const count = getValue(countRef);
 
-            const names = stackAlloc("char*[]", {count});
+            const names = stackAlloc('char*[]', {count});
             check(lib._chfl_frame_list_properties(this.ptr, names.ptr, count, 0));
             return getValue(names, {count});
         });

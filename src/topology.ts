@@ -1,14 +1,14 @@
 import {strict as assert} from 'assert';
 
 import * as lib from './libchemfiles';
-import {CHFL_TOPOLOGY, chfl_bond_order} from './libchemfiles';
+import {chfl_bond_order, CHFL_TOPOLOGY} from './libchemfiles';
 
-import {Pointer} from './c_ptr';
 import {Atom} from './atom';
+import {Pointer} from './c_ptr';
 import {Residue} from './residue';
 
-import {stackAlloc, stackAutoclean, getValue} from './stack';
-import {isUnsignedInteger, check} from './utils';
+import {getValue, stackAlloc, stackAutoclean} from './stack';
+import {check, isUnsignedInteger} from './utils';
 
 /**
  * A [[BondOrder]] describe the order of a bond (single, double, etc.).
@@ -42,20 +42,14 @@ export enum BondOrder {
  * It will also contain all the [[Residue]] of the system.
  */
 export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
-    /**
-     * Create a new empty [[Topology]].
-     *
-     * This function allocate WASM memory, which must be released with
-     * [[Topology.delete]].
-     *
-     * ```typescript doctest
-     * const topology = new chemfiles.Topology();
-     * assert.equal(topology.size, 0);
-     * topology.delete();
-     * ```
+    /** @hidden
+     * Create a new Atom from a raw pointer
      */
-    constructor() {
-        super(lib._chfl_topology(), false);
+    public static __from_ptr(ptr: CHFL_TOPOLOGY, isConst: boolean): Topology {
+        const parent = new Pointer(ptr, isConst);
+        const atom = Object.create(Topology.prototype);
+        Object.assign(atom, parent);
+        return atom;
     }
 
     /**
@@ -81,9 +75,25 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * ```
      * @param  topology [[Topology]] to copy
      */
-    static clone(topology: Topology): Topology {
+    public static clone(topology: Topology): Topology {
         const ptr = lib._chfl_topology_copy(topology.const_ptr);
         return Topology.__from_ptr(ptr, false);
+    }
+
+    /**
+     * Create a new empty [[Topology]].
+     *
+     * This function allocate WASM memory, which must be released with
+     * [[Topology.delete]].
+     *
+     * ```typescript doctest
+     * const topology = new chemfiles.Topology();
+     * assert.equal(topology.size, 0);
+     * topology.delete();
+     * ```
+     */
+    constructor() {
+        super(lib._chfl_topology(), false);
     }
 
     /**
@@ -102,8 +112,8 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * assert.equal(topology.size, 12);
      *
      * const atom = topology.atom(0);
-     * assert.equal(atom.name, "");
-     * assert.equal(atom.type, "");
+     * assert.equal(atom.name, '');
+     * assert.equal(atom.type, '');
      * atom.delete();
      *
      * topology.delete();
@@ -111,8 +121,8 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      *
      * @param size new size of the topology
      */
-    resize(size: number): void {
-        assert(isUnsignedInteger(size), "size should be a positive integer");
+    public resize(size: number): void {
+        assert(isUnsignedInteger(size), 'size should be a positive integer');
         check(lib._chfl_topology_resize(this.ptr, size, 0))
     }
 
@@ -137,9 +147,9 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * @param j     index of the second atom of the bond
      * @param order order of the bond
      */
-    addBond(i: number, j: number, order?: BondOrder): void {
-        assert(isUnsignedInteger(i), "atom index should be a positive integer");
-        assert(isUnsignedInteger(j), "atom index should be a positive integer");
+    public addBond(i: number, j: number, order?: BondOrder): void {
+        assert(isUnsignedInteger(i), 'atom index should be a positive integer');
+        assert(isUnsignedInteger(j), 'atom index should be a positive integer');
 
         if (order === undefined) {
             check(lib._chfl_topology_add_bond(this.ptr, i, 0, j, 0));
@@ -175,9 +185,9 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * @param i index of the first atom of the bond
      * @param i index of the second atom of the bond
      */
-    removeBond(i: number, j: number): void {
-        assert(isUnsignedInteger(i), "atom index should be a positive integer");
-        assert(isUnsignedInteger(j), "atom index should be a positive integer");
+    public removeBond(i: number, j: number): void {
+        assert(isUnsignedInteger(i), 'atom index should be a positive integer');
+        assert(isUnsignedInteger(j), 'atom index should be a positive integer');
         check(lib._chfl_topology_remove_bond(this.ptr, i, 0, j, 0));
     }
 
@@ -201,9 +211,9 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * @param  index index of the atom in the topology
      * @return       A modifiable reference to the Atom
      */
-    atom(index: number): Atom {
-        assert(isUnsignedInteger(index), "atom index should be a positive integer");
-        let ptr = lib._chfl_atom_from_topology(this.ptr, index, 0);
+    public atom(index: number): Atom {
+        assert(isUnsignedInteger(index), 'atom index should be a positive integer');
+        const ptr = lib._chfl_atom_from_topology(this.ptr, index, 0);
         return Atom.__from_ptr(ptr, false);
     }
 
@@ -214,7 +224,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * const topology = new chemfiles.Topology();
      * assert.equal(topology.size, 0);
      *
-     * const atom = new chemfiles.Atom("Mg");
+     * const atom = new chemfiles.Atom('Mg');
      * topology.addAtom(atom);
      * atom.delete();
      *
@@ -224,7 +234,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      *
      * @param atom atom that will be added to the topology
      */
-    addAtom(atom: Atom): void {
+    public addAtom(atom: Atom): void {
         check(lib._chfl_topology_add_atom(this.ptr, atom.const_ptr));
     }
 
@@ -238,10 +248,10 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * const topology = new chemfiles.Topology();
      * assert.equal(topology.size, 0);
      *
-     * let atom = new chemfiles.Atom("Mg");
+     * let atom = new chemfiles.Atom('Mg');
      * topology.addAtom(atom);
      * atom.delete();
-     * atom = new chemfiles.Atom("Na");
+     * atom = new chemfiles.Atom('Na');
      * topology.addAtom(atom);
      * atom.delete();
      * assert.equal(topology.size, 2);
@@ -249,7 +259,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * topology.remove(0);
      * assert.equal(topology.size, 1);
      * atom = topology.atom(0);
-     * assert.equal(atom.name, "Na");
+     * assert.equal(atom.name, 'Na');
      * atom.delete();
      *
      * topology.delete();
@@ -257,8 +267,8 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      *
      * @param index [description]
      */
-    remove(index: number): void {
-        assert(isUnsignedInteger(index), "atom index should be a positive integer");
+    public remove(index: number): void {
+        assert(isUnsignedInteger(index), 'atom index should be a positive integer');
         check(lib._chfl_topology_remove(this.ptr, index, 0));
     }
 
@@ -277,7 +287,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      */
     get size(): number {
         return stackAutoclean(() => {
-            const value = stackAlloc("uint64_t");
+            const value = stackAlloc('uint64_t');
             check(lib._chfl_topology_atoms_count(this.const_ptr, value.ptr));
             return getValue(value);
         });
@@ -317,9 +327,9 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * @param  index index of the residue in the topology
      * @return       A non-modifiable reference to the [[Residue]]
      */
-    residue(index: number): Residue {
-        assert(isUnsignedInteger(index), "residue index should be a positive integer");
-        let ptr = lib._chfl_residue_from_topology(this.const_ptr, index, 0);
+    public residue(index: number): Residue {
+        assert(isUnsignedInteger(index), 'residue index should be a positive integer');
+        const ptr = lib._chfl_residue_from_topology(this.const_ptr, index, 0);
         return Residue.__from_ptr(ptr, true);
     }
 
@@ -356,8 +366,8 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * @param  index index of the atom in the topology
      * @return       A non-modifiable reference to the [[Residue]]
      */
-    residueForAtom(index: number): Residue | undefined {
-        assert(isUnsignedInteger(index), "atom index should be a positive integer");
+    public residueForAtom(index: number): Residue | undefined {
+        assert(isUnsignedInteger(index), 'atom index should be a positive integer');
         const ptr = lib._chfl_residue_for_atom(this.const_ptr, index, 0);
         if (ptr === 0) {
             return undefined;
@@ -392,7 +402,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      *
      * @param residue residue to be added to the topology
      */
-    addResidue(residue: Residue): void {
+    public addResidue(residue: Residue): void {
         check(lib._chfl_topology_add_residue(this.ptr, residue.const_ptr));
     }
 
@@ -424,11 +434,11 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * @param  second second residue to test
      * @return        `true` if the two residues are bonded, `false` otherwise
      */
-    residuesLinked(first: Residue, second: Residue): boolean {
+    public residuesLinked(first: Residue, second: Residue): boolean {
         return stackAutoclean(() => {
-            const value = stackAlloc("bool");
+            const value = stackAlloc('bool');
             check(lib._chfl_topology_residues_linked(
-                this.const_ptr, first.const_ptr, second.const_ptr, value.ptr
+                this.const_ptr, first.const_ptr, second.const_ptr, value.ptr,
             ));
             return getValue(value);
         });
@@ -455,7 +465,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      */
     get residuesCount(): number {
         return stackAutoclean(() => {
-            const value = stackAlloc("uint64_t");
+            const value = stackAlloc('uint64_t');
             check(lib._chfl_topology_residues_count(this.const_ptr, value.ptr));
             return getValue(value);
         });
@@ -481,20 +491,20 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      */
     get bonds(): Array<[number, number]> {
         return stackAutoclean(() => {
-            const countRef = stackAlloc("uint64_t");
+            const countRef = stackAlloc('uint64_t');
             check(lib._chfl_topology_bonds_count(this.const_ptr, countRef.ptr));
             const count = getValue(countRef);
 
-            const bonds = stackAlloc("uint64_t[]", {count: 2 * count});
+            const bonds = stackAlloc('uint64_t[]', {count: 2 * count});
             check(lib._chfl_topology_bonds(this.const_ptr, bonds.ptr, count, 0));
             const linear = getValue(bonds, {count: 2 * count});
 
             const result = [];
-            for (let i=0; i<count; i++) {
+            for (let i = 0; i < count; i++) {
                 result.push([linear[2 * i], linear[2 * i + 1]] as [number, number]);
             }
             return result;
-        })
+        });
     }
 
     /**
@@ -517,14 +527,14 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      */
     get bondOrders(): BondOrder[] {
         return stackAutoclean(() => {
-            const countRef = stackAlloc("uint64_t");
+            const countRef = stackAlloc('uint64_t');
             check(lib._chfl_topology_bonds_count(this.const_ptr, countRef.ptr));
             const count = getValue(countRef);
 
-            const orders = stackAlloc("chfl_bond_order[]", {count: count});
+            const orders = stackAlloc('chfl_bond_order[]', {count: count});
             check(lib._chfl_topology_bond_orders(this.const_ptr, orders.ptr, count, 0));
             return getValue(orders, {count: count});
-        })
+        });
     }
 
     /**
@@ -543,9 +553,9 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      * topology.delete();
      * ```
      */
-    bondOrder(i: number, j: number): BondOrder {
+    public bondOrder(i: number, j: number): BondOrder {
         return stackAutoclean(() => {
-            const value = stackAlloc("chfl_bond_order");
+            const value = stackAlloc('chfl_bond_order');
             check(lib._chfl_topology_bond_order(this.const_ptr, i, 0, j, 0, value.ptr));
             return getValue(value);
         });
@@ -572,22 +582,22 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      */
     get angles(): Array<[number, number, number]> {
         return stackAutoclean(() => {
-            const countRef = stackAlloc("uint64_t");
+            const countRef = stackAlloc('uint64_t');
             check(lib._chfl_topology_angles_count(this.const_ptr, countRef.ptr));
             const count = getValue(countRef);
 
-            const angles = stackAlloc("uint64_t[]", {count: 3 * count});
+            const angles = stackAlloc('uint64_t[]', {count: 3 * count});
             check(lib._chfl_topology_angles(this.const_ptr, angles.ptr, count, 0));
             const linear = getValue(angles, {count: 3 * count});
 
             const result = [];
-            for (let i=0; i<count; i++) {
+            for (let i = 0; i < count; i++) {
                 result.push([
-                    linear[3 * i], linear[3 * i + 1], linear[3 * i + 2]
+                    linear[3 * i], linear[3 * i + 1], linear[3 * i + 2],
                 ] as [number, number, number]);
             }
             return result;
-        })
+        });
     }
 
     /**
@@ -612,22 +622,22 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      */
     get dihedrals(): Array<[number, number, number, number]> {
         return stackAutoclean(() => {
-            const countRef = stackAlloc("uint64_t");
+            const countRef = stackAlloc('uint64_t');
             check(lib._chfl_topology_dihedrals_count(this.const_ptr, countRef.ptr));
             const count = getValue(countRef);
 
-            const dihedrals = stackAlloc("uint64_t[]", {count: 4 * count});
+            const dihedrals = stackAlloc('uint64_t[]', {count: 4 * count});
             check(lib._chfl_topology_dihedrals(this.const_ptr, dihedrals.ptr, count, 0));
             const linear = getValue(dihedrals, {count: 4 * count});
 
             const result = [];
-            for (let i=0; i<count; i++) {
+            for (let i = 0; i < count; i++) {
                 result.push([
-                    linear[4 * i], linear[4 * i + 1], linear[4 * i + 2], linear[4 * i + 3]
+                    linear[4 * i], linear[4 * i + 1], linear[4 * i + 2], linear[4 * i + 3],
                 ] as [number, number, number, number]);
             }
             return result;
-        })
+        });
     }
 
     /**
@@ -651,31 +661,21 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      */
     get impropers(): Array<[number, number, number, number]> {
         return stackAutoclean(() => {
-            const countRef = stackAlloc("uint64_t");
+            const countRef = stackAlloc('uint64_t');
             check(lib._chfl_topology_impropers_count(this.const_ptr, countRef.ptr));
             const count = getValue(countRef);
 
-            const impropers = stackAlloc("uint64_t[]", {count: 4 * count});
+            const impropers = stackAlloc('uint64_t[]', {count: 4 * count});
             check(lib._chfl_topology_impropers(this.const_ptr, impropers.ptr, count, 0));
             const linear = getValue(impropers, {count: 4 * count});
 
             const result = [];
-            for (let i=0; i<count; i++) {
+            for (let i = 0; i < count; i++) {
                 result.push([
-                    linear[4 * i], linear[4 * i + 1], linear[4 * i + 2], linear[4 * i + 3]
+                    linear[4 * i], linear[4 * i + 1], linear[4 * i + 2], linear[4 * i + 3],
                 ] as [number, number, number, number]);
             }
             return result;
-        })
-    }
-
-    /** @hidden
-     * Create a new Atom from a raw pointer
-     */
-    static __from_ptr(ptr: CHFL_TOPOLOGY, isConst: boolean): Topology {
-        const parent = new Pointer(ptr, isConst);
-        const atom = Object.create(Topology.prototype);
-        Object.assign(atom, parent);
-        return atom;
+        });
     }
 }

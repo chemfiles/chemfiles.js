@@ -1,16 +1,16 @@
 import {strict as assert} from 'assert';
 
+import {SIZEOF_CHFL_MATCH, SIZEOF_UINT64_T} from '../lib/wasm-sizes';
 import * as lib from './libchemfiles';
 import {CHFL_SELECTION, POINTER} from './libchemfiles';
 
 import {Pointer} from './c_ptr';
 import {Frame} from './frame';
 
-import {stackAlloc, stackAutoclean, getValue, getUint64} from './stack';
-import {check, autogrowStrBuffer} from './utils';
-import {SIZEOF_CHFL_MATCH, SIZEOF_UINT64_T} from '../lib/wasm-sizes';
+import {getUint64, getValue, stackAlloc, stackAutoclean} from './stack';
+import {autogrowStrBuffer, check} from './utils';
 
-assert(SIZEOF_CHFL_MATCH == 5 * SIZEOF_UINT64_T, "wrong size for chfl_match");
+assert(SIZEOF_CHFL_MATCH === 5 * SIZEOF_UINT64_T, 'wrong size for chfl_match');
 
 /**
  * Select atoms in a [[Frame]] using chemfile' selection language.
@@ -24,6 +24,32 @@ assert(SIZEOF_CHFL_MATCH == 5 * SIZEOF_UINT64_T, "wrong size for chfl_match");
  */
 export class Selection extends Pointer<CHFL_SELECTION, {}> {
     /**
+     * Create a new independant copy of the given `selection`.
+     *
+     * This function allocate WASM memory, which must be released with
+     * [[Selection.delete]].
+     *
+     * ```typescript doctest
+     * const selection = new chemfiles.Selection('name O');
+     * const copy = chemfiles.Selection.clone(selection);
+     *
+     * assert.equal(selection.string, 'name O');
+     * assert.equal(copy.string, 'name O');
+     *
+     * selection.delete();
+     * copy.delete();
+     * ```
+     * @param  selection [[Selection]] to copy
+     */
+    public static clone(selection: Selection): Selection {
+        const ptr = lib._chfl_selection_copy(selection.const_ptr);
+        const parent = new Pointer(ptr, false);
+        const newSelection = Object.create(Selection.prototype);
+        Object.assign(newSelection, parent);
+        return newSelection;
+    }
+
+    /**
      * Create a new [[Selection]] from the given `selection` string.
      *
      * This function allocate WASM memory, which must be released with
@@ -31,7 +57,7 @@ export class Selection extends Pointer<CHFL_SELECTION, {}> {
      *
      * ```typescript doctest
      * # const frame = new chemfiles.Frame();
-     * const selection = new chemfiles.Selection("pairs: name(#1) O and x(#2) < 3.4");
+     * const selection = new chemfiles.Selection('pairs: name(#1) O and x(#2) < 3.4');
      *
      * // this selection select two atoms at the time
      * assert.equal(selection.size, 2);
@@ -44,37 +70,11 @@ export class Selection extends Pointer<CHFL_SELECTION, {}> {
      * ```
      */
     constructor(selection: string) {
-        let ptr = stackAutoclean(() => {
-            const ref = stackAlloc("char*", {initial: selection});
+        const ptr = stackAutoclean(() => {
+            const ref = stackAlloc('char*', {initial: selection});
             return lib._chfl_selection(ref.ptr);
         });
         super(ptr, false);
-    }
-
-    /**
-     * Create a new independant copy of the given `selection`.
-     *
-     * This function allocate WASM memory, which must be released with
-     * [[Selection.delete]].
-     *
-     * ```typescript doctest
-     * const selection = new chemfiles.Selection("name O");
-     * const copy = chemfiles.Selection.clone(selection);
-     *
-     * assert.equal(selection.string, "name O");
-     * assert.equal(copy.string, "name O");
-     *
-     * selection.delete();
-     * copy.delete();
-     * ```
-     * @param  selection [[Selection]] to copy
-     */
-    static clone(selection: Selection): Selection {
-        const ptr = lib._chfl_selection_copy(selection.const_ptr);
-        const parent = new Pointer(ptr, false);
-        const new_selection = Object.create(Selection.prototype);
-        Object.assign(new_selection, parent);
-        return new_selection;
     }
 
     /**
@@ -87,18 +87,18 @@ export class Selection extends Pointer<CHFL_SELECTION, {}> {
      *
      *
      * ```typescript doctest
-     * let selection = new chemfiles.Selection("name O H");
+     * let selection = new chemfiles.Selection('name O H');
      * assert.equal(selection.size, 1);
      * selection.delete();
      *
-     * selection = new chemfiles.Selection("angles: name(#1) O and name(#2) H");
+     * selection = new chemfiles.Selection('angles: name(#1) O and name(#2) H');
      * assert.equal(selection.size, 3);
      * selection.delete();
      * ```
      */
     get size(): number {
         return stackAutoclean(() => {
-            const value = stackAlloc("uint64_t");
+            const value = stackAlloc('uint64_t');
             check(lib._chfl_selection_size(this.const_ptr, value.ptr));
             return getValue(value);
         });
@@ -108,8 +108,8 @@ export class Selection extends Pointer<CHFL_SELECTION, {}> {
      * Get the selection string used to create this [[Selection]].
      *
      * ```typescript doctest
-     * const selection = new chemfiles.Selection("name O H");
-     * assert.equal(selection.string, "name O H");
+     * const selection = new chemfiles.Selection('name O H');
+     * assert.equal(selection.string, 'name O H');
      * selection.delete();
      * ```
      */
@@ -127,17 +127,17 @@ export class Selection extends Pointer<CHFL_SELECTION, {}> {
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
      * // the frame contains carbon, oxygen and hydrogen
-     * # frame.addAtom(new chemfiles.Atom("O"), [0, 0, 0]);
-     * # frame.addAtom(new chemfiles.Atom("H"), [0, 0, 0]);
-     * # frame.addAtom(new chemfiles.Atom("C"), [0, 0, 0]);
-     * # frame.addAtom(new chemfiles.Atom("C"), [0, 0, 0]);
-     * # frame.addAtom(new chemfiles.Atom("H"), [0, 0, 0]);
+     * # frame.addAtom(new chemfiles.Atom('O'), [0, 0, 0]);
+     * # frame.addAtom(new chemfiles.Atom('H'), [0, 0, 0]);
+     * # frame.addAtom(new chemfiles.Atom('C'), [0, 0, 0]);
+     * # frame.addAtom(new chemfiles.Atom('C'), [0, 0, 0]);
+     * # frame.addAtom(new chemfiles.Atom('H'), [0, 0, 0]);
      *
-     * let selection = new chemfiles.Selection("name O H");
+     * let selection = new chemfiles.Selection('name O H');
      * assert.deepEqual(selection.evaluate(frame), [0, 1, 4]);
      * selection.delete();
      *
-     * selection = new chemfiles.Selection("pairs: name(#1) C and name(#2) H");
+     * selection = new chemfiles.Selection('pairs: name(#1) C and name(#2) H');
      * assert.deepEqual(selection.evaluate(frame), [[2, 1], [2, 4], [3, 1], [3, 4]]);
      * selection.delete();
      *
@@ -147,9 +147,9 @@ export class Selection extends Pointer<CHFL_SELECTION, {}> {
      * @param  frame the frame to consider for matching atoms
      * @return       a list of the indexes of matching atoms
      */
-    evaluate(frame: Frame): Array<number | number[]> {
+    public evaluate(frame: Frame): Array<number | number[]> {
         return stackAutoclean(() => {
-            const countRef = stackAlloc("uint64_t");
+            const countRef = stackAlloc('uint64_t');
             check(lib._chfl_selection_evaluate(this.ptr, frame.const_ptr, countRef.ptr));
             const count = getValue(countRef);
 
@@ -159,16 +159,16 @@ export class Selection extends Pointer<CHFL_SELECTION, {}> {
             const selectionSize = this.size;
             const results = [];
             let ptr = matches;
-            for (let i=0; i<count; i++) {
+            for (let i = 0; i < count; i++) {
                 // skip the chfl_match.size field
                 ptr = ptr + SIZEOF_UINT64_T as POINTER;
-                if (selectionSize == 1) {
+                if (selectionSize === 1) {
                     results.push(getUint64(ptr));
                     // skip the other 'atoms'
                     ptr = ptr + 4 * SIZEOF_UINT64_T as POINTER;
                 } else {
                     const match = [];
-                    for (let atom=0; atom<selectionSize; atom++) {
+                    for (let atom = 0; atom < selectionSize; atom++) {
                         match.push(getUint64(ptr));
                         ptr = ptr + SIZEOF_UINT64_T as POINTER;
                     }

@@ -9,9 +9,10 @@ import {lastError} from './misc';
  * objects.
  */
 export class Pointer<T extends CHFL_PTR, Extra> {
-    private _ptr: T;
-    private _isConst: boolean;
-    protected _extra: Partial<Extra>;
+    // store extra data for child classes
+    protected _extra: Partial<Extra>;  // tslint:disable-line: variable-name
+    private _ptr: T;                   // tslint:disable-line: variable-name
+    private _isConst: boolean;         // tslint:disable-line: variable-name
 
     /**
      * Create a new Pointer<T> from the given value. `isConst` indicate if the
@@ -59,7 +60,7 @@ export class Pointer<T extends CHFL_PTR, Extra> {
      */
     get const_ptr(): T {
         if (this._ptr === 0) {
-            throw Error("trying to access an object after calling delete()");
+            throw Error('trying to access an object after calling delete()');
         }
 
         return this._ptr;
