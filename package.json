@@ -4,7 +4,7 @@
   "description": "Modern library for chemistry trajectories reading and writing ",
   "main": "src/index.ts",
   "scripts": {
-    "test": "ts-doctest . tests && mocha && npm run lint",
+    "test": "ts-doctest . tests && mocha --timeout 5000 && npm run lint",
     "coverage": "rm -rf tests/doc && nyc mocha",
     "build": "webpack --mode production",
     "generate-sizeof": "node -e \"require('./build/sizeof')();\" > lib/wasm-sizes.ts",
