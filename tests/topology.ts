@@ -1,4 +1,4 @@
-import {ready, Topology, Atom, Residue} from '../src/index';
+import {ready, Topology, Atom, Residue, BondOrder} from '../src/index';
 import {assert, disableWarnings} from './utils';
 
 describe('Topology', () => {
@@ -71,17 +71,23 @@ describe('Topology', () => {
 
         topology.addBond(0, 1);
         topology.addBond(1, 2);
-        topology.addBond(2, 3);
+        topology.addBond(2, 3, BondOrder.Triple);
 
         assert.deepEqual(topology.bonds, [[0, 1], [1, 2], [2, 3]]);
         assert.deepEqual(topology.angles, [[0, 1, 2], [1, 2, 3]]);
         assert.deepEqual(topology.dihedrals, [[0, 1, 2, 3]]);
+        assert.deepEqual(topology.bondOrders, [BondOrder.Unknown, BondOrder.Unknown, BondOrder.Triple]);
+        assert.deepEqual(topology.bondOrder(0, 1), BondOrder.Unknown);
+        assert.deepEqual(topology.bondOrder(2, 3), BondOrder.Triple);
 
         topology.removeBond(2, 3);
 
         assert.deepEqual(topology.bonds, [[0, 1], [1, 2]]);
         assert.deepEqual(topology.angles, [[0, 1, 2]]);
         assert.deepEqual(topology.dihedrals, []);
+
+        topology.addBond(1, 3);
+        assert.deepEqual(topology.impropers, [[0, 1, 2, 3]]);
 
         topology.delete();
     })
@@ -118,8 +124,12 @@ describe('Topology', () => {
         assert.equal(topology.residuesLinked(first, second!), true);
 
         disableWarnings(() => {
-            assert.throw(() => topology.residue(70));
+            assert.throwWith(() => topology.residue(70), "residue index out of bounds in topology: we have 2 residues, but the index is 70");
         })
+
+        assert.throwWith(() => {first.addAtom(0)}, "this Residue can not be modified");
+
+        assert.equal(topology.residueForAtom(1), undefined);
 
         first.delete();
         second!.delete();

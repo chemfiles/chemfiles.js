@@ -1,7 +1,7 @@
 import * as lib from './libchemfiles';
 import {c_char_ptr} from './libchemfiles';
 
-import {stackAlloc} from './stack';
+import {stackAlloc, getValue} from './stack';
 import {lastError} from './misc';
 
 /** Simple 3D vector */
@@ -63,7 +63,7 @@ export function autogrowStrBuffer(callback: StrCallback, initial = 128): string 
         callback(value.ptr, size);
     }
 
-    const result = lib.UTF8ToString(value.ptr);
+    const result = getValue(value);
     lib.stackRestore(sp);
     return result;
 }

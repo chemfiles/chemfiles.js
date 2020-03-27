@@ -4,7 +4,8 @@
   "description": "Modern library for chemistry trajectories reading and writing ",
   "main": "src/index.ts",
   "scripts": {
-    "test": "ts-doctest . tests && mocha -r ts-node/register tests/*.ts && npm run lint",
+    "test": "ts-doctest . tests && mocha && npm run lint",
+    "coverage": "rm -rf tests/doc && nyc mocha",
     "build": "webpack --mode production",
     "generate-sizeof": "node -e \"require('./build/sizeof')();\" > lib/wasm-sizes.ts",
     "build-libchemfiles": "cmake -E make_directory lib build && cd build && emcmake cmake .. $CHFL_CMAKE_ARGS && cmake --build . && npm run copy-libchemfiles && npm run generate-sizeof",
@@ -22,25 +23,37 @@
     "url": "https://github.com/chemfiles/chemfiles.js/issues"
   },
   "homepage": "https://github.com/chemfiles/chemfiles.js#readme",
+  "mocha": {
+      "require": ["ts-node/register", "source-map-support/register"],
+      "recursive": true,
+      "spec": "tests/*.ts"
+  },
+  "nyc": {
+    "include": ["src/**/*.ts"],
+    "reporter": ["text-summary"],
+    "all": true
+  },
   "devDependencies": {
-    "@types/chai": "^4.2.9",
+    "@types/chai": "^4.2.11",
     "@types/copy-webpack-plugin": "^5.0.0",
     "@types/glob": "^7.1.1",
-    "@types/mocha": "^7.0.1",
-    "@types/node": "^13.7.4",
-    "@types/webpack": "^4.41.6",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.9.4",
+    "@types/webpack": "^4.41.8",
     "chai": "^4.2.0",
     "copy-webpack-plugin": "^5.1.1",
     "glob": "^7.1.6",
-    "mocha": "^7.0.1",
-    "ts-loader": "^6.2.1",
-    "ts-node": "^8.6.2",
-    "typescript": "^3.8.2",
-    "typescript-doctest": "git+https://gitlab.com/Luthaf/ts-doctest/#b983e1117c2ca211cdbd8760b4ffbfb36d5b54b0",
-    "webpack": "^4.41.6",
+    "mocha": "^7.1.1",
+    "nyc": "^15.0.0",
+    "source-map-support": "^0.5.16",
+    "ts-loader": "^6.2.2",
+    "ts-node": "^8.8.1",
+    "typescript": "^3.8.3",
+    "typescript-doctest": "git+https://gitlab.com/Luthaf/ts-doctest.git#b983e1117c2ca211cdbd8760b4ffbfb36d5b54b0",
+    "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "typedoc": "^0.17.0-3"
+    "typedoc": "^0.17.3"
   }
 }

@@ -98,6 +98,8 @@ describe('Residue', () => {
         residue.set("foo", "56");
         assert.equal(residue.get("foo"), "56");
 
+        assert.deepEqual(residue.properties(), ['hey', 'bar', 'baz', 'foo']);
+
         residue.delete();
     })
 });

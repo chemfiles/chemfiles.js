@@ -1,4 +1,6 @@
-import {ready, Frame, UnitCell, Topology, Atom} from '../src/index';
+import path from 'path';
+
+import {ready, Frame, UnitCell, Topology, BondOrder, Residue, Atom, Trajectory} from '../src/index';
 import {assert, disableWarnings} from './utils';
 
 describe('Frame', () => {
@@ -47,6 +49,40 @@ describe('Frame', () => {
 
     it('has a topology', () => {
         const frame = new Frame();
+        frame.resize(3)
+        frame.addBond(0, 1);
+        frame.addBond(2, 1, BondOrder.Aromatic);
+
+        let residue = new Residue('resname');
+        residue.addAtom(0);
+        frame.addResidue(residue);
+        residue.delete();
+
+        let topology = frame.topology();
+
+        assert.equal(topology.residuesCount, 1);
+        residue = topology.residue(0);
+        assert.deepEqual(residue.atoms, [0]);
+        assert.equal(residue.name, 'resname');
+        residue.delete();
+
+        assert.deepEqual(topology.bonds, [[0, 1], [1, 2]]);
+        assert.deepEqual(topology.bondOrders, [BondOrder.Unknown, BondOrder.Aromatic]);
+
+        // no mutable access to the topology
+        assert.throwWith(() => {topology.atom(0)}, "this Topology can not be modified");
+        topology.delete();
+
+        frame.removeBond(0, 1);
+        topology = frame.topology();
+        assert.deepEqual(topology.bonds, [[1, 2]]);
+        topology.delete();
+
+        frame.delete();
+    });
+
+    it('a new topology can be set', () => {
+        const frame = new Frame();
         frame.resize(2)
         let atom = frame.atom(0);
         assert.equal(atom.name, "");
@@ -68,7 +104,26 @@ describe('Frame', () => {
         assert.equal(atom.name, "Na");
         atom.delete();
 
+        atom = frame.atom(1);
+        assert.equal(atom.name, "Be");
+        atom.delete();
+
         frame.delete();
+    });
+
+    it('can guess bonds', () => {
+        const trajectory = new Trajectory(path.join(__dirname, "data", "water.xyz"));
+        const frame = new Frame();
+        trajectory.read(frame);
+
+        frame.guessBonds();
+        const topology = frame.topology();
+        assert.equal(topology.bonds.length, 186);
+        assert.equal(topology.angles.length, 87);
+
+        topology.delete();
+        frame.delete();
+        trajectory.close();
     });
 
     it('contains atoms', () => {
@@ -100,7 +155,7 @@ describe('Frame', () => {
         assert.equal(frame.size, 65);
 
         disableWarnings(() => {
-            assert.throw(() => frame.atom(70));
+            assert.throwWith(() => frame.atom(70), "out of bounds atomic index in `chfl_atom_from_frame`: we have 65 atoms, but the index is 70");
         });
 
         frame.delete();
@@ -151,6 +206,11 @@ describe('Frame', () => {
         assert.equal(positions['1ff'], undefined);
         assert.equal(positions['1.3'], undefined);
         assert.equal(positions[4.6], undefined);
+
+        positions[0] = [7, 9, 3.3];
+        assert.arrayEqual(positions[0], [7, 9, 3.3]);
+
+        assert.throw(() => {positions[0] = "nope";});
 
         frame.delete();
     });

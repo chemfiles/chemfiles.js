@@ -24,7 +24,7 @@ export class Pointer<T extends CHFL_PTR, Extra> {
      */
     constructor(ptr: T, isConst: boolean) {
         if (ptr === 0) {
-            throw Error("got nullptr when creating C++ object: " + lastError());
+            throw Error(lastError());
         }
         this._ptr = ptr;
         this._isConst = isConst;
@@ -49,7 +49,7 @@ export class Pointer<T extends CHFL_PTR, Extra> {
      */
     get ptr(): T {
         if (this._isConst) {
-            throw Error("mutable access to const pointer, this is a bug in chemfiles");
+            throw Error(`this ${this.constructor.name} can not be modified`);
         }
         return this.const_ptr;
     }

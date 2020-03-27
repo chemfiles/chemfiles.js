@@ -30,6 +30,13 @@ describe('Atom', () => {
         atom.delete();
     });
 
+    it('can have a very long name', () => {
+        const name = "He".repeat(100);
+        const atom = new Atom(name);
+        assert.equal(atom.name, name);
+        atom.delete();
+    });
+
     it('has a type', () => {
         const atom = new Atom("C1");
         assert.equal(atom.name, "C1");

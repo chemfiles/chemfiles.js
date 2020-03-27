@@ -9,9 +9,20 @@ function arrayEqual(a: any, b: any, eps = 1e-33): void {
     assert.approximately(a[2], b[2], eps);
 }
 
+function throwWith(cb: () => void, message: string): void {
+    try {
+        cb();
+    } catch (error) {
+        assert.equal(error.message, message);
+        return;
+    }
+    assert.fail("no error thrown when one was expected");
+}
+
 export const assert = {
     ...chaiAssert,
     arrayEqual,
+    throwWith,
 }
 
 export function disableWarnings(callback: () => void): void {
