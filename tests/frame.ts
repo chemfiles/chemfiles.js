@@ -1,10 +1,11 @@
-import path from 'path';
+import * as path from 'path';
 
-import {ready, Frame, UnitCell, Topology, BondOrder, Residue, Atom, Trajectory} from '../src/index';
+import {Atom, BondOrder, Frame, Residue, Topology, Trajectory, UnitCell} from '../src/index';
+import {ready} from '../src/index';
 import {assert, disableWarnings} from './utils';
 
 describe('Frame', () => {
-    before((done) => {ready(() => done());});
+    before((done) => { ready(() => done()); });
 
     it('can be cloned', () => {
         const frame = new Frame();
@@ -49,7 +50,7 @@ describe('Frame', () => {
 
     it('has a topology', () => {
         const frame = new Frame();
-        frame.resize(3)
+        frame.resize(3);
         frame.addBond(0, 1);
         frame.addBond(2, 1, BondOrder.Aromatic);
 
@@ -70,7 +71,7 @@ describe('Frame', () => {
         assert.deepEqual(topology.bondOrders, [BondOrder.Unknown, BondOrder.Aromatic]);
 
         // no mutable access to the topology
-        assert.throwWith(() => {topology.atom(0)}, "this Topology can not be modified");
+        assert.throwWith(() => topology.atom(0), 'this Topology can not be modified');
         topology.delete();
 
         frame.removeBond(0, 1);
@@ -83,17 +84,17 @@ describe('Frame', () => {
 
     it('a new topology can be set', () => {
         const frame = new Frame();
-        frame.resize(2)
+        frame.resize(2);
         let atom = frame.atom(0);
-        assert.equal(atom.name, "");
+        assert.equal(atom.name, '');
         atom.delete();
 
         const topology = new Topology();
-        atom = new Atom("Na");
+        atom = new Atom('Na');
         topology.addAtom(atom);
         atom.delete();
 
-        atom = new Atom("Be");
+        atom = new Atom('Be');
         topology.addAtom(atom);
         atom.delete();
 
@@ -101,18 +102,18 @@ describe('Frame', () => {
         topology.delete();
 
         atom = frame.atom(0);
-        assert.equal(atom.name, "Na");
+        assert.equal(atom.name, 'Na');
         atom.delete();
 
         atom = frame.atom(1);
-        assert.equal(atom.name, "Be");
+        assert.equal(atom.name, 'Be');
         atom.delete();
 
         frame.delete();
     });
 
     it('can guess bonds', () => {
-        const trajectory = new Trajectory(path.join(__dirname, "data", "water.xyz"));
+        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'));
         const frame = new Frame();
         trajectory.read(frame);
 
@@ -130,19 +131,19 @@ describe('Frame', () => {
         const frame = new Frame();
         assert.equal(frame.size, 0);
 
-        let atom = new Atom("");
+        let atom = new Atom('');
         frame.addAtom(atom, [0, 0, 0]);
         atom.delete();
-        atom = new Atom("Fe");
+        atom = new Atom('Fe');
         frame.addAtom(atom, [0, 0, 0]);
         atom.delete();
 
         atom = frame.atom(0);
-        assert.equal(atom.name, "");
+        assert.equal(atom.name, '');
         atom.delete();
 
         atom = frame.atom(1);
-        assert.equal(atom.name, "Fe");
+        assert.equal(atom.name, 'Fe');
         atom.delete();
 
         assert.equal(frame.size, 2);
@@ -155,7 +156,7 @@ describe('Frame', () => {
         assert.equal(frame.size, 65);
 
         disableWarnings(() => {
-            assert.throwWith(() => frame.atom(70), "out of bounds atomic index in `chfl_atom_from_frame`: we have 65 atoms, but the index is 70");
+            assert.throwWith(() => frame.atom(70), 'out of bounds atomic index in `chfl_atom_from_frame`: we have 65 atoms, but the index is 70');
         });
 
         frame.delete();
@@ -164,7 +165,7 @@ describe('Frame', () => {
     it('has positions', () => {
         const frame = new Frame();
 
-        let atom = new Atom("");
+        const atom = new Atom('');
         frame.addAtom(atom, [1, 2, 3]);
         frame.addAtom(atom, [4, 5, 6]);
         atom.delete();
@@ -186,7 +187,7 @@ describe('Frame', () => {
 
     it('Array3D behaves sensibly', () => {
         const frame = new Frame();
-        let atom = new Atom("");
+        const atom = new Atom('');
         frame.addAtom(atom, [1, 2, 3]);
         frame.addAtom(atom, [4, 5, 6]);
         atom.delete();
@@ -197,10 +198,9 @@ describe('Frame', () => {
         }
         assert.equal(sum, 21);
 
-        let positions = frame.positions as any;
-
+        const positions = frame.positions as any;
         assert.arrayEqual(positions[0], [1, 2, 3]);
-        assert.arrayEqual(positions["0"], [1, 2, 3]);
+        assert.arrayEqual(positions['0'], [1, 2, 3]);
 
         assert.equal(positions[-1], undefined);
         assert.equal(positions['1ff'], undefined);
@@ -210,7 +210,7 @@ describe('Frame', () => {
         positions[0] = [7, 9, 3.3];
         assert.arrayEqual(positions[0], [7, 9, 3.3]);
 
-        assert.throw(() => {positions[0] = "nope";});
+        assert.throw(() => {positions[0] = 'nope'; });
 
         frame.delete();
     });
@@ -218,7 +218,7 @@ describe('Frame', () => {
     it('can have velocities', () => {
         const frame = new Frame();
 
-        const atom = new Atom("");
+        const atom = new Atom('');
         frame.addAtom(atom, [1, 2, 3]);
         frame.addAtom(atom, [4, 5, 6]);
 
@@ -253,7 +253,7 @@ describe('Frame', () => {
         frame.setCell(cell);
         cell.delete();
 
-        const atom = new Atom("");
+        const atom = new Atom('');
         frame.addAtom(atom, [0, 0, 0]);
         frame.addAtom(atom, [1, 2, 6]);
         atom.delete();
@@ -264,7 +264,7 @@ describe('Frame', () => {
 
     it('can compute angles', () => {
         const frame = new Frame();
-        const atom = new Atom("");
+        const atom = new Atom('');
         frame.addAtom(atom, [1, 0, 0]);
         frame.addAtom(atom, [0, 0, 0]);
         frame.addAtom(atom, [0, 1, 0]);
@@ -276,7 +276,7 @@ describe('Frame', () => {
 
     it('can compute dihedral angles', () => {
         const frame = new Frame();
-        const atom = new Atom("");
+        const atom = new Atom('');
         frame.addAtom(atom, [1, 0, 0]);
         frame.addAtom(atom, [0, 0, 0]);
         frame.addAtom(atom, [0, 1, 0]);
@@ -289,7 +289,7 @@ describe('Frame', () => {
 
     it('can compute out of plane distance', () => {
         const frame = new Frame();
-        const atom = new Atom("");
+        const atom = new Atom('');
         frame.addAtom(atom, [1, 0, 0]);
         frame.addAtom(atom, [0, 0, 0]);
         frame.addAtom(atom, [0, 1, 0]);
@@ -304,21 +304,21 @@ describe('Frame', () => {
         const frame = new Frame();
 
         disableWarnings(() => {
-            assert.equal(frame.get("foo"), undefined);
+            assert.equal(frame.get('foo'), undefined);
         });
 
-        frame.set("foo", 5);
-        frame.set("bar", false);
-        frame.set("baz", [3, 4.5, -7]);
-        frame.set("hey", "test");
+        frame.set('foo', 5);
+        frame.set('bar', false);
+        frame.set('baz', [3, 4.5, -7]);
+        frame.set('hey', 'test');
 
-        assert.equal(frame.get("foo"), 5);
-        assert.equal(frame.get("bar"), false);
-        assert.arrayEqual(frame.get("baz"), [3, 4.5, -7]);
-        assert.equal(frame.get("hey"), "test");
+        assert.equal(frame.get('foo'), 5);
+        assert.equal(frame.get('bar'), false);
+        assert.arrayEqual(frame.get('baz'), [3, 4.5, -7]);
+        assert.equal(frame.get('hey'), 'test');
 
-        frame.set("foo", "56");
-        assert.equal(frame.get("foo"), "56");
+        frame.set('foo', '56');
+        assert.equal(frame.get('foo'), '56');
 
         assert.deepEqual(frame.properties(), ['hey', 'bar', 'baz', 'foo']);
         frame.delete();

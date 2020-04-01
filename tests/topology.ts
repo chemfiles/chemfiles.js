@@ -1,8 +1,8 @@
-import {ready, Topology, Atom, Residue, BondOrder} from '../src/index';
+import {Atom, BondOrder, ready, Residue, Topology} from '../src/index';
 import {assert, disableWarnings} from './utils';
 
 describe('Topology', () => {
-    before((done) => {ready(() => done());});
+    before((done) => {ready(() => done()); });
 
     it('can be cloned', () => {
         const topology = new Topology();
@@ -24,38 +24,38 @@ describe('Topology', () => {
 
         assert.equal(topology.size, 0);
 
-        let atom = new Atom("Na");
+        let atom = new Atom('Na');
         topology.addAtom(atom);
         atom.delete();
 
-        atom = new Atom("O");
+        atom = new Atom('O');
         topology.addAtom(atom);
         atom.delete();
 
         assert.equal(topology.size, 2);
 
         atom = topology.atom(0);
-        assert.equal(atom.name, "Na");
+        assert.equal(atom.name, 'Na');
         atom.delete();
 
         atom = topology.atom(1);
-        assert.equal(atom.name, "O");
+        assert.equal(atom.name, 'O');
         atom.delete();
 
         topology.resize(12);
         assert.equal(topology.size, 12);
         atom = topology.atom(8);
-        assert.equal(atom.name, "");
+        assert.equal(atom.name, '');
         atom.delete();
 
         topology.remove(1);
         assert.equal(topology.size, 11);
         atom = topology.atom(0);
-        assert.equal(atom.name, "Na");
+        assert.equal(atom.name, 'Na');
         atom.delete();
 
         atom = topology.atom(1);
-        assert.equal(atom.name, "");
+        assert.equal(atom.name, '');
         atom.delete();
 
         disableWarnings(() => {
@@ -63,7 +63,7 @@ describe('Topology', () => {
         });
 
         topology.delete();
-    })
+    });
 
     it('contains bonds/angles/dihedrals', () => {
         const topology = new Topology();
@@ -90,7 +90,7 @@ describe('Topology', () => {
         assert.deepEqual(topology.impropers, [[0, 1, 2, 3]]);
 
         topology.delete();
-    })
+    });
 
     it('contains residues', () => {
         const topology = new Topology();
@@ -98,12 +98,12 @@ describe('Topology', () => {
 
         assert.equal(topology.residuesCount, 0);
 
-        let residue = new Residue("foo");
+        let residue = new Residue('foo');
         residue.addAtom(0);
         topology.addResidue(residue);
         residue.delete();
 
-        residue = new Residue("bar");
+        residue = new Residue('bar');
         residue.addAtom(2);
         residue.addAtom(5);
         residue.addAtom(6);
@@ -113,26 +113,26 @@ describe('Topology', () => {
         assert.equal(topology.residuesCount, 2);
 
         const first = topology.residue(0);
-        assert.equal(first.name, "foo");
+        assert.equal(first.name, 'foo');
 
         const second = topology.residueForAtom(5);
         assert.notEqual(second, undefined);
-        assert.equal(second!.name, "bar");
+        assert.equal(second!.name, 'bar');
 
         assert.equal(topology.residuesLinked(first, second!), false);
         topology.addBond(0, 2);
         assert.equal(topology.residuesLinked(first, second!), true);
 
         disableWarnings(() => {
-            assert.throwWith(() => topology.residue(70), "residue index out of bounds in topology: we have 2 residues, but the index is 70");
-        })
+            assert.throwWith(() => topology.residue(70), 'residue index out of bounds in topology: we have 2 residues, but the index is 70');
+        });
 
-        assert.throwWith(() => {first.addAtom(0)}, "this Residue can not be modified");
+        assert.throwWith(() => first.addAtom(0), 'this Residue can not be modified');
 
         assert.equal(topology.residueForAtom(1), undefined);
 
         first.delete();
         second!.delete();
         topology.delete();
-    })
+    });
 });

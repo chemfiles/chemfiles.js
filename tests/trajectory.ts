@@ -1,26 +1,27 @@
-import {ready, Trajectory, Frame, Atom, UnitCell, Topology} from '../src/index';
+import * as fs from 'fs';
+import * as path from 'path';
+
+import {Atom, Frame, ready, Topology, Trajectory, UnitCell} from '../src/index';
 import {assert} from './utils';
-import fs from 'fs';
-import path from 'path';
 
 describe('Trajectory', () => {
-    before((done) => {ready(() => done());});
+    before((done) => {ready(() => done()); });
 
     it('has a number of steps', () => {
-        const trajectory = new Trajectory(path.join(__dirname, "data", "water.xyz"));
+        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'));
         assert.equal(trajectory.nsteps, 100);
         trajectory.close();
     });
 
     it('has a path', () => {
-        const filepath = path.join(__dirname, "data", "water.xyz");
+        const filepath = path.join(__dirname, 'data', 'water.xyz');
         const trajectory = new Trajectory(filepath);
         assert.equal(trajectory.path, filepath);
         trajectory.close();
     });
 
     it('can be closed', () => {
-        const trajectory = new Trajectory(path.join(__dirname, "data", "water.xyz"));
+        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'));
         const frame = new Frame();
         trajectory.read(frame);
         assert.equal(frame.size, 297);
@@ -32,13 +33,13 @@ describe('Trajectory', () => {
     });
 
     it('supports user-specified format', () => {
-        const trajectory = new Trajectory(path.join(__dirname, "data", "water.xyz"), "r", "XYZ");
+        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'), 'r', 'XYZ');
         assert.equal(trajectory.nsteps, 100);
         trajectory.close();
     });
 
     it('can read files', () => {
-        const trajectory = new Trajectory(path.join(__dirname, "data", "water.xyz"));
+        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'));
         const frame = new Frame();
         trajectory.read(frame);
         assert.equal(frame.size, 297);
@@ -48,10 +49,10 @@ describe('Trajectory', () => {
         assert.arrayEqual(positions[124], [5.099554, -0.045104, 14.153846], 1e-12);
 
         let atom = frame.atom(0);
-        assert.equal(atom.name, "O");
+        assert.equal(atom.name, 'O');
         atom.delete();
         atom = frame.atom(1);
-        assert.equal(atom.name, "H");
+        assert.equal(atom.name, 'H');
         atom.delete();
 
         frame.delete();
@@ -59,7 +60,7 @@ describe('Trajectory', () => {
     });
 
     it('can read binary files', () => {
-        const trajectory = new Trajectory(path.join(__dirname, "data", "water.trr"));
+        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.trr'));
         const frame = new Frame();
         trajectory.read(frame);
         assert.equal(frame.size, 297);
@@ -78,17 +79,17 @@ describe('Trajectory', () => {
     });
 
     it('can read files at a specific step', () => {
-        const trajectory = new Trajectory(path.join(__dirname, "data", "water.xyz"));
+        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'));
         const frame = new Frame();
 
         trajectory.readStep(41, frame);
         assert.equal(frame.size, 297);
 
         let atom = frame.atom(0);
-        assert.equal(atom.name, "O");
+        assert.equal(atom.name, 'O');
         atom.delete();
         atom = frame.atom(1);
-        assert.equal(atom.name, "H");
+        assert.equal(atom.name, 'H');
         atom.delete();
 
         const positions = frame.positions;
@@ -99,20 +100,20 @@ describe('Trajectory', () => {
         trajectory.close();
     });
 
-    it("can use user-specified topology", () => {
-        const trajectory = new Trajectory(path.join(__dirname, "data", "water.xyz"));
+    it('can use user-specified topology', () => {
+        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'));
         const frame = new Frame();
 
-        trajectory.setTopology(path.join(__dirname, "data", "topology.xyz"));
+        trajectory.setTopology(path.join(__dirname, 'data', 'topology.xyz'));
         trajectory.read(frame);
 
         let atom = frame.atom(10);
-        assert.equal(atom.name, "Rd");
+        assert.equal(atom.name, 'Rd');
         atom.delete();
 
         const topology = new Topology();
-        atom = new Atom("Cs");
-        for (let i=0; i<297; i++) {
+        atom = new Atom('Cs');
+        for (let i = 0; i < 297; i++) {
             topology.addAtom(atom);
         }
         atom.delete();
@@ -122,23 +123,23 @@ describe('Trajectory', () => {
 
         trajectory.read(frame);
         atom = frame.atom(10);
-        assert.equal(atom.name, "Cs");
+        assert.equal(atom.name, 'Cs');
         atom.delete();
 
         // specific format
-        trajectory.setTopology(path.join(__dirname, "data", "topology.xyz"), "XYZ");
+        trajectory.setTopology(path.join(__dirname, 'data', 'topology.xyz'), 'XYZ');
         trajectory.read(frame);
 
         atom = frame.atom(10);
-        assert.equal(atom.name, "Rd");
+        assert.equal(atom.name, 'Rd');
         atom.delete();
 
-        frame.delete()
+        frame.delete();
         trajectory.close();
     });
 
-    it("can use user-specified unit cell", () => {
-        const trajectory = new Trajectory(path.join(__dirname, "data", "water.xyz"));
+    it('can use user-specified unit cell', () => {
+        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'));
         const frame = new Frame();
 
         trajectory.read(frame);
@@ -165,10 +166,10 @@ describe('Trajectory', () => {
     });
 
     it('can write files', () => {
-        const FILEPATH = "test-tmp.xyz";
+        const FILEPATH = 'test-tmp.xyz';
         const frame = new Frame();
-        const atom = new Atom("X");
-        for (let i=0; i<4; i++) {
+        const atom = new Atom('X');
+        for (let i = 0; i < 4; i++) {
             frame.addAtom(atom, [1, 2, 3]);
         }
         atom.delete();
@@ -178,12 +179,12 @@ describe('Trajectory', () => {
         trajectory.close();
         frame.delete();
 
-        const expected = "4\n" +
-                         "Written by the chemfiles library\n" +
-                         "X 1 2 3\n" +
-                         "X 1 2 3\n" +
-                         "X 1 2 3\n" +
-                         "X 1 2 3\n";
+        const expected = '4\n' +
+                         'Written by the chemfiles library\n' +
+                         'X 1 2 3\n' +
+                         'X 1 2 3\n' +
+                         'X 1 2 3\n' +
+                         'X 1 2 3\n';
 
         const content = fs.readFileSync(FILEPATH, {encoding: 'utf8'});
 
