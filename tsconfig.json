@@ -6,11 +6,9 @@
         "declaration": true,
         "declarationDir": "dist/",
         "downlevelIteration": true,
-        "lib": [
-            "dom",
-            "es5"
-        ]
+        "lib": ["es5"]
     },
+    "exclude": ["tests/doc/**/*.ts"],
     "typedocOptions": {
         "mode": "library",
         "inputFiles": "src/index.ts",

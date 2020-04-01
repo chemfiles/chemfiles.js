@@ -24,6 +24,7 @@ const defaultConfig: webpack.Configuration = {
     },
     plugins: [
         new CopyPlugin([{ from: 'lib/libchemfiles.wasm', to: '' }]),
+        new CopyPlugin([{ from: 'src/libchemfiles/cdecl.d.ts', to: 'src/libchemfiles/' }]),
     ],
 };
 

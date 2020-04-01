@@ -6,10 +6,11 @@
   "scripts": {
     "test": "ts-doctest . tests && mocha --timeout 5000 && npm run lint",
     "coverage": "rm -rf tests/doc && nyc mocha",
-    "build": "webpack --mode production",
+    "build": "webpack --mode production && npm run merge-dts",
     "generate-sizeof": "node -e \"require('./build/sizeof')();\" > lib/wasm-sizes.ts",
     "build-libchemfiles": "cmake -E make_directory lib build && cd build && emcmake cmake .. $CHFL_CMAKE_ARGS && cmake --build . && npm run copy-libchemfiles && npm run generate-sizeof",
     "copy-libchemfiles": "cmake -E copy build/libchemfiles.js lib/libchemfiles.js && cmake -E copy build/libchemfiles.wasm lib/libchemfiles.wasm",
+    "merge-dts": "dts-bundle --name chemfiles --main dist/src/index.d.ts --baseDir dist --out chemfiles.d.ts --removeSource",
     "lint": "ts-node scripts/lint.ts && tslint -c tslint.json src/*.ts",
     "docs": "typedoc && ts-node scripts/add-docs-css.ts"
   },
@@ -49,6 +50,7 @@
     "@types/webpack": "^4.41.8",
     "chai": "^4.2.0",
     "copy-webpack-plugin": "^5.1.1",
+    "dts-bundle": "^0.7.3",
     "glob": "^7.1.6",
     "mocha": "^7.1.1",
     "nyc": "^15.0.0",
