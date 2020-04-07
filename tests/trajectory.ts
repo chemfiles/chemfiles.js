@@ -1,27 +1,29 @@
-import * as fs from 'fs';
 import * as path from 'path';
 
-import {Atom, Frame, ready, Topology, Trajectory, UnitCell} from '../src/index';
+import {Atom, Frame, ready, Topology, Trajectory, UnitCell} from '../src';
+import {FS} from '../src/libchemfiles';
 import {assert} from './utils';
+
+import {DATADIR} from './data';
 
 describe('Trajectory', () => {
     before((done) => {ready(() => done()); });
 
     it('has a number of steps', () => {
-        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'));
+        const trajectory = new Trajectory(path.join(DATADIR, 'water.xyz'));
         assert.equal(trajectory.nsteps, 100);
         trajectory.close();
     });
 
     it('has a path', () => {
-        const filepath = path.join(__dirname, 'data', 'water.xyz');
+        const filepath = path.join(DATADIR, 'water.xyz');
         const trajectory = new Trajectory(filepath);
         assert.equal(trajectory.path, filepath);
         trajectory.close();
     });
 
     it('can be closed', () => {
-        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'));
+        const trajectory = new Trajectory(path.join(DATADIR, 'water.xyz'));
         const frame = new Frame();
         trajectory.read(frame);
         assert.equal(frame.size, 297);
@@ -33,13 +35,13 @@ describe('Trajectory', () => {
     });
 
     it('supports user-specified format', () => {
-        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'), 'r', 'XYZ');
+        const trajectory = new Trajectory(path.join(DATADIR, 'water.xyz'), 'r', 'XYZ');
         assert.equal(trajectory.nsteps, 100);
         trajectory.close();
     });
 
     it('can read files', () => {
-        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'));
+        const trajectory = new Trajectory(path.join(DATADIR, 'water.xyz'));
         const frame = new Frame();
         trajectory.read(frame);
         assert.equal(frame.size, 297);
@@ -60,7 +62,7 @@ describe('Trajectory', () => {
     });
 
     it('can read binary files', () => {
-        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.trr'));
+        const trajectory = new Trajectory(path.join(DATADIR, 'water.trr'));
         const frame = new Frame();
         trajectory.read(frame);
         assert.equal(frame.size, 297);
@@ -79,7 +81,7 @@ describe('Trajectory', () => {
     });
 
     it('can read files at a specific step', () => {
-        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'));
+        const trajectory = new Trajectory(path.join(DATADIR, 'water.xyz'));
         const frame = new Frame();
 
         trajectory.readStep(41, frame);
@@ -101,10 +103,10 @@ describe('Trajectory', () => {
     });
 
     it('can use user-specified topology', () => {
-        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'));
+        const trajectory = new Trajectory(path.join(DATADIR, 'water.xyz'));
         const frame = new Frame();
 
-        trajectory.setTopology(path.join(__dirname, 'data', 'topology.xyz'));
+        trajectory.setTopology(path.join(DATADIR, 'topology.xyz'));
         trajectory.read(frame);
 
         let atom = frame.atom(10);
@@ -127,7 +129,7 @@ describe('Trajectory', () => {
         atom.delete();
 
         // specific format
-        trajectory.setTopology(path.join(__dirname, 'data', 'topology.xyz'), 'XYZ');
+        trajectory.setTopology(path.join(DATADIR, 'topology.xyz'), 'XYZ');
         trajectory.read(frame);
 
         atom = frame.atom(10);
@@ -139,7 +141,7 @@ describe('Trajectory', () => {
     });
 
     it('can use user-specified unit cell', () => {
-        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'));
+        const trajectory = new Trajectory(path.join(DATADIR, 'water.xyz'));
         const frame = new Frame();
 
         trajectory.read(frame);
@@ -186,9 +188,9 @@ describe('Trajectory', () => {
                          'X 1 2 3\n' +
                          'X 1 2 3\n';
 
-        const content = fs.readFileSync(FILEPATH, {encoding: 'utf8'});
+        const content = FS.readFile(FILEPATH, {encoding: 'utf8'});
 
         assert.equal(content, expected);
-        fs.unlink(FILEPATH, () => {});
+        FS.unlink(FILEPATH);
     });
 });

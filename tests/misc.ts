@@ -3,6 +3,8 @@ import * as path from 'path';
 import * as chemfiles from '../src';
 import {assert} from './utils';
 
+import {DATADIR} from './data';
+
 describe('Miscelaneous chemfiles functions', () => {
     before((done) => {chemfiles.ready(() => done()); });
 
@@ -13,26 +15,26 @@ describe('Miscelaneous chemfiles functions', () => {
     it('has warning messages', () => {
         let MESSAGE = '';
         chemfiles.setWarningCallback((message) => MESSAGE = message);
-        // tslint:disable:no-unused-expression
+        // tslint:disable-next-line:no-unused-expression
         try {new chemfiles.Trajectory('not-here'); } catch {}
         assert.equal(MESSAGE, 'file at \'not-here\' does not have an extension, provide a format name to read it');
     });
 
-    // tslint:disable:no-console
     it('can deal with warning callback throwing errors', () => {
         // save console.warn and replace it
         let MESSAGE = '';
-        const consoleWarn = console.warn;
+        const consoleWarn = console.warn;  // tslint:disable-line:no-console
+        // tslint:disable-next-line:no-console
         console.warn = (message: string) => {MESSAGE = message; };
 
         // Error thrown in warning callback are caught before making it to WASM
         chemfiles.setWarningCallback((message) => {throw Error(message); });
-        // tslint:disable:no-unused-expression
+        // tslint:disable-next-line:no-unused-expression
         try {new chemfiles.Trajectory('not-here'); } catch {}
         assert.equal(MESSAGE, 'exception raised in warning callback: Error: file at \'not-here\' does not have an extension, provide a format name to read it');
 
         // restore console.warn
-        console.warn = consoleWarn;
+        console.warn = consoleWarn;  // tslint:disable-line:no-console
 
         // disable warnings for the rest of this file
         chemfiles.setWarningCallback(() => {});
@@ -42,7 +44,7 @@ describe('Miscelaneous chemfiles functions', () => {
         chemfiles.clearErrors();
         assert.equal(chemfiles.lastError(), '');
 
-        // tslint:disable:no-unused-expression
+        // tslint:disable-next-line:no-unused-expression
         try {new chemfiles.Trajectory('not-here'); } catch {}
         assert.equal(chemfiles.lastError(), 'file at \'not-here\' does not have an extension, provide a format name to read it');
 
@@ -55,7 +57,7 @@ describe('Miscelaneous chemfiles functions', () => {
         assert.equal(a.mass, 15.999);
         a.delete();
 
-        chemfiles.addConfiguration(path.join(__dirname, 'test-config.toml'));
+        chemfiles.addConfiguration(path.join(DATADIR, 'test-config.toml'));
 
         const b = new chemfiles.Atom('O', 'O');
         assert.equal(b.mass, 67.34);

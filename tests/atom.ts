@@ -1,4 +1,4 @@
-import {Atom, ready} from '../src/index';
+import {Atom, ready} from '../src/';
 
 import {assert, disableWarnings} from './utils';
 

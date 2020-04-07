@@ -1,4 +1,4 @@
-import {CellShape, ready, UnitCell} from '../src/index';
+import {CellShape, ready, UnitCell} from '../src/';
 import {assert} from './utils';
 
 describe('UnitCell', () => {

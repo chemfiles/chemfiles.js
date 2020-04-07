@@ -1,8 +1,10 @@
 import * as path from 'path';
 
-import {Atom, BondOrder, Frame, Residue, Topology, Trajectory, UnitCell} from '../src/index';
-import {ready} from '../src/index';
+import {Atom, BondOrder, Frame, Residue, Topology, Trajectory, UnitCell} from '../src/';
+import {ready} from '../src/';
 import {assert, disableWarnings} from './utils';
+
+import {DATADIR} from './data';
 
 describe('Frame', () => {
     before((done) => { ready(() => done()); });
@@ -113,7 +115,7 @@ describe('Frame', () => {
     });
 
     it('can guess bonds', () => {
-        const trajectory = new Trajectory(path.join(__dirname, 'data', 'water.xyz'));
+        const trajectory = new Trajectory(path.join(DATADIR, 'water.xyz'));
         const frame = new Frame();
         trajectory.read(frame);
 

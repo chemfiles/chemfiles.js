@@ -1,4 +1,4 @@
-import {ready, Residue} from '../src/index';
+import {ready, Residue} from '../src/';
 
 import {assert, disableWarnings} from './utils';
 
@@ -33,7 +33,9 @@ describe('Residue', () => {
         residue.delete();
 
         const residueNoId = new Residue('foo');
-        assert.equal(residueNoId.id, undefined);
+        disableWarnings(() => {
+            assert.equal(residueNoId.id, undefined);
+        });
         residueNoId.delete();
 
         // check large id

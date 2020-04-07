@@ -1,5 +1,5 @@
 import {assert as chaiAssert} from 'chai';
-import {setWarningCallback} from '../src/index';
+import {setWarningCallback} from '../src/';
 
 function arrayEqual(a: any, b: any, eps = 1e-33): void {
     assert.equal(a.length, 3, 'length must be 3 for a');
@@ -28,6 +28,6 @@ export const assert = {
 export function disableWarnings(callback: () => void): void {
     setWarningCallback(() => {});
     callback();
-    // tslint:disable:no-console
+    // tslint:disable-next-line:no-console
     setWarningCallback((message) => console.warn(`[chemfiles] ${message}`));
 }

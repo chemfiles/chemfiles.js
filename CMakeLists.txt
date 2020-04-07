@@ -55,8 +55,10 @@ target_link_libraries(libchemfiles chemfiles)
 
 set(CHEMFILES_LINKER_FLAGS "-s EXPORTED_FUNCTIONS=\"[${EXPORTED_FUNCTIONS}]\"")
 set(CHEMFILES_LINKER_FLAGS "${CHEMFILES_LINKER_FLAGS} -s EXTRA_EXPORTED_RUNTIME_METHODS=\"[${EXTRA_EXPORTED_RUNTIME_METHODS}]\"")
+set(CHEMFILES_LINKER_FLAGS "${CHEMFILES_LINKER_FLAGS} -s EXTRA_EXPORTED_RUNTIME_METHODS=\"[${EXTRA_EXPORTED_RUNTIME_METHODS}]\"")
 
-set_target_properties(libchemfiles PROPERTIES LINK_FLAGS ${CHEMFILES_LINKER_FLAGS})
+set_target_properties(libchemfiles PROPERTIES LINK_FLAGS "${CHEMFILES_LINKER_FLAGS}")
+target_link_libraries(libchemfiles nodefs.js)
 
 add_executable(sizeof src/libchemfiles/sizeof.cpp)
 set_target_properties(sizeof

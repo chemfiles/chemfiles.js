@@ -1,4 +1,4 @@
-import {Atom, BondOrder, ready, Residue, Topology} from '../src/index';
+import {Atom, BondOrder, ready, Residue, Topology} from '../src/';
 import {assert, disableWarnings} from './utils';
 
 describe('Topology', () => {
