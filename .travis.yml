@@ -6,7 +6,12 @@ node_js:
 
 install:
   - npm ci
+  - npm install codecov -g
 
 script:
   - npm test
   - npx karma start
+  - npm run coverage
+
+after_success:
+  - codecov
