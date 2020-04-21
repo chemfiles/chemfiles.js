@@ -7,6 +7,7 @@ assert(web.target === 'web');
 module.exports = (config: any) => {
     config.set({
         autoWatch: false,
+        browserNoActivityTimeout: 100000,
         concurrency: 1,
         exclude: ['tests/doc.ts'],
         files: [
