@@ -4,7 +4,7 @@ import {CHFL_CELL, chfl_cellshape} from './libchemfiles';
 import {Pointer} from './c_ptr';
 
 import {getValue, stackAlloc, stackAutoclean} from './stack';
-import {check, Matrix3, Vector3d} from './utils';
+import {Matrix3, Vector3d, check} from './utils';
 
 /** Available cell shapes in Chemfiles */
 export enum CellShape {
@@ -35,13 +35,13 @@ export enum CellShape {
  * |  0     0    c_z |
  * ```
  */
-export class UnitCell extends Pointer<CHFL_CELL, {}> {
+export class UnitCell extends Pointer<CHFL_CELL> {
     /** @hidden
      * Create a new [[UnitCell]] from a raw pointer
      */
     public static __from_ptr(ptr: CHFL_CELL, isConst: boolean): UnitCell {
         const parent = new Pointer(ptr, isConst);
-        const cell = Object.create(UnitCell.prototype);
+        const cell = Object.create(UnitCell.prototype) as UnitCell;
         Object.assign(cell, parent);
         return cell;
     }

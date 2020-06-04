@@ -2,18 +2,18 @@ import * as lib from './libchemfiles';
 import {CHFL_PROPERTY, chfl_property_kind} from './libchemfiles';
 
 import {getValue, stackAlloc, stackAutoclean} from './stack';
-import {autogrowStrBuffer, check, Vector3d} from './utils';
+import {Vector3d, autogrowStrBuffer, check} from './utils';
 
 /**
  * Possible types for properties natively stored in [[Atom]], [[Residue]] or
  * [[Frame]].
  */
-export type PropertyType = string | boolean | number | Vector3d;
+export type PropertyType = string | boolean | number | Vector3d;
 
 /**
  * Get the javascript value from a CHFL_PROPERTY
  */
-export function getProperty(property: CHFL_PROPERTY) {
+export function getProperty(property: CHFL_PROPERTY): PropertyType {
     return stackAutoclean(() => {
         const kind = propertyKind(property);
         if (kind === chfl_property_kind.CHFL_PROPERTY_BOOL) {
@@ -58,10 +58,12 @@ export function createProperty(value: PropertyType): CHFL_PROPERTY {
             return lib._chfl_property_vector3d(ref.ptr);
         });
     } else {
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         throw Error(`unable to create a property with '${value}': unknown type`);
     }
 
     if (property === 0) {
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         throw Error(`unable to create property with '${value}': failed allocation`);
     }
 

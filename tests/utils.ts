@@ -1,7 +1,7 @@
 import {assert as chaiAssert} from 'chai';
-import {setWarningCallback} from '../src/';
+import {Vector3d, setWarningCallback} from '../src/';
 
-function arrayEqual(a: any, b: any, eps = 1e-33): void {
+function arrayEqual(a: Vector3d, b: Vector3d, eps = 1e-33): void {
     assert.equal(a.length, 3, 'length must be 3 for a');
     assert.equal(b.length, 3, 'length must be 3 for b');
     assert.approximately(a[0], b[0], eps);
@@ -13,7 +13,8 @@ function throwWith(cb: () => void, message: string): void {
     try {
         cb();
     } catch (error) {
-        assert.equal(error.message, message);
+        // eslint-disable-next-line no-extra-parens
+        assert.equal((error as Error).message, message);
         return;
     }
     assert.fail('no error thrown when one was expected');
@@ -26,8 +27,9 @@ export const assert = {
 };
 
 export function disableWarnings(callback: () => void): void {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     setWarningCallback(() => {});
     callback();
-    // tslint:disable-next-line:no-console
+    // eslint-disable-next-line no-console
     setWarningCallback((message) => console.warn(`[chemfiles] ${message}`));
 }

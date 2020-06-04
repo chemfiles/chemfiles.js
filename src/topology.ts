@@ -1,7 +1,7 @@
 import {strict as assert} from 'assert';
 
 import * as lib from './libchemfiles';
-import {chfl_bond_order, CHFL_TOPOLOGY} from './libchemfiles';
+import {CHFL_TOPOLOGY, chfl_bond_order} from './libchemfiles';
 
 import {Atom} from './atom';
 import {Pointer} from './c_ptr';
@@ -41,13 +41,13 @@ export enum BondOrder {
  *
  * It will also contain all the [[Residue]] of the system.
  */
-export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
+export class Topology extends Pointer<CHFL_TOPOLOGY> {
     /** @hidden
      * Create a new Atom from a raw pointer
      */
     public static __from_ptr(ptr: CHFL_TOPOLOGY, isConst: boolean): Topology {
         const parent = new Pointer(ptr, isConst);
-        const atom = Object.create(Topology.prototype);
+        const atom = Object.create(Topology.prototype) as Topology;
         Object.assign(atom, parent);
         return atom;
     }
@@ -123,7 +123,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, {}> {
      */
     public resize(size: number): void {
         assert(isUnsignedInteger(size), 'size should be a positive integer');
-        check(lib._chfl_topology_resize(this.ptr, size, 0))
+        check(lib._chfl_topology_resize(this.ptr, size, 0));
     }
 
     /**

@@ -15,28 +15,38 @@ describe('Miscelaneous chemfiles functions', () => {
     it('has warning messages', () => {
         let MESSAGE = '';
         chemfiles.setWarningCallback((message) => MESSAGE = message);
-        // tslint:disable-next-line:no-unused-expression
-        try {new chemfiles.Trajectory('not-here'); } catch {}
+        try {
+            new chemfiles.Trajectory('not-here');
+        } catch {
+            /* do nothing */
+        }
         assert.equal(MESSAGE, 'file at \'not-here\' does not have an extension, provide a format name to read it');
     });
 
     it('can deal with warning callback throwing errors', () => {
         // save console.warn and replace it
         let MESSAGE = '';
-        const consoleWarn = console.warn;  // tslint:disable-line:no-console
-        // tslint:disable-next-line:no-console
-        console.warn = (message: string) => {MESSAGE = message; };
+        // eslint-disable-next-line no-console
+        const consoleWarn = console.warn;
+        /* eslint-disable */
+        console.warn = (...args: any[]) => {MESSAGE = args.map((a) => a.toString()).join(" ");};
+        /* eslint-enable */
 
         // Error thrown in warning callback are caught before making it to WASM
         chemfiles.setWarningCallback((message) => {throw Error(message); });
-        // tslint:disable-next-line:no-unused-expression
-        try {new chemfiles.Trajectory('not-here'); } catch {}
+        try {
+            new chemfiles.Trajectory('not-here');
+        } catch {
+            /* do nothing */
+        }
         assert.equal(MESSAGE, 'exception raised in warning callback: Error: file at \'not-here\' does not have an extension, provide a format name to read it');
 
         // restore console.warn
-        console.warn = consoleWarn;  // tslint:disable-line:no-console
+        // eslint-disable-next-line no-console
+        console.warn = consoleWarn;
 
         // disable warnings for the rest of this file
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         chemfiles.setWarningCallback(() => {});
     });
 
@@ -44,8 +54,11 @@ describe('Miscelaneous chemfiles functions', () => {
         chemfiles.clearErrors();
         assert.equal(chemfiles.lastError(), '');
 
-        // tslint:disable-next-line:no-unused-expression
-        try {new chemfiles.Trajectory('not-here'); } catch {}
+        try {
+            new chemfiles.Trajectory('not-here');
+        } catch {
+            /* do nothing */
+        }
         assert.equal(chemfiles.lastError(), 'file at \'not-here\' does not have an extension, provide a format name to read it');
 
         chemfiles.clearErrors();

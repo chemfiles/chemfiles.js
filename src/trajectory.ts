@@ -14,7 +14,7 @@ import {check, isUnsignedInteger} from './utils';
 /**
  * A [[Trajectory]] represent a physical file, from which we can read [[Frame]].
  */
-export class Trajectory extends Pointer<CHFL_TRAJECTORY, {}> {
+export class Trajectory extends Pointer<CHFL_TRAJECTORY> {
     /**
      * Open the file at the given `path` using the given `mode` and
      * optional file `format`.
@@ -203,7 +203,7 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, {}> {
     public setTopology(topology: string | Topology, format?: string): void {
         stackAutoclean(() => {
             if (typeof topology === 'string') {
-                const formatRef = stackAlloc('char*', {initial: (format === undefined ? '' : format)});
+                const formatRef = stackAlloc('char*', {initial: format === undefined ? '' : format});
                 const path = stackAlloc('char*', {initial: topology});
                 check(lib._chfl_trajectory_topology_file(this.ptr, path.ptr, formatRef.ptr));
             } else {

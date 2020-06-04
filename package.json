@@ -9,7 +9,7 @@
     "build": "webpack --mode production && npm run merge-dts",
     "build-libchemfiles": "ts-node scripts/build-libchemfiles.ts",
     "merge-dts": "dts-bundle --name chemfiles --main dist/src/index.d.ts --baseDir dist --out chemfiles.d.ts --removeSource",
-    "lint": "ts-node scripts/lint.ts && tslint -c tslint.json src/*.ts",
+    "lint": "ts-node scripts/lint.ts && eslint .",
     "docs": "typedoc && ts-node scripts/add-docs-css.ts"
   },
   "repository": {
@@ -35,7 +35,8 @@
       "src/**/*.ts"
     ],
     "reporter": [
-      "text-summary", "json"
+      "text-summary",
+      "json"
     ],
     "all": true
   },
@@ -48,9 +49,12 @@
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.9.4",
     "@types/webpack": "^4.41.8",
+    "@typescript-eslint/eslint-plugin": "^3.1.0",
+    "@typescript-eslint/parser": "^3.1.0",
     "chai": "^4.2.0",
     "copy-webpack-plugin": "^5.1.1",
     "dts-bundle": "^0.7.3",
+    "eslint": "^7.1.0",
     "glob": "^7.1.6",
     "karma": "^4.4.1",
     "karma-chrome-launcher": "^3.1.0",
@@ -64,11 +68,9 @@
     "source-map-support": "^0.5.16",
     "ts-loader": "^6.2.2",
     "ts-node": "^8.8.1",
-    "tslint": "^6.1.0",
     "typedoc": "0.17.0-3",
     "typescript": "^3.8.3",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
-  },
-  "dependencies": {}
+  }
 }

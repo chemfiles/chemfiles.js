@@ -22,7 +22,7 @@ export interface Matrix3 {
     length: number;
 }
 
-export function check(status: lib.chfl_status) {
+export function check(status: lib.chfl_status): void {
     if (status === lib.chfl_status.CHFL_SUCCESS) {
         return;
     } else {
@@ -31,7 +31,6 @@ export function check(status: lib.chfl_status) {
 }
 
 export function numberEmscriptenUint64(value: number): {lo: number, hi: number} {
-    // tslint:disable-next-line:no-bitwise
     const lo = value & 0x7fffffff;
     const hi = (value - lo) / 0x40000000;
     return { lo, hi };
@@ -47,6 +46,7 @@ export function autogrowStrBuffer(callback: StrCallback, initial = 128): string 
         if (len < 2) {
             return false;
         } else {
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
             return lib.HEAP8[ptr + len - 2] === 0;
         }
     };

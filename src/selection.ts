@@ -22,7 +22,7 @@ assert(SIZEOF_CHFL_MATCH === 5 * SIZEOF_UINT64_T, 'wrong size for chfl_match');
  * [full documentation](https://chemfiles.org/chemfiles/latest/selections.html)
  * to know the allowed selectors and how to use them.
  */
-export class Selection extends Pointer<CHFL_SELECTION, {}> {
+export class Selection extends Pointer<CHFL_SELECTION> {
     /**
      * Create a new independant copy of the given `selection`.
      *
@@ -44,7 +44,7 @@ export class Selection extends Pointer<CHFL_SELECTION, {}> {
     public static clone(selection: Selection): Selection {
         const ptr = lib._chfl_selection_copy(selection.const_ptr);
         const parent = new Pointer(ptr, false);
-        const newSelection = Object.create(Selection.prototype);
+        const newSelection = Object.create(Selection.prototype) as Selection;
         Object.assign(newSelection, parent);
         return newSelection;
     }
@@ -161,20 +161,24 @@ export class Selection extends Pointer<CHFL_SELECTION, {}> {
             let ptr = matches;
             for (let i = 0; i < count; i++) {
                 // skip the chfl_match.size field
+                // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                 ptr = ptr + SIZEOF_UINT64_T as POINTER;
                 if (selectionSize === 1) {
                     results.push(getUint64(ptr));
                     // skip the other 'atoms'
+                    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                     ptr = ptr + 4 * SIZEOF_UINT64_T as POINTER;
                 } else {
                     const match = [];
                     for (let atom = 0; atom < selectionSize; atom++) {
                         match.push(getUint64(ptr));
+                        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                         ptr = ptr + SIZEOF_UINT64_T as POINTER;
                     }
                     results.push(match);
 
                     // skip remaining fields
+                    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                     ptr = ptr + (4 - selectionSize) * SIZEOF_UINT64_T as POINTER;
                 }
             }

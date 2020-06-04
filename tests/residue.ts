@@ -1,4 +1,4 @@
-import {ready, Residue} from '../src/';
+import {Residue, Vector3d, ready} from '../src/';
 
 import {assert, disableWarnings} from './utils';
 
@@ -94,7 +94,7 @@ describe('Residue', () => {
 
         assert.equal(residue.get('foo'), 5);
         assert.equal(residue.get('bar'), false);
-        assert.arrayEqual(residue.get('baz'), [3, 4.5, -7]);
+        assert.arrayEqual(residue.get('baz') as Vector3d, [3, 4.5, -7]);
         assert.equal(residue.get('hey'), 'test');
 
         residue.set('foo', '56');

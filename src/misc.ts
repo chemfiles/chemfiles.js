@@ -60,7 +60,7 @@ export function addConfiguration(path: string): void {
 /** Type of callbacks used by chemfiles' warning systems */
 export type WarningCallback = (message: string) => void;
 
-// tslint:disable-next-line:no-console
+// eslint-disable-next-line no-console
 let CURRENT_CALLBACK: WarningCallback = (message) => console.warn(`[chemfiles] ${message}`);
 
 /**
@@ -79,8 +79,8 @@ function actualCallback(message: c_char_ptr): void {
     try {
         CURRENT_CALLBACK(lib.UTF8ToString(message));
     } catch (e) {
-        // tslint:disable-next-line:no-console
-        console.warn(`exception raised in warning callback: ${e}`);
+        // eslint-disable-next-line no-console
+        console.warn('exception raised in warning callback:', e);
     }
 }
 
@@ -91,10 +91,10 @@ function __setupWarningCallback() {
     // The signature is set to v for 'return void' and i for 'parameter is an
     // integer'. It will actually be a 'const char*', but this should have the
     // same size as a 32-bit integer.
-    check(lib._chfl_set_warning_callback(lib.addFunction(actualCallback as any, 'vi')));
+    check(lib._chfl_set_warning_callback(lib.addFunction(actualCallback, 'vi')));
 }
 
-// tslint:disable-next-line:no-empty
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 let READY_CALLBACK = () => {};
 let IS_READY = false;
 

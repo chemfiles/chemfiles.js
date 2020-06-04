@@ -1,4 +1,4 @@
-import {Atom, ready} from '../src/';
+import {Atom, Vector3d, ready} from '../src/';
 
 import {assert, disableWarnings} from './utils';
 
@@ -122,7 +122,7 @@ describe('Atom', () => {
 
         assert.equal(atom.get('foo'), 5);
         assert.equal(atom.get('bar'), false);
-        assert.arrayEqual(atom.get('baz'), [3, 4.5, -7]);
+        assert.arrayEqual(atom.get('baz') as Vector3d, [3, 4.5, -7]);
         assert.equal(atom.get('hey'), 'test');
 
         atom.set('foo', '56');

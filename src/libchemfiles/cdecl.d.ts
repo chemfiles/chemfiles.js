@@ -35,8 +35,9 @@ type chfl_vector3d = c_double_ptr;
 type chfl_match_ptr = POINTER;
 
 // === Manual functions declarations
-type LLVMType = "i8" | "i16" | "i32" | "i64" | "float" | "double" | "*";
+type LLVMType = 'i8' | 'i16' | 'i32' | 'i64' | 'float' | 'double' | '*';
 export declare function getValue(ptr: POINTER, type: LLVMType): number;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export declare function setValue(ptr: POINTER, value: any, type: LLVMType): void;
 export declare function UTF8ToString(ptr: c_char_ptr, maxBytesToRead?: number): string;
 export declare function stringToUTF8(str: string, ptr: c_char_ptr, maxBytesToWrite: number): void;
@@ -45,6 +46,7 @@ export declare function stackSave(): number;
 export declare function stackAlloc(size: number): POINTER;
 export declare function stackRestore(saved: number): void;
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export declare function addFunction(fn: Function, signature: string): function_ptr;
 
 export declare function _malloc(size: number): POINTER;
@@ -52,6 +54,7 @@ export declare function _free(ptr: POINTER): void;
 
 export declare function then(callback: () => void): void;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export declare const FS: any;
 
 export declare const HEAP8: Int8Array;
@@ -62,7 +65,8 @@ export declare const HEAPU16: Uint16Array;
 export declare const HEAPU32: Uint32Array;
 export declare const HEAPF32: Float32Array;
 export declare const HEAPF64: Float64Array;
-// === End of manual declatations
+// === End of manual declarations
+
 export type CHFL_TRAJECTORY = CHFL_PTR & { readonly [tag]: 'CHFL_TRAJECTORY' };
 export type CHFL_CELL = CHFL_PTR & { readonly [tag]: 'CHFL_CELL' };
 export type CHFL_ATOM = CHFL_PTR & { readonly [tag]: 'CHFL_ATOM' };

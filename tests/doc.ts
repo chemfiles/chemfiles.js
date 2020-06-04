@@ -11,6 +11,7 @@ import * as chemfiles from '../src/';
 describe('Doctests', () => {
     before((done) => { chemfiles.ready(() => done()); });
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     chemfiles.setWarningCallback(() => {});
     const context = vm.createContext({
         assert: assert,

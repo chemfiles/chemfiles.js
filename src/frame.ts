@@ -10,9 +10,9 @@ import {UnitCell} from './cell';
 import {Residue} from './residue';
 import {BondOrder, Topology} from './topology';
 
-import {createProperty, getProperty, PropertyType} from './property';
+import {PropertyType, createProperty, getProperty} from './property';
 import {getValue, stackAlloc, stackAutoclean} from './stack';
-import {check, isUnsignedInteger, Vector3d} from './utils';
+import {Vector3d, check, isUnsignedInteger} from './utils';
 
 /**
  * An Array of Vector3d allowing direct access into WASM memory. It can be
@@ -70,9 +70,9 @@ function createArray3D(ptr: chfl_vector3d, length: number): Array3D {
     };
 
     return new Proxy(object, {
-        get: (self: typeof object, key: any) => {
-            if (self.hasOwnProperty(key)) {
-                return (object as any)[key];
+        get: (self: typeof object, key: string | number) => {
+            if (key in self) {
+                return self[key as keyof typeof object];
             } else {
                 const i = Number(key);
                 if (!isUnsignedInteger(i)) {
@@ -82,7 +82,7 @@ function createArray3D(ptr: chfl_vector3d, length: number): Array3D {
                 }
             }
         },
-        set: (self: typeof object, key: any, value: ArrayLike<number>) => {
+        set: (self: typeof object, key: string | number, value: ArrayLike<number>) => {
             const i = Number(key);
             if (!isUnsignedInteger(i) || value.length !== 3) {
                 return false;
@@ -100,7 +100,7 @@ function createArray3D(ptr: chfl_vector3d, length: number): Array3D {
  * system. If some information is missing (topology or velocity or unit
  * cell), the corresponding data is filled with a default value.
  */
-export class Frame extends Pointer<CHFL_FRAME, {}> {
+export class Frame extends Pointer<CHFL_FRAME> {
     /**
      * Create a new independant copy of the given `frame`.
      *
@@ -127,7 +127,7 @@ export class Frame extends Pointer<CHFL_FRAME, {}> {
     public static clone(frame: Frame): Frame {
         const ptr = lib._chfl_frame_copy(frame.const_ptr);
         const parent = new Pointer(ptr, false);
-        const copy = Object.create(Frame.prototype);
+        const copy = Object.create(Frame.prototype) as Frame;
         Object.assign(copy, parent);
         return copy;
     }

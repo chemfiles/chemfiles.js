@@ -4,7 +4,7 @@ import * as sizes from '../lib/wasm-sizes';
 import * as lib from './libchemfiles';
 import {c_bool_ptr, c_char_ptr, c_char_ptr_ptr, c_double_ptr, c_uint64_ptr} from './libchemfiles';
 import {chfl_bond_order_ptr, chfl_cellshape_ptr, chfl_property_kind_ptr} from './libchemfiles';
-import {chfl_vector3d, POINTER} from './libchemfiles';
+import {POINTER, chfl_vector3d} from './libchemfiles';
 
 import {CellShape} from './cell';
 import {BondOrder} from './topology';
@@ -142,6 +142,7 @@ export function getValue<T extends keyof TypeMap>(ref: Ref<T>, opts: {count?: nu
             for (let i = 0; i < opts.count; i++) {
                 const ptr = lib.getValue(current, '*') as c_char_ptr;
                 values.push(lib.UTF8ToString(ptr));
+                // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                 current = current + sizes.SIZEOF_VOID_P as POINTER;
             }
             return values;
@@ -149,6 +150,7 @@ export function getValue<T extends keyof TypeMap>(ref: Ref<T>, opts: {count?: nu
             const values = [];
             for (let i = 0; i < opts.count; i++) {
                 values.push(getUint64(current));
+                // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                 current = current + sizes.SIZEOF_UINT64_T as POINTER;
             }
             return values;
@@ -156,6 +158,7 @@ export function getValue<T extends keyof TypeMap>(ref: Ref<T>, opts: {count?: nu
             const values = [];
             for (let i = 0; i < opts.count; i++) {
                 values.push(lib.getValue(current, 'i32'));
+                // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                 current = current + sizes.SIZEOF_CHFL_BOND_ORDER as POINTER;
             }
             return values;
@@ -195,12 +198,12 @@ export function getValue<T extends keyof TypeMap>(ref: Ref<T>, opts: {count?: nu
     }
 }
 
-function checkString(value?: any): asserts value is string {
+function checkString(value?: unknown): asserts value is string {
     assert(value !== undefined && typeof value === 'string');
 }
 
-function checkVector3d(value?: any): asserts value is Vector3d {
-    assert(value !== undefined && typeof value === 'object' && value.length === 3);
+function checkVector3d(value?: unknown): asserts value is Vector3d {
+    assert(value !== undefined && Array.isArray(value) && value.length === 3);
 }
 
 export function getUint64(ptr: POINTER): number {
@@ -208,8 +211,8 @@ export function getUint64(ptr: POINTER): number {
     // `BigUint64Array`, which is not yet available on all browsers
     const SIZEOF_UINT32_T = sizes.SIZEOF_UINT64_T / 2;
     const lo = lib.HEAP32[ptr / SIZEOF_UINT32_T];
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     ptr = ptr + SIZEOF_UINT32_T as POINTER;
     const hi = lib.HEAP32[ptr / SIZEOF_UINT32_T];
-    // tslint:disable-next-line:no-bitwise
     return (hi & 0xffffff) * 0x40000000 + (lo & 0xffffffff);
 }

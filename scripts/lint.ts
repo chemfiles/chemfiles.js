@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/prefer-regexp-exec */
+
 import fs from 'fs';
 import path from 'path';
 import glob from 'glob';
@@ -5,7 +7,8 @@ import glob from 'glob';
 let ERRORS = 0;
 function error(message: string) {
     ERRORS += 1;
-    console.error("error:", message);
+    // eslint-disable-next-line no-console
+    console.error('error:', message);
 }
 
 const SRC_ROOT = path.join(__dirname, '..', 'src');
@@ -13,11 +16,11 @@ const SRC_ROOT = path.join(__dirname, '..', 'src');
 /// Get all functions defined in chemfiles C API
 function capiFunctions(options?: {only_chfl_status: boolean}): Set<string> {
     const file = path.join(SRC_ROOT, 'libchemfiles', 'cdecl.d.ts');
-    const content = fs.readFileSync(file, {encoding: "utf8"});
+    const content = fs.readFileSync(file, {encoding: 'utf8'});
 
     const functions = new Set<string>();
     for (const line of content.split('\n')) {
-        if (line.startsWith("export declare function")) {
+        if (line.startsWith('export declare function')) {
             const name = line.split(' ')[3].split('(')[0];
             const rettype = line.split('): ')[1].split(';')[0];
             if (name.startsWith('_chfl_')) {
@@ -39,12 +42,12 @@ function usedFunctions(): Set<string> {
         if (file.includes('libchemfiles')) {
             continue;
         }
-        const content = fs.readFileSync(file, {encoding: "utf8"});
+        const content = fs.readFileSync(file, {encoding: 'utf8'});
 
         for (const line of content.split('\n')) {
             const match = line.match(/_chfl_\w*/);
             if (match) {
-                functions.add(match[0])
+                functions.add(match[0]);
             }
         }
     }
@@ -73,14 +76,14 @@ function statusIsChecked() {
             continue;
         }
 
-        const lines = fs.readFileSync(file, {encoding: "utf8"}).split("\n");
+        const lines = fs.readFileSync(file, {encoding: 'utf8'}).split('\n');
         for (let i=0; i<lines.length; i++) {
             const match = lines[i].match(/_chfl_\w*/);
             if (match && all.has(match[0])) {
-                if (match[0] === "_chfl_residue_id") {
+                if (match[0] === '_chfl_residue_id') {
                     // we need to manually check the status to differenciate
                     // between error and no residue id.
-                    continue
+                    continue;
                 }
 
                 let check = lines[i];

@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import {Atom, Frame, ready, Topology, Trajectory, UnitCell} from '../src';
+import {Atom, Frame, Topology, Trajectory, UnitCell, ready} from '../src';
 import {FS} from '../src/libchemfiles';
 import {assert} from './utils';
 
@@ -188,9 +188,12 @@ describe('Trajectory', () => {
                          'X 1 2 3\n' +
                          'X 1 2 3\n';
 
+        // eslint-disable-next-line
         const content = FS.readFile(FILEPATH, {encoding: 'utf8'});
 
         assert.equal(content, expected);
+
+        // eslint-disable-next-line
         FS.unlink(FILEPATH);
     });
 });

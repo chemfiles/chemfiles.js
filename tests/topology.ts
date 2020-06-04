@@ -1,4 +1,4 @@
-import {Atom, BondOrder, ready, Residue, Topology} from '../src/';
+import {Atom, BondOrder, Residue, Topology, ready} from '../src/';
 import {assert, disableWarnings} from './utils';
 
 describe('Topology', () => {
@@ -116,12 +116,14 @@ describe('Topology', () => {
         assert.equal(first.name, 'foo');
 
         const second = topology.residueForAtom(5);
-        assert.notEqual(second, undefined);
-        assert.equal(second!.name, 'bar');
+        if (second === undefined) {
+            throw Error('expected topology.residueForAtom(5) to exists');
+        }
+        assert.equal(second.name, 'bar');
 
-        assert.equal(topology.residuesLinked(first, second!), false);
+        assert.equal(topology.residuesLinked(first, second), false);
         topology.addBond(0, 2);
-        assert.equal(topology.residuesLinked(first, second!), true);
+        assert.equal(topology.residuesLinked(first, second), true);
 
         disableWarnings(() => {
             assert.throwWith(() => topology.residue(70), 'residue index out of bounds in topology: we have 2 residues, but the index is 70');
@@ -132,7 +134,7 @@ describe('Topology', () => {
         assert.equal(topology.residueForAtom(1), undefined);
 
         first.delete();
-        second!.delete();
+        second.delete();
         topology.delete();
     });
 });

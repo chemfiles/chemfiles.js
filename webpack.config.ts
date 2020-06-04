@@ -10,7 +10,7 @@ const defaultConfig: webpack.Configuration = {
     mode: 'development',
     module: {
         rules: [
-            { test: /\.ts?$/, loader: 'ts-loader' },
+            {  test: /\.ts?$/, loader: 'ts-loader' },
         ],
     },
     // Prevent webpack from messing with emscripten code loading wasm

@@ -1,7 +1,8 @@
 import * as path from 'path';
 
-import {Atom, BondOrder, Frame, Residue, Topology, Trajectory, UnitCell} from '../src/';
+import {Atom, BondOrder, Frame, Residue, Topology, Trajectory, UnitCell, Vector3d} from '../src/';
 import {ready} from '../src/';
+
 import {assert, disableWarnings} from './utils';
 
 import {DATADIR} from './data';
@@ -200,6 +201,7 @@ describe('Frame', () => {
         }
         assert.equal(sum, 21);
 
+        /* eslint-disable */
         const positions = frame.positions as any;
         assert.arrayEqual(positions[0], [1, 2, 3]);
         assert.arrayEqual(positions['0'], [1, 2, 3]);
@@ -213,6 +215,7 @@ describe('Frame', () => {
         assert.arrayEqual(positions[0], [7, 9, 3.3]);
 
         assert.throw(() => {positions[0] = 'nope'; });
+        /* eslint-enable */
 
         frame.delete();
     });
@@ -233,18 +236,24 @@ describe('Frame', () => {
         atom.delete();
 
         let velocities = frame.velocities;
-        assert.equal(velocities!.length, 4);
+        if (velocities === undefined) {
+            throw Error('expected the frame to have velocities');
+        }
+        assert.equal(velocities.length, 4);
 
-        assert.arrayEqual(velocities![0], [0, 0, 0]);
-        assert.arrayEqual(velocities![1], [0, 0, 0]);
-        assert.arrayEqual(velocities![2], [1, 2, 3]);
-        assert.arrayEqual(velocities![3], [4, 5, 6]);
+        assert.arrayEqual(velocities[0], [0, 0, 0]);
+        assert.arrayEqual(velocities[1], [0, 0, 0]);
+        assert.arrayEqual(velocities[2], [1, 2, 3]);
+        assert.arrayEqual(velocities[3], [4, 5, 6]);
 
-        velocities![0] = [0, 0, 67];
-        velocities![1][1] = 22;
+        velocities[0] = [0, 0, 67];
+        velocities[1][1] = 22;
         velocities = frame.velocities;
-        assert.arrayEqual(velocities![0], [0, 0, 67]);
-        assert.arrayEqual(velocities![1], [0, 22, 0]);
+        if (velocities === undefined) {
+            throw Error('expected the frame to have velocities');
+        }
+        assert.arrayEqual(velocities[0], [0, 0, 67]);
+        assert.arrayEqual(velocities[1], [0, 22, 0]);
 
         frame.delete();
     });
@@ -316,7 +325,7 @@ describe('Frame', () => {
 
         assert.equal(frame.get('foo'), 5);
         assert.equal(frame.get('bar'), false);
-        assert.arrayEqual(frame.get('baz'), [3, 4.5, -7]);
+        assert.arrayEqual(frame.get('baz') as Vector3d, [3, 4.5, -7]);
         assert.equal(frame.get('hey'), 'test');
 
         frame.set('foo', '56');

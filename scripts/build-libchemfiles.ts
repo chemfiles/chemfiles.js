@@ -1,6 +1,5 @@
 import child_process from 'child_process';
 import fs from 'fs';
-// import process from 'os';
 import path from 'path';
 
 const ROOT = path.join(__dirname, '..');
@@ -16,14 +15,14 @@ if (!fs.existsSync(path.join(BUILDIR, 'CMakeCache.txt'))) {
 // cmake build
 child_process.execSync('cmake --build .', {cwd: BUILDIR, stdio: 'inherit'});
 
-// tslint:disable-next-line:no-console
+// eslint-disable-next-line no-console
 console.log('\ncopying files to lib/ ...');
 
 // copy important files to lib/ and edit them as needed
 fs.mkdirSync(LIBDIR, {recursive: true});
 
 // generate the SIZEOF_XXX constants in lib/wasm-sizes.ts
-child_process.execSync(`node -e "require('./sizeof')();"`, {
+child_process.execSync('node -e "require(\'./sizeof\')();"', {
     cwd: BUILDIR,
     stdio: [0, fs.openSync(path.join(LIBDIR, 'wasm-sizes.ts'), 'w'), 'pipe'],
 });
@@ -38,5 +37,5 @@ const replace = 'throw new Error("NODERAWFS is currently only supported on Node.
 content = content.replace(replace, '');
 fs.writeFileSync(path.join(LIBDIR, 'libchemfiles.js'), content);
 
-// tslint:disable-next-line:no-console
+// eslint-disable-next-line no-console
 console.log('done!');

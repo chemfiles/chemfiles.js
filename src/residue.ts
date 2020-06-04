@@ -5,7 +5,7 @@ import {CHFL_RESIDUE, chfl_status} from './libchemfiles';
 
 import {Pointer} from './c_ptr';
 
-import {createProperty, getProperty, PropertyType} from './property';
+import {PropertyType, createProperty, getProperty} from './property';
 import {getValue, stackAlloc, stackAutoclean} from './stack';
 import {autogrowStrBuffer, check, isUnsignedInteger, numberEmscriptenUint64} from './utils';
 
@@ -24,7 +24,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
      */
     public static __from_ptr(ptr: CHFL_RESIDUE, isConst: boolean): Residue {
         const parent = new Pointer(ptr, isConst);
-        const atom = Object.create(Residue.prototype);
+        const atom = Object.create(Residue.prototype) as Residue;
         Object.assign(atom, parent);
         return atom;
     }

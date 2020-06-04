@@ -8,11 +8,11 @@ import {lastError} from './misc';
  * internal class, used to implement the main functionality of Chemfiles'
  * objects.
  */
-export class Pointer<T extends CHFL_PTR, Extra> {
+export class Pointer<T extends CHFL_PTR, Extra = never> {
     // store extra data for child classes
-    protected _extra: Partial<Extra>;  // tslint:disable-line: variable-name
-    private _ptr: T;                   // tslint:disable-line: variable-name
-    private _isConst: boolean;         // tslint:disable-line: variable-name
+    protected _extra: Partial<Extra>;
+    private _ptr: T;
+    private _isConst: boolean;
 
     /**
      * Create a new Pointer<T> from the given value. `isConst` indicate if the

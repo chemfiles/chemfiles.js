@@ -3,7 +3,7 @@ import {CHFL_ATOM} from './libchemfiles';
 
 import {Pointer} from './c_ptr';
 
-import {createProperty, getProperty, PropertyType} from './property';
+import {PropertyType, createProperty, getProperty} from './property';
 import {getValue, stackAlloc, stackAutoclean} from './stack';
 import {autogrowStrBuffer, check} from './utils';
 
@@ -19,13 +19,13 @@ import {autogrowStrBuffer, check} from './utils';
  * the atom type will be shared between all particles of the same type:
  * ``'H'``, ``'Ow'``, ``'CH3'``.
  */
-export class Atom extends Pointer<CHFL_ATOM, {}> {
+export class Atom extends Pointer<CHFL_ATOM> {
     /** @hidden
      * Create a new [[Atom]] from a raw pointer
      */
     public static __from_ptr(ptr: CHFL_ATOM, isConst: boolean): Atom {
         const parent = new Pointer(ptr, isConst);
-        const atom = Object.create(Atom.prototype);
+        const atom = Object.create(Atom.prototype) as Atom;
         Object.assign(atom, parent);
         return atom;
     }
