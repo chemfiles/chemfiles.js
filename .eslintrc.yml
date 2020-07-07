@@ -10,6 +10,7 @@ parserOptions:
 ignorePatterns:
   - lib/
   - dist/
+  - build/
   - tests/doc/
   - karma.conf.ts
 

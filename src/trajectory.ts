@@ -14,7 +14,7 @@ import {check, isUnsignedInteger} from './utils';
 /**
  * A [[Trajectory]] represent a physical file, from which we can read [[Frame]].
  */
-export class Trajectory extends Pointer<CHFL_TRAJECTORY> {
+export class Trajectory extends Pointer<CHFL_TRAJECTORY, {jsPath: string}> {
     /**
      * Open the file at the given `path` using the given `mode` and
      * optional file `format`.
@@ -59,6 +59,9 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY> {
             }
         });
         super(ptr, false);
+        // Store the path used to open the trajectory directly in javascript
+        // to enable the MemoryTrajectory use case (cf browser.ts)
+        this._extra.jsPath = path;
     }
 
     /**
