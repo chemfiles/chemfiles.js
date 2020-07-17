@@ -21,8 +21,10 @@ const defaultConfig: webpack.Configuration = {
         process: false,
     },
     plugins: [
-        new CopyPlugin([{ from: 'lib/libchemfiles.wasm', to: '' }]),
-        new CopyPlugin([{ from: 'src/libchemfiles/cdecl.d.ts', to: 'src/libchemfiles/' }]),
+        new CopyPlugin({patterns: [
+            { from: 'lib/libchemfiles.wasm', to: ''},
+            { from: 'src/libchemfiles/cdecl.d.ts', to: 'src/libchemfiles/' },
+        ]}),
     ],
 
     resolve: {

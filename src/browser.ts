@@ -124,7 +124,7 @@ class MemoryTrajectory extends Trajectory {
      */
     public get path(): string {
         assert(this._extra.jsPath !== undefined);
-        return this._extra.jsPath as string;
+        return this._extra.jsPath;
     }
 }
 
