@@ -31,7 +31,6 @@ rules:
   eqeqeq: error
   grouped-accessor-pairs: error
   no-console: error
-  no-extra-parens: error
   no-loss-of-precision: error
   no-sequences: error
   no-template-curly-in-string: error
@@ -47,3 +46,4 @@ rules:
   sort-keys: [error, asc, {minKeys: 4}]
   # disabled rules
   '@typescript-eslint/no-inferrable-types': off
+  no-extra-parens: off
