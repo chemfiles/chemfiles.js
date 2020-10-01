@@ -7,8 +7,13 @@ assert(web.target === 'web');
 module.exports = (config: any) => {
     config.set({
         autoWatch: false,
-        browserNoActivityTimeout: 100000,
+        browserNoActivityTimeout: 10000,
         concurrency: 1,
+        client: {
+            mocha: {
+                timeout: 8000,
+            },
+        },
         exclude: ['tests/doc.ts'],
         files: [
             {pattern: 'lib/libchemfiles.wasm', included: false, served: true, type: 'wasm'},
@@ -45,6 +50,20 @@ module.exports = (config: any) => {
         detectBrowsers: {
             preferHeadless: true,
             usePhantomJS: false,
+            postDetection: (list: string[]) => {
+                const chrome = list.indexOf("ChromeHeadless");
+                if (chrome !== -1) {
+                    list[chrome] = "ChromeHeadlessNoSandbox"
+                }
+                return list;
+            }
+        },
+
+        customLaunchers: {
+            ChromeHeadlessNoSandbox: {
+                base: 'ChromeHeadless',
+                flags: ['--no-sandbox']
+            }
         },
     });
 };
