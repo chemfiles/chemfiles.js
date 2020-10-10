@@ -7,32 +7,29 @@ const BUILDIR = path.join(ROOT, 'build');
 const LIBDIR = path.join(ROOT, 'lib');
 
 // cmake configure
-fs.mkdirSync(BUILDIR, {recursive: true});
+fs.mkdirSync(BUILDIR, { recursive: true });
 if (!fs.existsSync(path.join(BUILDIR, 'CMakeCache.txt'))) {
-    child_process.execSync('emcmake cmake ..', {cwd: BUILDIR, stdio: 'inherit'});
+    child_process.execSync('emcmake cmake ..', { cwd: BUILDIR, stdio: 'inherit' });
 }
 
 // cmake build
-child_process.execSync('cmake --build .', {cwd: BUILDIR, stdio: 'inherit'});
+child_process.execSync('cmake --build . --parallel', { cwd: BUILDIR, stdio: 'inherit' });
 
 // eslint-disable-next-line no-console
 console.log('\ncopying files to lib/ ...');
 
 // copy important files to lib/ and edit them as needed
-fs.mkdirSync(LIBDIR, {recursive: true});
+fs.mkdirSync(LIBDIR, { recursive: true });
 
 // generate the SIZEOF_XXX constants in lib/wasm-sizes.ts
-child_process.execSync('node -e "require(\'./sizeof\')();"', {
+child_process.execSync('node sizeof.js', {
     cwd: BUILDIR,
     stdio: [0, fs.openSync(path.join(LIBDIR, 'wasm-sizes.ts'), 'w'), 'pipe'],
 });
 
-// copy the compiled WASM as-is
-fs.copyFileSync(path.join(BUILDIR, 'libchemfiles.wasm'), path.join(LIBDIR, 'libchemfiles.wasm'));
-
-// small edit to the js wrapper to allow access to NODERAWFS in node, while
+// small edit to the compiled code to allow access to NODERAWFS in node, while
 // keeping the same file working in browsers
-let content = fs.readFileSync(path.join(BUILDIR, 'libchemfiles.js'), {encoding: 'utf8'});
+let content = fs.readFileSync(path.join(BUILDIR, 'libchemfiles.js'), { encoding: 'utf8' });
 const replace = 'throw new Error("NODERAWFS is currently only supported on Node.js environment.");';
 content = content.replace(replace, '');
 fs.writeFileSync(path.join(LIBDIR, 'libchemfiles.js'), content);

@@ -5,13 +5,14 @@
 
 import assert from 'assert';
 
-import { FS } from './libchemfiles';
+import { FS, lib, ready } from './misc';
 import { Trajectory } from './trajectory';
 
 let PREFIX: string;
 if (typeof window === 'object') {
     PREFIX = '/chemfiles';
-    FS.mkdir(PREFIX);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    ready(() => FS.mkdir(PREFIX));
 } else {
     // eslint-disable-next-line
     const os = require('os');
@@ -33,7 +34,7 @@ function normalizePath(path: string): string {
         do {
             // find a new name, avoiding collisions
             path = randomName(12);
-        } while (FS.analyzePath(`${PREFIX}/${path}`).exists);
+        } while (lib.FS.analyzePath(`${PREFIX}/${path}`).exists);
     }
     return `${PREFIX}/${path}`;
 }
@@ -60,7 +61,7 @@ class MemoryTrajectory extends Trajectory {
      * ensure all content is flushed to the buffer.
      */
     public asUint8Array(): Uint8Array {
-        return FS.readFile(this.path, { encoding: 'binary' }) as Uint8Array;
+        return lib.FS.readFile(this.path, { encoding: 'binary' }) as Uint8Array;
     }
 
     /**
@@ -110,7 +111,7 @@ class MemoryTrajectory extends Trajectory {
      */
     public remove(): void {
         this.close();
-        FS.unlink(this.path);
+        lib.FS.unlink(this.path);
     }
 
     /**
@@ -155,7 +156,7 @@ export class MemoryReader extends MemoryTrajectory {
         }
 
         const path = normalizePath(filename);
-        FS.writeFile(path, data, { encoding: 'binary' });
+        lib.FS.writeFile(path, data, { encoding: 'binary' });
 
         super(path, 'r', format);
     }

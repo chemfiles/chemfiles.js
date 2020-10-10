@@ -1,7 +1,7 @@
 import { strict as assert } from 'assert';
 
 import * as sizes from '../lib/wasm-sizes';
-import * as lib from './libchemfiles';
+import { lib } from './misc';
 import { c_bool_ptr, c_char_ptr, c_char_ptr_ptr, c_double_ptr, c_uint64_ptr } from './libchemfiles';
 import { chfl_bond_order_ptr, chfl_cellshape_ptr, chfl_property_kind_ptr } from './libchemfiles';
 import { POINTER, chfl_vector3d } from './libchemfiles';

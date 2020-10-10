@@ -1,9 +1,11 @@
-import {Residue, Vector3d, ready} from '../src/';
+import { Residue, Vector3d, ready } from '../src/';
 
-import {assert, disableWarnings} from './utils';
+import { assert, disableWarnings } from './utils';
 
 describe('Residue', () => {
-    before((done) => {ready(() => done()); });
+    before((done) => {
+        ready(() => done());
+    });
 
     it('can be cloned', () => {
         const residue = new Residue('foo');
@@ -40,7 +42,13 @@ describe('Residue', () => {
 
         // check large id
         // INT32_MAX, INT32_MAX + Δ, UINT32_MAX, UINT32_MAX + Δ, MAX_SAFE_INTEGER
-        for (const id of [2147483647, 2147483649, 4294967295, 4294967338, Number.MAX_SAFE_INTEGER]) {
+        for (const id of [
+            2147483647,
+            2147483649,
+            4294967295,
+            4294967338,
+            Number.MAX_SAFE_INTEGER,
+        ]) {
             const residueLargeId = new Residue('foo', id);
             assert.equal(residueLargeId.id, id);
             residueLargeId.delete();

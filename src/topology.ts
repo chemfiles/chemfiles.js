@@ -1,7 +1,18 @@
 import { strict as assert } from 'assert';
 
-import * as lib from './libchemfiles';
-import { CHFL_TOPOLOGY, chfl_bond_order } from './libchemfiles';
+import { CHFL_TOPOLOGY } from './libchemfiles';
+import {
+    CHFL_BOND_AMIDE,
+    CHFL_BOND_AROMATIC,
+    CHFL_BOND_DOUBLE,
+    CHFL_BOND_QINTUPLET,
+    CHFL_BOND_QUADRUPLE,
+    CHFL_BOND_SINGLE,
+    CHFL_BOND_TRIPLE,
+    CHFL_BOND_UNKNOWN,
+    chfl_bond_order,
+} from './libchemfiles';
+import { lib } from './misc';
 
 import { Atom } from './atom';
 import { Pointer } from './c_ptr';
@@ -18,21 +29,21 @@ import { check, isUnsignedInteger } from './utils';
  */
 export enum BondOrder {
     /** unspecified bond order */
-    Unknown = chfl_bond_order.CHFL_BOND_UNKNOWN,
+    Unknown = CHFL_BOND_UNKNOWN,
     /** order for single bonds */
-    Single = chfl_bond_order.CHFL_BOND_SINGLE,
+    Single = CHFL_BOND_SINGLE,
     /** order for double bonds */
-    Double = chfl_bond_order.CHFL_BOND_DOUBLE,
+    Double = CHFL_BOND_DOUBLE,
     /** order for triple bonds */
-    Triple = chfl_bond_order.CHFL_BOND_TRIPLE,
+    Triple = CHFL_BOND_TRIPLE,
     /** order for quadruple bonds (present in some metals) */
-    Quadruple = chfl_bond_order.CHFL_BOND_QUADRUPLE,
+    Quadruple = CHFL_BOND_QUADRUPLE,
     /** order for qintuplet bonds (present in some metals) */
-    Qintuplet = chfl_bond_order.CHFL_BOND_QINTUPLET,
+    Qintuplet = CHFL_BOND_QINTUPLET,
     /** order for amide bonds */
-    Amide = chfl_bond_order.CHFL_BOND_AMIDE,
+    Amide = CHFL_BOND_AMIDE,
     /** order for aromatic bonds */
-    Aromatic = chfl_bond_order.CHFL_BOND_AROMATIC,
+    Aromatic = CHFL_BOND_AROMATIC,
 }
 
 /**
@@ -154,7 +165,9 @@ export class Topology extends Pointer<CHFL_TOPOLOGY> {
         if (order === undefined) {
             check(lib._chfl_topology_add_bond(this.ptr, i, 0, j, 0));
         } else {
-            check(lib._chfl_topology_bond_with_order(this.ptr, i, 0, j, 0, order as number));
+            check(
+                lib._chfl_topology_bond_with_order(this.ptr, i, 0, j, 0, order as chfl_bond_order)
+            );
         }
     }
 

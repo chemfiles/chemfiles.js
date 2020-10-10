@@ -13,6 +13,6 @@ const custom = `
 }
 `;
 
-const content = fs.readFileSync(css, {encoding: 'utf8'}) + custom;
+const content = fs.readFileSync(css, { encoding: 'utf8' }) + custom;
 
 fs.writeFileSync(css, content);

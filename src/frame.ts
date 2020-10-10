@@ -1,8 +1,8 @@
 import { strict as assert } from 'assert';
 
 import * as sizes from '../lib/wasm-sizes';
-import * as lib from './libchemfiles';
-import { CHFL_FRAME, chfl_vector3d } from './libchemfiles';
+import { CHFL_FRAME, chfl_bond_order, chfl_vector3d } from './libchemfiles';
+import { lib } from './misc';
 
 import { Atom } from './atom';
 import { Pointer } from './c_ptr';
@@ -616,7 +616,7 @@ export class Frame extends Pointer<CHFL_FRAME> {
         if (order === undefined) {
             check(lib._chfl_frame_add_bond(this.ptr, i, 0, j, 0));
         } else {
-            check(lib._chfl_frame_bond_with_order(this.ptr, i, 0, j, 0, order as number));
+            check(lib._chfl_frame_bond_with_order(this.ptr, i, 0, j, 0, order as chfl_bond_order));
         }
     }
 

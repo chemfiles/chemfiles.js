@@ -1,11 +1,15 @@
-import {Atom, Frame, MemoryReader, MemoryWriter, ready} from '../src';
-import {FS} from '../src/libchemfiles';
-import {assert} from './utils';
+import { Atom, FS, Frame, MemoryReader, MemoryWriter, ready } from '../src';
+
+import { assert } from './utils';
 
 // node 10 do not export TextEncoder & TextDecoder as globals, let's do it ourself
 /* eslint-disable */
-if (typeof process !== 'undefined' && process.release.name === 'node' && process.version.includes("v10.")) {
-    const util = require("util");
+if (
+    typeof process !== 'undefined' &&
+    process.release.name === 'node' &&
+    process.version.includes('v10.')
+) {
+    const util = require('util');
     global.TextEncoder = util.TextEncoder;
     global.TextDecoder = util.TextDecoder;
 }
@@ -19,7 +23,9 @@ O 0 0 1
 `);
 
 describe('MemoryReader', () => {
-    before((done) => {ready(() => done()); });
+    before((done) => {
+        ready(() => done());
+    });
 
     it('works with a format', () => {
         const trajectory = new MemoryReader(TEST_XYZ_DATA, 'XYZ');
@@ -70,15 +76,17 @@ C 5 6 7
 `;
 
 describe('MemoryWriter', () => {
-    before((done) => {ready(() => {
-        EXAMPLE_FRAME = new Frame();
-        const atom = new Atom('C');
-        EXAMPLE_FRAME.addAtom(atom, [1, 2, 3]);
-        EXAMPLE_FRAME.addAtom(atom, [5, 6, 7]);
-        atom.delete();
+    before((done) => {
+        ready(() => {
+            EXAMPLE_FRAME = new Frame();
+            const atom = new Atom('C');
+            EXAMPLE_FRAME.addAtom(atom, [1, 2, 3]);
+            EXAMPLE_FRAME.addAtom(atom, [5, 6, 7]);
+            atom.delete();
 
-        done();
-    });});
+            done();
+        });
+    });
 
     after(() => EXAMPLE_FRAME.delete());
 
@@ -102,7 +110,7 @@ describe('MemoryWriter', () => {
         trajectory.close();
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-        const content = FS.readFile(path, {encoding: 'binary'}) as Uint8Array;
+        const content = FS.readFile(path, { encoding: 'binary' }) as Uint8Array;
         const data = new TextDecoder().decode(content);
         assert.equal(data, EXPECTED_XYZ);
 
@@ -117,7 +125,7 @@ describe('MemoryWriter', () => {
         trajectory.close();
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-        const content = FS.readFile(path, {encoding: 'binary'}) as Uint8Array;
+        const content = FS.readFile(path, { encoding: 'binary' }) as Uint8Array;
         const data = new TextDecoder().decode(content);
         assert.equal(data, EXPECTED_XYZ);
 

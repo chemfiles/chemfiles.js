@@ -1,5 +1,5 @@
-import * as lib from './libchemfiles';
 import { CHFL_PTR } from './libchemfiles';
+import { lib } from './misc';
 
 import { lastError } from './misc';
 

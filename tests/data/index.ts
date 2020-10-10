@@ -1,34 +1,35 @@
 /// <reference lib="dom" />
 
-import {FS} from '../../src/libchemfiles';
+import { FS } from '../../src';
 
-function addFileToMEMFS(path: string) {
-    window.fetch(`base/tests/data/${path}`)
-        .then((response) => response.arrayBuffer())
-        .then((buffer) => {
-            const view = new Uint8Array(buffer);
-            // eslint-disable-next-line
-            FS.writeFile(`/tmp/${path}`, view);
-        })
-        // eslint-disable-next-line no-console
-        .catch((e) => console.error(e));
+async function addFileToMEMFS(path: string) {
+    const response = await fetch(`base/tests/data/${path}`);
+    const buffer = await response.arrayBuffer();
+    const view = new Uint8Array(buffer);
+
+    // eslint-disable-next-line
+    FS.writeFile(`/tmp/${path}`, view);
 }
 
-const IS_NODE = typeof process === 'object' &&
-                typeof process.versions === 'object' &&
-                typeof process.versions.node === 'string';
+const IS_NODE =
+    typeof process === 'object' &&
+    typeof process.versions === 'object' &&
+    typeof process.versions.node === 'string';
 
-let DATADIR = '';
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+let setupDataFiles = async (): Promise<void> => {};
+
+let DATA_ROOT: string;
 if (IS_NODE) {
-    DATADIR = __dirname;
+    DATA_ROOT = __dirname;
 } else {
-    addFileToMEMFS('test-config.toml');
-    addFileToMEMFS('topology.xyz');
-    addFileToMEMFS('water.xyz');
-    addFileToMEMFS('water.trr');
-    DATADIR = '/tmp';
+    DATA_ROOT = '/tmp';
+    setupDataFiles = async (): Promise<void> => {
+        await addFileToMEMFS('test-config.toml');
+        await addFileToMEMFS('topology.xyz');
+        await addFileToMEMFS('water.xyz');
+        await addFileToMEMFS('water.trr');
+    };
 }
 
-export {
-    DATADIR,
-};
+export { DATA_ROOT, setupDataFiles };

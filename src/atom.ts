@@ -1,5 +1,5 @@
-import * as lib from './libchemfiles';
 import { CHFL_ATOM } from './libchemfiles';
+import { lib } from './misc';
 
 import { Pointer } from './c_ptr';
 

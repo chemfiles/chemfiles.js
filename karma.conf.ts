@@ -1,4 +1,4 @@
-import {strict as assert} from 'assert';
+import { strict as assert } from 'assert';
 import * as webpackConfig from './webpack.config';
 
 const web = (webpackConfig as any)[1];
@@ -15,18 +15,8 @@ module.exports = (config: any) => {
             },
         },
         exclude: ['tests/doc.ts'],
-        files: [
-            {pattern: 'lib/libchemfiles.wasm', included: false, served: true, type: 'wasm'},
-            {pattern: 'tests/data/*', included: false, served: true},
-            'tests/*.ts',
-        ],
-        frameworks: [
-            'mocha',
-            'detectBrowsers',
-        ],
-        mime: {
-            'application/wasm': ['wasm'],
-        },
+        files: [{ pattern: 'tests/data/*', included: false, served: true }, 'tests/*.ts'],
+        frameworks: ['mocha', 'detectBrowsers'],
         preprocessors: {
             'tests/*.ts': ['webpack'],
         },
@@ -51,19 +41,19 @@ module.exports = (config: any) => {
             preferHeadless: true,
             usePhantomJS: false,
             postDetection: (list: string[]) => {
-                const chrome = list.indexOf("ChromeHeadless");
+                const chrome = list.indexOf('ChromeHeadless');
                 if (chrome !== -1) {
-                    list[chrome] = "ChromeHeadlessNoSandbox"
+                    list[chrome] = 'ChromeHeadlessNoSandbox';
                 }
                 return list;
-            }
+            },
         },
 
         customLaunchers: {
             ChromeHeadlessNoSandbox: {
                 base: 'ChromeHeadless',
-                flags: ['--no-sandbox']
-            }
+                flags: ['--no-sandbox'],
+            },
         },
     });
 };
