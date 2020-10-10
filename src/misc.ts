@@ -1,4 +1,4 @@
-import * as lib from './libchemfiles';
+import { ChemfilesModule, loadChemfiles } from './libchemfiles';
 import { c_char_ptr } from './libchemfiles';
 
 import { stackAlloc, stackAutoclean } from './stack';
@@ -95,7 +95,7 @@ function __setupWarningCallback() {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-let READY_CALLBACK = () => {};
+const READY_CALLBACKS: Array<() => void> = [];
 let IS_READY = false;
 
 /**
@@ -108,12 +108,40 @@ export function ready(callback: () => void): void {
         callback();
     } else {
         // register it to be called below
-        READY_CALLBACK = callback;
+        READY_CALLBACKS.push(callback);
     }
 }
 
-lib.then(() => {
-    __setupWarningCallback();
-    READY_CALLBACK();
-    IS_READY = true;
-});
+/** @hidden
+ * Instance of the chemfiles WASM module, on which all function should be
+ * called. This is only set and available once the WASM code has been fully
+ * loaded and compiled.
+ */
+export let lib: ChemfilesModule;
+
+/**
+ * Re-export of the filesystem namespace from Emscripten.
+ *
+ * This should not be needed for the majority of users. See
+ * https://emscripten.org/docs/api_reference/Filesystem-API.html
+ * for the corresponding documentation.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export let FS: any;
+
+loadChemfiles()
+    .then((new_instance) => {
+        lib = new_instance;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        FS = new_instance.FS;
+
+        __setupWarningCallback();
+        for (const callback of READY_CALLBACKS) {
+            callback();
+        }
+        IS_READY = true;
+    })
+    .catch((err: string) => {
+        // eslint-disable-next-line no-console
+        console.error(`failed to load WASM: ${err}`);
+    });

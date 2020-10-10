@@ -1,7 +1,7 @@
 import { strict as assert } from 'assert';
 
-import * as lib from './libchemfiles';
 import { CHFL_TRAJECTORY } from './libchemfiles';
+import { lib } from './misc';
 
 import { Pointer } from './c_ptr';
 import { UnitCell } from './cell';

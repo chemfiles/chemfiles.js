@@ -14,9 +14,9 @@ function error(message: string) {
 const SRC_ROOT = path.join(__dirname, '..', 'src');
 
 /// Get all functions defined in chemfiles C API
-function capiFunctions(options?: {only_chfl_status: boolean}): Set<string> {
-    const file = path.join(SRC_ROOT, 'libchemfiles', 'cdecl.d.ts');
-    const content = fs.readFileSync(file, {encoding: 'utf8'});
+function capiFunctions(options?: { only_chfl_status: boolean }): Set<string> {
+    const file = path.join(SRC_ROOT, 'libchemfiles', 'index.d.ts');
+    const content = fs.readFileSync(file, { encoding: 'utf8' });
 
     const functions = new Set<string>();
     for (const line of content.split('\n')) {
@@ -42,7 +42,7 @@ function usedFunctions(): Set<string> {
         if (file.includes('libchemfiles')) {
             continue;
         }
-        const content = fs.readFileSync(file, {encoding: 'utf8'});
+        const content = fs.readFileSync(file, { encoding: 'utf8' });
 
         for (const line of content.split('\n')) {
             const match = line.match(/_chfl_\w*/);
@@ -68,7 +68,7 @@ function allFunctionAreUsed() {
 
 /// Check that the return code of C API function is checked
 function statusIsChecked() {
-    const all = capiFunctions({only_chfl_status: true});
+    const all = capiFunctions({ only_chfl_status: true });
 
     const files = glob.sync(path.join(SRC_ROOT, '**/*.ts'));
     for (const file of files) {
@@ -76,8 +76,8 @@ function statusIsChecked() {
             continue;
         }
 
-        const lines = fs.readFileSync(file, {encoding: 'utf8'}).split('\n');
-        for (let i=0; i<lines.length; i++) {
+        const lines = fs.readFileSync(file, { encoding: 'utf8' }).split('\n');
+        for (let i = 0; i < lines.length; i++) {
             const match = lines[i].match(/_chfl_\w*/);
             if (match && all.has(match[0])) {
                 if (match[0] === '_chfl_residue_id') {

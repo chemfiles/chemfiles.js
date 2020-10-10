@@ -3,13 +3,15 @@ import * as glob from 'glob';
 import * as path from 'path';
 import * as vm from 'vm';
 
-import {assert} from './utils';
+import { assert } from './utils';
 
 import * as chemfiles from '../src/';
 
 // run dynamically generated doctest files
 describe('Doctests', () => {
-    before((done) => { chemfiles.ready(() => done()); });
+    before((done) => {
+        chemfiles.ready(() => done());
+    });
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     chemfiles.setWarningCallback(() => {});
@@ -27,7 +29,7 @@ describe('Doctests', () => {
             lineOffset: parseInt(basename.split('-')[1].split('.')[0], 10) - 4,
         };
 
-        const code = fs.readFileSync(file, {encoding: 'utf8'});
+        const code = fs.readFileSync(file, { encoding: 'utf8' });
         vm.runInContext(code, context, options);
     }
 });

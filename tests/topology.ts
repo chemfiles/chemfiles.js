@@ -1,8 +1,10 @@
-import {Atom, BondOrder, Residue, Topology, ready} from '../src/';
-import {assert, disableWarnings} from './utils';
+import { Atom, BondOrder, Residue, Topology, ready } from '../src/';
+import { assert, disableWarnings } from './utils';
 
 describe('Topology', () => {
-    before((done) => {ready(() => done()); });
+    before((done) => {
+        ready(() => done());
+    });
 
     it('can be cloned', () => {
         const topology = new Topology();
@@ -73,16 +75,30 @@ describe('Topology', () => {
         topology.addBond(1, 2);
         topology.addBond(2, 3, BondOrder.Triple);
 
-        assert.deepEqual(topology.bonds, [[0, 1], [1, 2], [2, 3]]);
-        assert.deepEqual(topology.angles, [[0, 1, 2], [1, 2, 3]]);
+        assert.deepEqual(topology.bonds, [
+            [0, 1],
+            [1, 2],
+            [2, 3],
+        ]);
+        assert.deepEqual(topology.angles, [
+            [0, 1, 2],
+            [1, 2, 3],
+        ]);
         assert.deepEqual(topology.dihedrals, [[0, 1, 2, 3]]);
-        assert.deepEqual(topology.bondOrders, [BondOrder.Unknown, BondOrder.Unknown, BondOrder.Triple]);
+        assert.deepEqual(topology.bondOrders, [
+            BondOrder.Unknown,
+            BondOrder.Unknown,
+            BondOrder.Triple,
+        ]);
         assert.deepEqual(topology.bondOrder(0, 1), BondOrder.Unknown);
         assert.deepEqual(topology.bondOrder(2, 3), BondOrder.Triple);
 
         topology.removeBond(2, 3);
 
-        assert.deepEqual(topology.bonds, [[0, 1], [1, 2]]);
+        assert.deepEqual(topology.bonds, [
+            [0, 1],
+            [1, 2],
+        ]);
         assert.deepEqual(topology.angles, [[0, 1, 2]]);
         assert.deepEqual(topology.dihedrals, []);
 
@@ -126,7 +142,10 @@ describe('Topology', () => {
         assert.equal(topology.residuesLinked(first, second), true);
 
         disableWarnings(() => {
-            assert.throwWith(() => topology.residue(70), 'residue index out of bounds in topology: we have 2 residues, but the index is 70');
+            assert.throwWith(
+                () => topology.residue(70),
+                'residue index out of bounds in topology: we have 2 residues, but the index is 70'
+            );
         });
 
         assert.throwWith(() => first.addAtom(0), 'this Residue can not be modified');

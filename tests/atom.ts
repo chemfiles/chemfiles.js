@@ -1,9 +1,11 @@
-import {Atom, Vector3d, ready} from '../src/';
+import { Atom, Vector3d, ready } from '../src/';
 
-import {assert, disableWarnings} from './utils';
+import { assert, disableWarnings } from './utils';
 
 describe('Atom', () => {
-    before((done) => { ready(() => done()); });
+    before((done) => {
+        ready(() => done());
+    });
 
     it('can be cloned', () => {
         const atom = new Atom('He');

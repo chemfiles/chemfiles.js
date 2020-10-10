@@ -1,14 +1,21 @@
 import * as path from 'path';
 
-import {Atom, BondOrder, Frame, Residue, Topology, Trajectory, UnitCell, Vector3d} from '../src/';
-import {ready} from '../src/';
+import { Atom, BondOrder, Frame, Residue, Topology, Trajectory, UnitCell, Vector3d } from '../src/';
+import { ready } from '../src/';
 
-import {assert, disableWarnings} from './utils';
+import { assert, disableWarnings } from './utils';
 
-import {DATADIR} from './data';
+import { DATA_ROOT, setupDataFiles } from './data';
 
 describe('Frame', () => {
-    before((done) => { ready(() => done()); });
+    before((done) => {
+        ready(() => {
+            setupDataFiles()
+                .then(() => done())
+                // eslint-disable-next-line no-console
+                .catch((err) => console.error(err));
+        });
+    });
 
     it('can be cloned', () => {
         const frame = new Frame();
@@ -70,7 +77,10 @@ describe('Frame', () => {
         assert.equal(residue.name, 'resname');
         residue.delete();
 
-        assert.deepEqual(topology.bonds, [[0, 1], [1, 2]]);
+        assert.deepEqual(topology.bonds, [
+            [0, 1],
+            [1, 2],
+        ]);
         assert.deepEqual(topology.bondOrders, [BondOrder.Unknown, BondOrder.Aromatic]);
 
         // no mutable access to the topology
@@ -116,7 +126,7 @@ describe('Frame', () => {
     });
 
     it('can guess bonds', () => {
-        const trajectory = new Trajectory(path.join(DATADIR, 'water.xyz'));
+        const trajectory = new Trajectory(path.join(DATA_ROOT, 'water.xyz'));
         const frame = new Frame();
         trajectory.read(frame);
 
@@ -159,7 +169,10 @@ describe('Frame', () => {
         assert.equal(frame.size, 65);
 
         disableWarnings(() => {
-            assert.throwWith(() => frame.atom(70), 'out of bounds atomic index in `chfl_atom_from_frame`: we have 65 atoms, but the index is 70');
+            assert.throwWith(
+                () => frame.atom(70),
+                'out of bounds atomic index in `chfl_atom_from_frame`: we have 65 atoms, but the index is 70'
+            );
         });
 
         frame.delete();
@@ -214,7 +227,9 @@ describe('Frame', () => {
         positions[0] = [7, 9, 3.3];
         assert.arrayEqual(positions[0], [7, 9, 3.3]);
 
-        assert.throw(() => {positions[0] = 'nope'; });
+        assert.throw(() => {
+            positions[0] = 'nope';
+        });
         /* eslint-enable */
 
         frame.delete();

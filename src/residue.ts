@@ -1,7 +1,7 @@
 import { strict as assert } from 'assert';
 
-import * as lib from './libchemfiles';
-import { CHFL_RESIDUE, chfl_status } from './libchemfiles';
+import { CHFL_GENERIC_ERROR, CHFL_RESIDUE } from './libchemfiles';
+import { lib } from './misc';
 
 import { Pointer } from './c_ptr';
 
@@ -110,7 +110,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
         return stackAutoclean(() => {
             const value = stackAlloc('uint64_t');
             const status = lib._chfl_residue_id(this.const_ptr, value.ptr);
-            if (status === chfl_status.CHFL_GENERIC_ERROR) {
+            if (status === CHFL_GENERIC_ERROR) {
                 return undefined;
             } else {
                 check(status);

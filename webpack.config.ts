@@ -9,9 +9,7 @@ const defaultConfig: webpack.Configuration = {
     },
     mode: 'development',
     module: {
-        rules: [
-            {  test: /\.ts?$/, loader: 'ts-loader' },
-        ],
+        rules: [{ test: /\.ts?$/, loader: 'ts-loader' }],
     },
     // Prevent webpack from messing with emscripten code loading wasm
     node: {
@@ -21,10 +19,9 @@ const defaultConfig: webpack.Configuration = {
         process: false,
     },
     plugins: [
-        new CopyPlugin({patterns: [
-            { from: 'lib/libchemfiles.wasm', to: ''},
-            { from: 'src/libchemfiles/cdecl.d.ts', to: 'src/libchemfiles/' },
-        ]}),
+        new CopyPlugin({
+            patterns: [{ from: 'src/libchemfiles/index.d.ts', to: 'src/libchemfiles/' }],
+        }),
     ],
 
     resolve: {
@@ -54,4 +51,4 @@ const web: webpack.Configuration = {
     target: 'web',
 };
 
-module.exports = [ node, web ];
+module.exports = [node, web];

@@ -1,8 +1,10 @@
-import {Atom, Frame, Selection, ready} from '../src/';
-import {assert} from './utils';
+import { Atom, Frame, Selection, ready } from '../src/';
+import { assert } from './utils';
 
 describe('Selection', () => {
-    before((done) => {ready(() => done()); });
+    before((done) => {
+        ready(() => done());
+    });
 
     it('can be cloned', () => {
         const selection = new Selection('pairs: all');
@@ -40,17 +42,32 @@ describe('Selection', () => {
 
         selection = new Selection('pairs: name(#1) O and name(#2) H');
         matches = selection.evaluate(frame);
-        assert.deepEqual(matches, [[1, 0], [1, 3], [2, 0], [2, 3]]);
+        assert.deepEqual(matches, [
+            [1, 0],
+            [1, 3],
+            [2, 0],
+            [2, 3],
+        ]);
         selection.delete();
 
         selection = new Selection('three: name(#1) O and name(#2) H and name(#3) O');
         matches = selection.evaluate(frame);
-        assert.deepEqual(matches, [[1, 0, 2], [1, 3, 2], [2, 0, 1], [2, 3, 1]]);
+        assert.deepEqual(matches, [
+            [1, 0, 2],
+            [1, 3, 2],
+            [2, 0, 1],
+            [2, 3, 1],
+        ]);
         selection.delete();
 
         selection = new Selection('four: name(#1) O and name(#2) H and name(#3) O');
         matches = selection.evaluate(frame);
-        assert.deepEqual(matches, [[1, 0, 2, 3], [1, 3, 2, 0], [2, 0, 1, 3], [2, 3, 1, 0]]);
+        assert.deepEqual(matches, [
+            [1, 0, 2, 3],
+            [1, 3, 2, 0],
+            [2, 0, 1, 3],
+            [2, 3, 1, 0],
+        ]);
         selection.delete();
 
         frame.delete();

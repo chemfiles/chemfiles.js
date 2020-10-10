@@ -7,9 +7,9 @@
     "test": "ts-doctest . tests && mocha --timeout 8000 && npm run lint",
     "coverage": "rm -rf tests/doc && nyc mocha --timeout 8000 && mv coverage/coverage-final.json coverage/coverage.json",
     "build": "webpack --mode production && npm run merge-dts",
-    "build-libchemfiles": "ts-node scripts/build-libchemfiles.ts",
+    "build-libchemfiles": "rm -rf lib && ts-node scripts/build-libchemfiles.ts",
     "merge-dts": "dts-bundle --name chemfiles --main dist/src/index.d.ts --baseDir dist --out chemfiles.d.ts --removeSource",
-    "lint": "ts-node scripts/lint.ts && eslint . && prettier --check src",
+    "lint": "ts-node scripts/lint.ts && eslint . && prettier --check src tests scripts",
     "docs": "typedoc && ts-node scripts/add-docs-css.ts"
   },
   "repository": {

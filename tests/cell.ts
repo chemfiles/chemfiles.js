@@ -1,8 +1,10 @@
-import {CellShape, UnitCell, ready} from '../src/';
-import {assert} from './utils';
+import { CellShape, UnitCell, ready } from '../src/';
+import { assert } from './utils';
 
 describe('UnitCell', () => {
-    before((done) => {ready(() => done()); });
+    before((done) => {
+        ready(() => done());
+    });
 
     it('can be cloned', () => {
         const cell = new UnitCell([1, 1, 1]);

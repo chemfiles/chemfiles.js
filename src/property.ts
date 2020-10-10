@@ -1,5 +1,12 @@
-import * as lib from './libchemfiles';
-import { CHFL_PROPERTY, chfl_property_kind } from './libchemfiles';
+import { CHFL_PROPERTY } from './libchemfiles';
+import {
+    CHFL_PROPERTY_BOOL,
+    CHFL_PROPERTY_DOUBLE,
+    CHFL_PROPERTY_STRING,
+    CHFL_PROPERTY_VECTOR3D,
+    chfl_property_kind,
+} from './libchemfiles';
+import { lib } from './misc';
 
 import { getValue, stackAlloc, stackAutoclean } from './stack';
 import { Vector3d, autogrowStrBuffer, check } from './utils';
@@ -16,19 +23,19 @@ export type PropertyType = string | boolean | number | Vector3d;
 export function getProperty(property: CHFL_PROPERTY): PropertyType {
     return stackAutoclean(() => {
         const kind = propertyKind(property);
-        if (kind === chfl_property_kind.CHFL_PROPERTY_BOOL) {
+        if (kind === CHFL_PROPERTY_BOOL) {
             const value = stackAlloc('bool');
             check(lib._chfl_property_get_bool(property, value.ptr));
             return getValue(value);
-        } else if (kind === chfl_property_kind.CHFL_PROPERTY_DOUBLE) {
+        } else if (kind === CHFL_PROPERTY_DOUBLE) {
             const value = stackAlloc('double');
             check(lib._chfl_property_get_double(property, value.ptr));
             return getValue(value);
-        } else if (kind === chfl_property_kind.CHFL_PROPERTY_STRING) {
+        } else if (kind === CHFL_PROPERTY_STRING) {
             return autogrowStrBuffer((ptr, size) => {
                 check(lib._chfl_property_get_string(property, ptr, size, 0));
             });
-        } else if (kind === chfl_property_kind.CHFL_PROPERTY_VECTOR3D) {
+        } else if (kind === CHFL_PROPERTY_VECTOR3D) {
             const ref = stackAlloc('chfl_vector3d');
             check(lib._chfl_property_get_vector3d(property, ref.ptr));
             return getValue(ref);
@@ -77,6 +84,6 @@ function propertyKind(property: CHFL_PROPERTY): chfl_property_kind {
     return stackAutoclean(() => {
         const ref = stackAlloc('chfl_property_kind');
         check(lib._chfl_property_get_kind(property, ref.ptr));
-        return getValue(ref);
+        return getValue(ref) as chfl_property_kind;
     });
 }

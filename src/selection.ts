@@ -1,8 +1,8 @@
 import { strict as assert } from 'assert';
 
 import { SIZEOF_CHFL_MATCH, SIZEOF_UINT64_T } from '../lib/wasm-sizes';
-import * as lib from './libchemfiles';
 import { CHFL_SELECTION, POINTER } from './libchemfiles';
+import { lib } from './misc';
 
 import { Pointer } from './c_ptr';
 import { Frame } from './frame';

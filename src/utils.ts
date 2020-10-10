@@ -1,5 +1,5 @@
-import * as lib from './libchemfiles';
-import { c_char_ptr } from './libchemfiles';
+import { CHFL_SUCCESS, c_char_ptr, chfl_status } from './libchemfiles';
+import { lib } from './misc';
 
 import { lastError } from './misc';
 import { getValue, stackAlloc } from './stack';
@@ -22,8 +22,8 @@ export interface Matrix3 {
     length: number;
 }
 
-export function check(status: lib.chfl_status): void {
-    if (status === lib.chfl_status.CHFL_SUCCESS) {
+export function check(status: chfl_status): void {
+    if (status === CHFL_SUCCESS) {
         return;
     } else {
         throw Error(lastError());

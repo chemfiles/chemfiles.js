@@ -1,5 +1,11 @@
-import * as lib from './libchemfiles';
-import { CHFL_CELL, chfl_cellshape } from './libchemfiles';
+import { CHFL_CELL } from './libchemfiles';
+import {
+    CHFL_CELL_INFINITE,
+    CHFL_CELL_ORTHORHOMBIC,
+    CHFL_CELL_TRICLINIC,
+    chfl_cellshape,
+} from './libchemfiles';
+import { lib } from './misc';
 
 import { Pointer } from './c_ptr';
 
@@ -9,11 +15,11 @@ import { Matrix3, Vector3d, check } from './utils';
 /** Available cell shapes in Chemfiles */
 export enum CellShape {
     /** Shape for unit cells where the three angles are 90° */
-    Orthorhombic = chfl_cellshape.CHFL_CELL_ORTHORHOMBIC,
+    Orthorhombic = CHFL_CELL_ORTHORHOMBIC,
     /** Shape for unit cells where the three angles  may not be 90° */
-    Triclinic = chfl_cellshape.CHFL_CELL_TRICLINIC,
+    Triclinic = CHFL_CELL_TRICLINIC,
     /** Shape for unit cells without periodic boundary conditions */
-    Infinite = chfl_cellshape.CHFL_CELL_INFINITE,
+    Infinite = CHFL_CELL_INFINITE,
 }
 
 /**
@@ -227,7 +233,7 @@ export class UnitCell extends Pointer<CHFL_CELL> {
      * ```
      */
     set shape(value: CellShape) {
-        check(lib._chfl_cell_set_shape(this.ptr, value));
+        check(lib._chfl_cell_set_shape(this.ptr, value as chfl_cellshape));
     }
 
     /**
