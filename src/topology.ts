@@ -1,14 +1,14 @@
-import {strict as assert} from 'assert';
+import { strict as assert } from 'assert';
 
 import * as lib from './libchemfiles';
-import {CHFL_TOPOLOGY, chfl_bond_order} from './libchemfiles';
+import { CHFL_TOPOLOGY, chfl_bond_order } from './libchemfiles';
 
-import {Atom} from './atom';
-import {Pointer} from './c_ptr';
-import {Residue} from './residue';
+import { Atom } from './atom';
+import { Pointer } from './c_ptr';
+import { Residue } from './residue';
 
-import {getValue, stackAlloc, stackAutoclean} from './stack';
-import {check, isUnsignedInteger} from './utils';
+import { getValue, stackAlloc, stackAutoclean } from './stack';
+import { check, isUnsignedInteger } from './utils';
 
 /**
  * A [[BondOrder]] describe the order of a bond (single, double, etc.).
@@ -437,9 +437,14 @@ export class Topology extends Pointer<CHFL_TOPOLOGY> {
     public residuesLinked(first: Residue, second: Residue): boolean {
         return stackAutoclean(() => {
             const value = stackAlloc('bool');
-            check(lib._chfl_topology_residues_linked(
-                this.const_ptr, first.const_ptr, second.const_ptr, value.ptr,
-            ));
+            check(
+                lib._chfl_topology_residues_linked(
+                    this.const_ptr,
+                    first.const_ptr,
+                    second.const_ptr,
+                    value.ptr
+                )
+            );
             return getValue(value);
         });
     }
@@ -495,9 +500,9 @@ export class Topology extends Pointer<CHFL_TOPOLOGY> {
             check(lib._chfl_topology_bonds_count(this.const_ptr, countRef.ptr));
             const count = getValue(countRef);
 
-            const bonds = stackAlloc('uint64_t[]', {count: 2 * count});
+            const bonds = stackAlloc('uint64_t[]', { count: 2 * count });
             check(lib._chfl_topology_bonds(this.const_ptr, bonds.ptr, count, 0));
-            const linear = getValue(bonds, {count: 2 * count});
+            const linear = getValue(bonds, { count: 2 * count });
 
             const result = [];
             for (let i = 0; i < count; i++) {
@@ -531,9 +536,9 @@ export class Topology extends Pointer<CHFL_TOPOLOGY> {
             check(lib._chfl_topology_bonds_count(this.const_ptr, countRef.ptr));
             const count = getValue(countRef);
 
-            const orders = stackAlloc('chfl_bond_order[]', {count: count});
+            const orders = stackAlloc('chfl_bond_order[]', { count: count });
             check(lib._chfl_topology_bond_orders(this.const_ptr, orders.ptr, count, 0));
-            return getValue(orders, {count: count});
+            return getValue(orders, { count: count });
         });
     }
 
@@ -586,15 +591,17 @@ export class Topology extends Pointer<CHFL_TOPOLOGY> {
             check(lib._chfl_topology_angles_count(this.const_ptr, countRef.ptr));
             const count = getValue(countRef);
 
-            const angles = stackAlloc('uint64_t[]', {count: 3 * count});
+            const angles = stackAlloc('uint64_t[]', { count: 3 * count });
             check(lib._chfl_topology_angles(this.const_ptr, angles.ptr, count, 0));
-            const linear = getValue(angles, {count: 3 * count});
+            const linear = getValue(angles, { count: 3 * count });
 
             const result = [];
             for (let i = 0; i < count; i++) {
-                result.push([
-                    linear[3 * i], linear[3 * i + 1], linear[3 * i + 2],
-                ] as [number, number, number]);
+                result.push([linear[3 * i], linear[3 * i + 1], linear[3 * i + 2]] as [
+                    number,
+                    number,
+                    number
+                ]);
             }
             return result;
         });
@@ -626,14 +633,17 @@ export class Topology extends Pointer<CHFL_TOPOLOGY> {
             check(lib._chfl_topology_dihedrals_count(this.const_ptr, countRef.ptr));
             const count = getValue(countRef);
 
-            const dihedrals = stackAlloc('uint64_t[]', {count: 4 * count});
+            const dihedrals = stackAlloc('uint64_t[]', { count: 4 * count });
             check(lib._chfl_topology_dihedrals(this.const_ptr, dihedrals.ptr, count, 0));
-            const linear = getValue(dihedrals, {count: 4 * count});
+            const linear = getValue(dihedrals, { count: 4 * count });
 
             const result = [];
             for (let i = 0; i < count; i++) {
                 result.push([
-                    linear[4 * i], linear[4 * i + 1], linear[4 * i + 2], linear[4 * i + 3],
+                    linear[4 * i],
+                    linear[4 * i + 1],
+                    linear[4 * i + 2],
+                    linear[4 * i + 3],
                 ] as [number, number, number, number]);
             }
             return result;
@@ -665,14 +675,17 @@ export class Topology extends Pointer<CHFL_TOPOLOGY> {
             check(lib._chfl_topology_impropers_count(this.const_ptr, countRef.ptr));
             const count = getValue(countRef);
 
-            const impropers = stackAlloc('uint64_t[]', {count: 4 * count});
+            const impropers = stackAlloc('uint64_t[]', { count: 4 * count });
             check(lib._chfl_topology_impropers(this.const_ptr, impropers.ptr, count, 0));
-            const linear = getValue(impropers, {count: 4 * count});
+            const linear = getValue(impropers, { count: 4 * count });
 
             const result = [];
             for (let i = 0; i < count; i++) {
                 result.push([
-                    linear[4 * i], linear[4 * i + 1], linear[4 * i + 2], linear[4 * i + 3],
+                    linear[4 * i],
+                    linear[4 * i + 1],
+                    linear[4 * i + 2],
+                    linear[4 * i + 3],
                 ] as [number, number, number, number]);
             }
             return result;

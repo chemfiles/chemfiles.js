@@ -1,8 +1,8 @@
 import * as lib from './libchemfiles';
-import {c_char_ptr} from './libchemfiles';
+import { c_char_ptr } from './libchemfiles';
 
-import {lastError} from './misc';
-import {getValue, stackAlloc} from './stack';
+import { lastError } from './misc';
+import { getValue, stackAlloc } from './stack';
 
 /** Simple 3D vector */
 export interface Vector3d {
@@ -30,7 +30,7 @@ export function check(status: lib.chfl_status): void {
     }
 }
 
-export function numberEmscriptenUint64(value: number): {lo: number, hi: number} {
+export function numberEmscriptenUint64(value: number): { lo: number; hi: number } {
     const lo = value & 0x7fffffff;
     const hi = (value - lo) / 0x40000000;
     return { lo, hi };
@@ -53,14 +53,14 @@ export function autogrowStrBuffer(callback: StrCallback, initial = 128): string 
 
     const sp = lib.stackSave();
     let size = initial;
-    let value = stackAlloc('char*', {initial: '\0'.repeat(size)});
+    let value = stackAlloc('char*', { initial: '\0'.repeat(size) });
     callback(value.ptr, size);
 
     while (!bigEnoughBuffer(value.ptr, size)) {
         // grow the buffer and retry
         size *= 2;
         lib.stackRestore(sp);
-        value = stackAlloc('char*', {initial: '\0'.repeat(size)});
+        value = stackAlloc('char*', { initial: '\0'.repeat(size) });
         callback(value.ptr, size);
     }
 

@@ -1,18 +1,18 @@
-import {strict as assert} from 'assert';
+import { strict as assert } from 'assert';
 
 import * as sizes from '../lib/wasm-sizes';
 import * as lib from './libchemfiles';
-import {CHFL_FRAME, chfl_vector3d} from './libchemfiles';
+import { CHFL_FRAME, chfl_vector3d } from './libchemfiles';
 
-import {Atom} from './atom';
-import {Pointer} from './c_ptr';
-import {UnitCell} from './cell';
-import {Residue} from './residue';
-import {BondOrder, Topology} from './topology';
+import { Atom } from './atom';
+import { Pointer } from './c_ptr';
+import { UnitCell } from './cell';
+import { Residue } from './residue';
+import { BondOrder, Topology } from './topology';
 
-import {PropertyType, createProperty, getProperty} from './property';
-import {getValue, stackAlloc, stackAutoclean} from './stack';
-import {Vector3d, check, isUnsignedInteger} from './utils';
+import { PropertyType, createProperty, getProperty } from './property';
+import { getValue, stackAlloc, stackAutoclean } from './stack';
+import { Vector3d, check, isUnsignedInteger } from './utils';
 
 /**
  * An Array of Vector3d allowing direct access into WASM memory. It can be
@@ -57,7 +57,7 @@ export interface Array3D {
 function createArray3D(ptr: chfl_vector3d, length: number): Array3D {
     const start = ptr / sizes.SIZEOF_DOUBLE;
     const buffer = lib.HEAPF64.subarray(start, start + 3 * length);
-    const iterator = function*() {
+    const iterator = function* () {
         for (let i = 0; i < length; i++) {
             yield buffer.subarray(3 * i, 3 * i + 3);
         }
@@ -426,11 +426,13 @@ export class Frame extends Pointer<CHFL_FRAME> {
      */
     public addAtom(atom: Atom, position: Vector3d, velocities?: Vector3d): void {
         return stackAutoclean(() => {
-            const pos = stackAlloc('chfl_vector3d', {initial: position});
+            const pos = stackAlloc('chfl_vector3d', { initial: position });
             if (velocities === undefined) {
-                check(lib._chfl_frame_add_atom(this.ptr, atom.const_ptr, pos.ptr, 0 as chfl_vector3d));
+                check(
+                    lib._chfl_frame_add_atom(this.ptr, atom.const_ptr, pos.ptr, 0 as chfl_vector3d)
+                );
             } else {
-                const vel = stackAlloc('chfl_vector3d', {initial: velocities});
+                const vel = stackAlloc('chfl_vector3d', { initial: velocities });
                 check(lib._chfl_frame_add_atom(this.ptr, atom.const_ptr, pos.ptr, vel.ptr));
             }
         });
@@ -851,7 +853,7 @@ export class Frame extends Pointer<CHFL_FRAME> {
      */
     public get(name: string): PropertyType | undefined {
         return stackAutoclean(() => {
-            const value = stackAlloc('char*', {initial: name});
+            const value = stackAlloc('char*', { initial: name });
             const property = lib._chfl_frame_get_property(this.const_ptr, value.ptr);
             if (property === 0) {
                 return undefined;
@@ -891,7 +893,7 @@ export class Frame extends Pointer<CHFL_FRAME> {
     public set(name: string, value: PropertyType): void {
         return stackAutoclean(() => {
             const property = createProperty(value);
-            const wasmName = stackAlloc('char*', {initial: name});
+            const wasmName = stackAlloc('char*', { initial: name });
             check(lib._chfl_frame_set_property(this.ptr, wasmName.ptr, property));
             lib._chfl_free(property);
         });
@@ -917,9 +919,9 @@ export class Frame extends Pointer<CHFL_FRAME> {
             check(lib._chfl_frame_properties_count(this.ptr, countRef.ptr));
             const count = getValue(countRef);
 
-            const names = stackAlloc('char*[]', {count});
+            const names = stackAlloc('char*[]', { count });
             check(lib._chfl_frame_list_properties(this.ptr, names.ptr, count, 0));
-            return getValue(names, {count});
+            return getValue(names, { count });
         });
     }
 }

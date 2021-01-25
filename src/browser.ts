@@ -5,8 +5,8 @@
 
 import assert from 'assert';
 
-import {FS} from './libchemfiles';
-import {Trajectory} from './trajectory';
+import { FS } from './libchemfiles';
+import { Trajectory } from './trajectory';
 
 let PREFIX: string;
 if (typeof window === 'object') {
@@ -60,7 +60,7 @@ class MemoryTrajectory extends Trajectory {
      * ensure all content is flushed to the buffer.
      */
     public asUint8Array(): Uint8Array {
-        return FS.readFile(this.path, {encoding: 'binary'}) as Uint8Array;
+        return FS.readFile(this.path, { encoding: 'binary' }) as Uint8Array;
     }
 
     /**
@@ -101,7 +101,7 @@ class MemoryTrajectory extends Trajectory {
     public asBlob(): Blob {
         // use 'application/octet-stream' to be able to pass through any kind of
         // data, and in particular binary data
-        return new Blob([this.asUint8Array()], {type: 'application/octet-stream'});
+        return new Blob([this.asUint8Array()], { type: 'application/octet-stream' });
     }
 
     /**
@@ -155,7 +155,7 @@ export class MemoryReader extends MemoryTrajectory {
         }
 
         const path = normalizePath(filename);
-        FS.writeFile(path, data, {encoding: 'binary'});
+        FS.writeFile(path, data, { encoding: 'binary' });
 
         super(path, 'r', format);
     }
