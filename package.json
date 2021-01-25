@@ -9,7 +9,7 @@
     "build": "webpack --mode production && npm run merge-dts",
     "build-libchemfiles": "ts-node scripts/build-libchemfiles.ts",
     "merge-dts": "dts-bundle --name chemfiles --main dist/src/index.d.ts --baseDir dist --out chemfiles.d.ts --removeSource",
-    "lint": "ts-node scripts/lint.ts && eslint .",
+    "lint": "ts-node scripts/lint.ts && eslint . && prettier --check src",
     "docs": "typedoc && ts-node scripts/add-docs-css.ts"
   },
   "repository": {
@@ -65,6 +65,7 @@
     "karma-webpack": "^4.0.2",
     "mocha": "^8",
     "nyc": "^15.1.0",
+    "prettier": "^2.2.1",
     "source-map-support": "^0.5.19",
     "ts-loader": "^8",
     "ts-node": "^8.10.2",

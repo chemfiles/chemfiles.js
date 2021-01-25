@@ -1,7 +1,7 @@
 import * as lib from './libchemfiles';
-import {CHFL_PTR} from './libchemfiles';
+import { CHFL_PTR } from './libchemfiles';
 
-import {lastError} from './misc';
+import { lastError } from './misc';
 
 /**
  * A wrapper for all commong behavior for C++ allocated pointers. This is an

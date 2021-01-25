@@ -1,11 +1,11 @@
 import * as lib from './libchemfiles';
-import {CHFL_ATOM} from './libchemfiles';
+import { CHFL_ATOM } from './libchemfiles';
 
-import {Pointer} from './c_ptr';
+import { Pointer } from './c_ptr';
 
-import {PropertyType, createProperty, getProperty} from './property';
-import {getValue, stackAlloc, stackAutoclean} from './stack';
-import {autogrowStrBuffer, check} from './utils';
+import { PropertyType, createProperty, getProperty } from './property';
+import { getValue, stackAlloc, stackAutoclean } from './stack';
+import { autogrowStrBuffer, check } from './utils';
 
 /**
  * An [[Atom]] is a particle in the current [[Frame]]. It stores the following
@@ -85,7 +85,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
      */
     constructor(name: string, type?: string) {
         const ptr = stackAutoclean(() => {
-            const value = stackAlloc('char*', {initial: name});
+            const value = stackAlloc('char*', { initial: name });
             return lib._chfl_atom(value.ptr);
         });
         super(ptr, false);
@@ -196,7 +196,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
      */
     set name(name: string) {
         stackAutoclean(() => {
-            const value = stackAlloc('char*', {initial: name});
+            const value = stackAlloc('char*', { initial: name });
             check(lib._chfl_atom_set_name(this.ptr, value.ptr));
         });
     }
@@ -232,7 +232,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
      */
     set type(type: string) {
         stackAutoclean(() => {
-            const value = stackAlloc('char*', {initial: type});
+            const value = stackAlloc('char*', { initial: type });
             check(lib._chfl_atom_set_type(this.ptr, value.ptr));
         });
     }
@@ -355,7 +355,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
      */
     public get(name: string): PropertyType | undefined {
         return stackAutoclean(() => {
-            const value = stackAlloc('char*', {initial: name});
+            const value = stackAlloc('char*', { initial: name });
             const property = lib._chfl_atom_get_property(this.const_ptr, value.ptr);
             if (property === 0) {
                 return undefined;
@@ -395,7 +395,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
     public set(name: string, value: PropertyType): void {
         return stackAutoclean(() => {
             const property = createProperty(value);
-            const wasmName = stackAlloc('char*', {initial: name});
+            const wasmName = stackAlloc('char*', { initial: name });
             check(lib._chfl_atom_set_property(this.ptr, wasmName.ptr, property));
             lib._chfl_free(property);
         });
@@ -421,9 +421,9 @@ export class Atom extends Pointer<CHFL_ATOM> {
             check(lib._chfl_atom_properties_count(this.ptr, countRef.ptr));
             const count = getValue(countRef);
 
-            const names = stackAlloc('char*[]', {count});
+            const names = stackAlloc('char*[]', { count });
             check(lib._chfl_atom_list_properties(this.ptr, names.ptr, count, 0));
-            return getValue(names, {count});
+            return getValue(names, { count });
         });
     }
 }

@@ -1,8 +1,8 @@
 import * as lib from './libchemfiles';
-import {CHFL_PROPERTY, chfl_property_kind} from './libchemfiles';
+import { CHFL_PROPERTY, chfl_property_kind } from './libchemfiles';
 
-import {getValue, stackAlloc, stackAutoclean} from './stack';
-import {Vector3d, autogrowStrBuffer, check} from './utils';
+import { getValue, stackAlloc, stackAutoclean } from './stack';
+import { Vector3d, autogrowStrBuffer, check } from './utils';
 
 /**
  * Possible types for properties natively stored in [[Atom]], [[Residue]] or
@@ -45,7 +45,7 @@ export function createProperty(value: PropertyType): CHFL_PROPERTY {
     let property;
     if (typeof value === 'string') {
         property = stackAutoclean(() => {
-            const ref = stackAlloc('char*', {initial: value});
+            const ref = stackAlloc('char*', { initial: value });
             return lib._chfl_property_string(ref.ptr);
         });
     } else if (typeof value === 'number') {
@@ -54,7 +54,7 @@ export function createProperty(value: PropertyType): CHFL_PROPERTY {
         property = lib._chfl_property_bool(Number(value));
     } else if (typeof value === 'object' && value.length === 3) {
         property = stackAutoclean(() => {
-            const ref = stackAlloc('chfl_vector3d', {initial: value});
+            const ref = stackAlloc('chfl_vector3d', { initial: value });
             return lib._chfl_property_vector3d(ref.ptr);
         });
     } else {

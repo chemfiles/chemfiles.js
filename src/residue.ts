@@ -1,13 +1,13 @@
-import {strict as assert} from 'assert';
+import { strict as assert } from 'assert';
 
 import * as lib from './libchemfiles';
-import {CHFL_RESIDUE, chfl_status} from './libchemfiles';
+import { CHFL_RESIDUE, chfl_status } from './libchemfiles';
 
-import {Pointer} from './c_ptr';
+import { Pointer } from './c_ptr';
 
-import {PropertyType, createProperty, getProperty} from './property';
-import {getValue, stackAlloc, stackAutoclean} from './stack';
-import {autogrowStrBuffer, check, isUnsignedInteger, numberEmscriptenUint64} from './utils';
+import { PropertyType, createProperty, getProperty } from './property';
+import { getValue, stackAlloc, stackAutoclean } from './stack';
+import { autogrowStrBuffer, check, isUnsignedInteger, numberEmscriptenUint64 } from './utils';
 
 interface ResidueExtra {
     atoms: ReadonlyArray<number>;
@@ -83,12 +83,12 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
      */
     constructor(name: string, id?: number) {
         const ptr = stackAutoclean(() => {
-            const nameRef = stackAlloc('char*', {initial: name});
+            const nameRef = stackAlloc('char*', { initial: name });
             if (id === undefined) {
                 return lib._chfl_residue(nameRef.ptr);
             } else {
                 assert(isUnsignedInteger(id), 'residue id must be a positive integer');
-                const {lo, hi} = numberEmscriptenUint64(id);
+                const { lo, hi } = numberEmscriptenUint64(id);
                 return lib._chfl_residue_with_id(nameRef.ptr, lo, hi);
             }
         });
@@ -157,9 +157,9 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
                 check(lib._chfl_residue_atoms_count(this.const_ptr, countRef.ptr));
                 const count = getValue(countRef);
 
-                const value = stackAlloc('uint64_t[]', {count});
+                const value = stackAlloc('uint64_t[]', { count });
                 check(lib._chfl_residue_atoms(this.const_ptr, value.ptr, count, 0));
-                const atoms = getValue(value, {count});
+                const atoms = getValue(value, { count });
                 Object.freeze(atoms);
                 return atoms;
             });
@@ -235,7 +235,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
      */
     public get(name: string): PropertyType | undefined {
         return stackAutoclean(() => {
-            const value = stackAlloc('char*', {initial: name});
+            const value = stackAlloc('char*', { initial: name });
             const property = lib._chfl_residue_get_property(this.const_ptr, value.ptr);
             if (property === 0) {
                 return undefined;
@@ -275,7 +275,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
     public set(name: string, value: PropertyType): void {
         return stackAutoclean(() => {
             const property = createProperty(value);
-            const wasmName = stackAlloc('char*', {initial: name});
+            const wasmName = stackAlloc('char*', { initial: name });
             check(lib._chfl_residue_set_property(this.ptr, wasmName.ptr, property));
             lib._chfl_free(property);
         });
@@ -301,9 +301,9 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
             check(lib._chfl_residue_properties_count(this.ptr, countRef.ptr));
             const count = getValue(countRef);
 
-            const names = stackAlloc('char*[]', {count});
+            const names = stackAlloc('char*[]', { count });
             check(lib._chfl_residue_list_properties(this.ptr, names.ptr, count, 0));
-            return getValue(names, {count});
+            return getValue(names, { count });
         });
     }
 }

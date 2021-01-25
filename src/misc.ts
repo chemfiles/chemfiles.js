@@ -1,8 +1,8 @@
 import * as lib from './libchemfiles';
-import {c_char_ptr} from './libchemfiles';
+import { c_char_ptr } from './libchemfiles';
 
-import {stackAlloc, stackAutoclean} from './stack';
-import {check} from './utils';
+import { stackAlloc, stackAutoclean } from './stack';
+import { check } from './utils';
 
 /**
  * Get the version of chemfiles being used as a string
@@ -52,7 +52,7 @@ export function clearErrors(): void {
  */
 export function addConfiguration(path: string): void {
     stackAutoclean(() => {
-        const ref = stackAlloc('char*', {initial: path});
+        const ref = stackAlloc('char*', { initial: path });
         check(lib._chfl_add_configuration(ref.ptr));
     });
 }
