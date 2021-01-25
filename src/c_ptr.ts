@@ -4,7 +4,7 @@ import { CHFL_PTR } from './libchemfiles';
 import { lastError } from './misc';
 
 /**
- * A wrapper for all commong behavior for C++ allocated pointers. This is an
+ * A wrapper for all common behavior for C++ allocated pointers. This is an
  * internal class, used to implement the main functionality of Chemfiles'
  * objects.
  */
@@ -17,10 +17,10 @@ export class Pointer<T extends CHFL_PTR, Extra = never> {
     /**
      * Create a new Pointer<T> from the given value. `isConst` indicate if the
      * pointer is a `chfl_xxx *` or a `const chfl_xxx *` from the C side. Since
-     * it is UB to write through a const pointer, we have to track the constness
+     * it is UB to write through a const pointer, we have to track the const-ness
      * of pointers.
      *
-     * @param ptr     adress of the chemfiles object
+     * @param ptr     address of the chemfiles object
      * @param isConst is the object behind the pointer const?
      */
     constructor(ptr: T, isConst: boolean) {

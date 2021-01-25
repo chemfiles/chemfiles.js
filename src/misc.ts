@@ -40,7 +40,7 @@ export function clearErrors(): void {
 }
 
 /**
- * Read the chemfile's
+ * Read the chemfiles
  * [configuration](http://chemfiles.org/chemfiles/latest/configuration.html)
  * file at the given `path`
  *

@@ -31,7 +31,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
     }
 
     /**
-     * Create a new independant copy of the given `atom`.
+     * Create a new independent copy of the given `atom`.
      *
      * This function allocate WASM memory, which must be released with
      * [[Atom.delete]].

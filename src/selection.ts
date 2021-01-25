@@ -13,7 +13,7 @@ import { autogrowStrBuffer, check } from './utils';
 assert(SIZEOF_CHFL_MATCH === 5 * SIZEOF_UINT64_T, 'wrong size for chfl_match');
 
 /**
- * Select atoms in a [[Frame]] using chemfile' selection language.
+ * Select atoms in a [[Frame]] using chemfiles' selection language.
  *
  * The selection language is built by combining basic operations. Each basic
  * operation follows the `<selector>[(<variable>)] <operator> <value>`
@@ -24,7 +24,7 @@ assert(SIZEOF_CHFL_MATCH === 5 * SIZEOF_UINT64_T, 'wrong size for chfl_match');
  */
 export class Selection extends Pointer<CHFL_SELECTION> {
     /**
-     * Create a new independant copy of the given `selection`.
+     * Create a new independent copy of the given `selection`.
      *
      * This function allocate WASM memory, which must be released with
      * [[Selection.delete]].
@@ -82,8 +82,8 @@ export class Selection extends Pointer<CHFL_SELECTION> {
      *
      * The size of a selection is the number of atoms being selected
      * together. This value is 1 for the 'atom' context, 2 for the 'pair' and
-     * 'bond' context, 3 for the 'three' and 'angles' contextes and 4 for the
-     * 'four' and 'dihedral' contextes.
+     * 'bond' context, 3 for the 'three' and 'angles' contexts and 4 for the
+     * 'four' and 'dihedral' contexts.
      *
      *
      * ```typescript doctest
