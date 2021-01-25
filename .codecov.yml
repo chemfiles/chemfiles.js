@@ -1,0 +1,10 @@
+coverage:
+  ignore:
+    - tests/.*
+  status:
+    project:
+      default:
+        target: 95%
+    patch: off
+
+comment: off
