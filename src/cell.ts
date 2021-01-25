@@ -47,7 +47,7 @@ export class UnitCell extends Pointer<CHFL_CELL> {
     }
 
     /**
-     * Create a new independant copy of the given `cell`.
+     * Create a new independent copy of the given `cell`.
      *
      * This function allocate WASM memory, which must be released with
      * [[UnitCell.delete]].

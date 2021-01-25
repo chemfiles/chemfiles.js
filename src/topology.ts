@@ -53,7 +53,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY> {
     }
 
     /**
-     * Create a new independant copy of the given `topology`.
+     * Create a new independent copy of the given `topology`.
      *
      * This function allocate WASM memory, which must be released with
      * [[Topology.delete]].

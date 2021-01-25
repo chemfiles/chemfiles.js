@@ -102,7 +102,7 @@ function createArray3D(ptr: chfl_vector3d, length: number): Array3D {
  */
 export class Frame extends Pointer<CHFL_FRAME> {
     /**
-     * Create a new independant copy of the given `frame`.
+     * Create a new independent copy of the given `frame`.
      *
      * This function allocate WASM memory, which must be released with
      * [[Frame.delete]].
@@ -798,7 +798,7 @@ export class Frame extends Pointer<CHFL_FRAME> {
      * indexes `i`, `j`, `k` and `m` in this [[Frame]], taking periodic
      * boundary conditions into account.
      *
-     * This is the distance betweent the atom j and the ikm plane. The j atom
+     * This is the distance between the atom j and the ikm plane. The j atom
      * is the center of the improper dihedral angle formed by i, j, k and m.
      *
      * ```typescript doctest

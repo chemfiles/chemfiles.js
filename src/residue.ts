@@ -30,7 +30,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
     }
 
     /**
-     * Create a new independant copy of the given `residue`.
+     * Create a new independent copy of the given `residue`.
      *
      * This function allocate WASM memory, which must be released with
      * [[Residue.delete]].

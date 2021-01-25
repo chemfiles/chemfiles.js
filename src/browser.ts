@@ -41,12 +41,12 @@ function normalizePath(path: string): string {
 /**
  * Implementation of Trajectory for reading data from memory.
  *
- * The main use case for this is enabling reading & writting files in the
+ * The main use case for this is enabling reading & writing files in the
  * browser.
  *
  * This is a temporary implementation for chemfiles 0.9, since this
  * functionality was added to chemfiles 0.10. In the browser this is using
- * emscripten MEMFS; and with node this is using temporary files.
+ * Emscripten MEMFS; and with node this is using temporary files.
  */
 class MemoryTrajectory extends Trajectory {
     protected constructor(path: string, mode: string, format: string) {
@@ -56,7 +56,7 @@ class MemoryTrajectory extends Trajectory {
     /**
      * Get the current content of the file as an array of bytes.
      *
-     * When writting a trajectory, you may want to [[close]] the file first to
+     * When writing a trajectory, you may want to [[close]] the file first to
      * ensure all content is flushed to the buffer.
      */
     public asUint8Array(): Uint8Array {
@@ -69,7 +69,7 @@ class MemoryTrajectory extends Trajectory {
      * In the browser, this can be used to create a downloadable object with
      * [`URL.createObjectURL`](https://developer.mozilla.org/fr/docs/Web/API/URL/createObjectURL)
      *
-     * When writting a trajectory, you may want to [[close]] the file first to
+     * When writing a trajectory, you may want to [[close]] the file first to
      * ensure all content is flushed to the buffer.
      *
      * ```typescript
@@ -77,7 +77,7 @@ class MemoryTrajectory extends Trajectory {
      *
      * // write to the trajectory ...
      *
-     * // finish writting and flushing all data
+     * // finish writing and flushing all data
      * trajectory.close();
      *
      * // get an URL to download the data
@@ -140,7 +140,7 @@ export class MemoryReader extends MemoryTrajectory {
      * The file format should be provided in `format`; or a `filename`
      * should be given in which case the format is guessed from the filename
      * extension. If both `format` and `filename` are provided; `format` takes
-     * preccedence.
+     * precedence.
      *
      * The data might come from HTTP requests, user file upload or any other
      * sources.
@@ -173,7 +173,7 @@ export class MemoryWriter extends MemoryTrajectory {
      * The file format should be provided in `format`; or a `filename`
      * should be given in which case the format is guessed from the filename
      * extension. If both `format` and `filename` are provided; `format` takes
-     * preccedence.
+     * precedence.
      *
      * Before getting the file content with [[MemoryWriter.asBlob]] or
      * [[MemoryWriter.asUint8Array]]; ensure the file is flushed with
