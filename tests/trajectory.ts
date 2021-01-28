@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import { Atom, FS, Frame, Topology, Trajectory, UnitCell, ready } from '../src';
+import { Atom, FS, Frame, Topology, Trajectory, UnitCell, ready } from 'chemfiles';
 
 import { assert } from './utils';
 

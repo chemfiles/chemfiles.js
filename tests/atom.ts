@@ -1,4 +1,4 @@
-import { Atom, Vector3d, ready } from '../src/';
+import { Atom, Vector3d, ready } from 'chemfiles';
 
 import { assert, disableWarnings } from './utils';
 

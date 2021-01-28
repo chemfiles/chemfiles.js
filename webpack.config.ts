@@ -9,14 +9,9 @@ const defaultConfig: webpack.Configuration = {
     },
     mode: 'development',
     module: {
-        rules: [{ test: /\.ts?$/, loader: 'ts-loader' }],
-    },
-    // Prevent webpack from messing with emscripten code loading wasm
-    node: {
-        Buffer: false,
-        __dirname: false,
-        fs: 'empty',
-        process: false,
+        rules: [
+            { test: /\.ts?$/, loader: 'ts-loader', options: { configFile: 'tsconfig-build.json' } },
+        ],
     },
     plugins: [
         new CopyPlugin({
@@ -42,6 +37,11 @@ const node: webpack.Configuration = {
 
 const web: webpack.Configuration = {
     ...defaultConfig,
+    // Prevent webpack from messing with emscripten code loading wasm
+    node: {
+        fs: 'empty',
+        process: false,
+    },
     output: {
         filename: '[name].min.js',
         library: 'chemfiles',

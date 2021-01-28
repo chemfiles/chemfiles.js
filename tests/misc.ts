@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import * as chemfiles from '../src';
+import * as chemfiles from 'chemfiles';
 import { assert } from './utils';
 
 import { DATA_ROOT, setupDataFiles } from './data';

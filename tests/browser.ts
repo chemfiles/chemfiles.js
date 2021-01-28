@@ -1,4 +1,4 @@
-import { Atom, FS, Frame, MemoryReader, MemoryWriter, ready } from '../src';
+import { Atom, FS, Frame, MemoryReader, MemoryWriter, ready } from 'chemfiles';
 
 import { assert } from './utils';
 

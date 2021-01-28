@@ -1,4 +1,4 @@
-import { Atom, Frame, Selection, ready } from '../src/';
+import { Atom, Frame, Selection, ready } from 'chemfiles';
 import { assert } from './utils';
 
 describe('Selection', () => {
