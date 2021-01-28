@@ -5,7 +5,7 @@
 
 import assert from 'assert';
 
-import { FS, lib, ready } from './misc';
+import { FS, ready } from './misc';
 import { Trajectory } from './trajectory';
 
 let PREFIX: string;
@@ -34,7 +34,7 @@ function normalizePath(path: string): string {
         do {
             // find a new name, avoiding collisions
             path = randomName(12);
-        } while (lib.FS.analyzePath(`${PREFIX}/${path}`).exists);
+        } while (FS.analyzePath(`${PREFIX}/${path}`).exists);
     }
     return `${PREFIX}/${path}`;
 }
@@ -61,48 +61,7 @@ class MemoryTrajectory extends Trajectory {
      * ensure all content is flushed to the buffer.
      */
     public asUint8Array(): Uint8Array {
-        return lib.FS.readFile(this.path, { encoding: 'binary' }) as Uint8Array;
-    }
-
-    /**
-     * Get the current content of the file as a Blob.
-     *
-     * In the browser, this can be used to create a downloadable object with
-     * [`URL.createObjectURL`](https://developer.mozilla.org/fr/docs/Web/API/URL/createObjectURL)
-     *
-     * When writing a trajectory, you may want to [[close]] the file first to
-     * ensure all content is flushed to the buffer.
-     *
-     * ```typescript
-     * const trajectory = Chemfiles.MemoryWriter(...);
-     *
-     * // write to the trajectory ...
-     *
-     * // finish writing and flushing all data
-     * trajectory.close();
-     *
-     * // get an URL to download the data
-     * const content = trajectory.asBlob();
-     * const url = URL.createObjectURL(blob);
-     *
-     * // initiate a download from javascript
-     * const a = document.createElement('a');
-     * a.download = trajectory.path; // or use a different name
-     * a.href = url;
-     * a.style.display = 'none';
-     *
-     * document.body.appendChild(a);
-     * a.click();
-     * setTimeout(() => {
-     *     document.body.removeChild(a);
-     *     URL.revokeObjectURL(a.href);
-     * }, 2000);
-     * ```
-     */
-    public asBlob(): Blob {
-        // use 'application/octet-stream' to be able to pass through any kind of
-        // data, and in particular binary data
-        return new Blob([this.asUint8Array()], { type: 'application/octet-stream' });
+        return FS.readFile(this.path, { encoding: 'binary' }) as Uint8Array;
     }
 
     /**
@@ -111,7 +70,7 @@ class MemoryTrajectory extends Trajectory {
      */
     public remove(): void {
         this.close();
-        lib.FS.unlink(this.path);
+        FS.unlink(this.path);
     }
 
     /**
@@ -156,7 +115,7 @@ export class MemoryReader extends MemoryTrajectory {
         }
 
         const path = normalizePath(filename);
-        lib.FS.writeFile(path, data, { encoding: 'binary' });
+        FS.writeFile(path, data, { encoding: 'binary' });
 
         super(path, 'r', format);
     }
