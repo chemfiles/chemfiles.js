@@ -6,9 +6,12 @@
         "declaration": true,
         "declarationDir": "dist/",
         "downlevelIteration": true,
-        "lib": ["es5"]
+        "lib": ["es5", "dom"],
+        "baseUrl": ".",
+        "paths": {
+            "chemfiles": ["dist/chemfiles"]
+        }
     },
-    "exclude": ["tests/doc/**/*.ts", "dist/"],
     "typedocOptions": {
         "mode": "library",
         "inputFiles": "src/index.ts",

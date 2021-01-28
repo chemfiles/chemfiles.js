@@ -5,7 +5,7 @@ import * as vm from 'vm';
 
 import { assert } from './utils';
 
-import * as chemfiles from '../src/';
+import * as chemfiles from 'chemfiles';
 
 // run dynamically generated doctest files
 describe('Doctests', () => {

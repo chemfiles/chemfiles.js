@@ -1,6 +1,6 @@
 /// <reference lib="dom" />
 
-import { FS } from '../../src';
+import { FS } from 'chemfiles';
 
 async function addFileToMEMFS(path: string) {
     const response = await fetch(`base/tests/data/${path}`);

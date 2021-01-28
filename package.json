@@ -4,11 +4,14 @@
   "description": "Modern library for chemistry trajectories reading and writing ",
   "main": "src/index.ts",
   "scripts": {
-    "test": "ts-doctest . tests && mocha --timeout 8000 && npm run lint",
+    "test": "npm run build:dev && ts-doctest . tests && npm run test:node && npm run test:web && npm run lint",
+    "test:node": "mocha --timeout 8000",
+    "test:web": "karma start",
     "coverage": "rm -rf tests/doc && nyc mocha --timeout 8000 && mv coverage/coverage-final.json coverage/coverage.json",
-    "build": "webpack --mode production && npm run merge-dts",
-    "build-libchemfiles": "rm -rf lib && ts-node scripts/build-libchemfiles.ts",
-    "merge-dts": "dts-bundle-generator dist/src/index.d.ts --out-file dist/chemfiles.d.ts",
+    "build": "webpack --mode production && npm run build:dts",
+    "build:dev": "webpack --mode development && npm run build:dts",
+    "build:libchemfiles": "rm -rf lib && ts-node scripts/build-libchemfiles.ts",
+    "build:dts": "dts-bundle-generator dist/src/index.d.ts --out-file dist/chemfiles.d.ts",
     "lint": "ts-node scripts/lint.ts && eslint . && prettier --check src tests scripts",
     "docs": "typedoc && ts-node scripts/add-docs-css.ts"
   },
@@ -25,6 +28,7 @@
   "mocha": {
     "require": [
       "ts-node/register",
+      "tsconfig-paths/register",
       "source-map-support/register"
     ],
     "recursive": true,
@@ -69,6 +73,7 @@
     "source-map-support": "^0.5.19",
     "ts-loader": "^8",
     "ts-node": "^9.1.1",
+    "tsconfig-paths": "^3.9.0",
     "typedoc": "0.17.0-3",
     "typescript": "^4.1.3",
     "webpack": "^4.43.0",

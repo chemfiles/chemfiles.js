@@ -1,4 +1,4 @@
-import { CellShape, UnitCell, ready } from '../src/';
+import { CellShape, UnitCell, ready } from 'chemfiles';
 import { assert } from './utils';
 
 describe('UnitCell', () => {

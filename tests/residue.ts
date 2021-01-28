@@ -1,4 +1,4 @@
-import { Residue, Vector3d, ready } from '../src/';
+import { Residue, Vector3d, ready } from 'chemfiles';
 
 import { assert, disableWarnings } from './utils';
 

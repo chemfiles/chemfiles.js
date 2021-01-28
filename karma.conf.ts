@@ -1,8 +1,13 @@
 import { strict as assert } from 'assert';
+import path from 'path';
 import * as webpackConfig from './webpack.config';
 
 const web = (webpackConfig as any)[1];
 assert(web.target === 'web');
+
+web.resolve.alias = {
+    chemfiles: path.resolve(__dirname, 'dist/chemfiles.min.js'),
+};
 
 module.exports = (config: any) => {
     config.set({

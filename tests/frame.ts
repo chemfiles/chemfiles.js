@@ -1,7 +1,16 @@
 import * as path from 'path';
 
-import { Atom, BondOrder, Frame, Residue, Topology, Trajectory, UnitCell, Vector3d } from '../src/';
-import { ready } from '../src/';
+import {
+    Atom,
+    BondOrder,
+    Frame,
+    Residue,
+    Topology,
+    Trajectory,
+    UnitCell,
+    Vector3d,
+} from 'chemfiles';
+import * as chemfiles from 'chemfiles';
 
 import { assert, disableWarnings } from './utils';
 
@@ -9,11 +18,11 @@ import { DATA_ROOT, setupDataFiles } from './data';
 
 describe('Frame', () => {
     before((done) => {
-        ready(() => {
+        chemfiles.ready(() => {
             setupDataFiles()
                 .then(() => done())
                 // eslint-disable-next-line no-console
-                .catch((err) => console.error(err));
+                .catch(console.error);
         });
     });
 
