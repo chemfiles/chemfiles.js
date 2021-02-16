@@ -2,7 +2,8 @@
   "name": "chemfiles",
   "version": "0.9.3",
   "description": "Modern library for chemistry trajectories reading and writing ",
-  "main": "src/index.ts",
+  "main": "dist/chemfiles.min.js",
+  "types": "dist/chemfiles.d.ts",
   "scripts": {
     "test": "npm run build:dev && ts-doctest . tests && npm run test:node && npm run test:web && npm run lint",
     "test:node": "mocha --timeout 8000",

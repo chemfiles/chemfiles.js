@@ -109,7 +109,7 @@ export class MemoryReader extends MemoryTrajectory {
      * @param format    format to use when reading the file
      * @param filename  name of the file that is being read
      */
-    constructor(data: ArrayBufferView, format: string = '', filename: string = '') {
+    constructor(data: Uint8Array, format: string = '', filename: string = '') {
         if (format === '' && filename === '') {
             throw Error('Either format or filename is required to create a MemoryReader');
         }
