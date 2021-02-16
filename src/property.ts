@@ -9,13 +9,13 @@ import {
 import { lib } from './misc';
 
 import { getValue, stackAlloc, stackAutoclean } from './stack';
-import { Vector3d, autogrowStrBuffer, check } from './utils';
+import { Vector3D, autogrowStrBuffer, check } from './utils';
 
 /**
  * Possible types for properties natively stored in [[Atom]], [[Residue]] or
  * [[Frame]].
  */
-export type PropertyType = string | boolean | number | Vector3d;
+export type PropertyType = string | boolean | number | Vector3D;
 
 /**
  * Get the javascript value from a CHFL_PROPERTY

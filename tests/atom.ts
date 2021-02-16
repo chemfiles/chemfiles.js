@@ -1,4 +1,4 @@
-import { Atom, Vector3d, ready } from 'chemfiles';
+import { Atom, Vector3D, ready } from 'chemfiles';
 
 import { assert, disableWarnings } from './utils';
 
@@ -124,7 +124,7 @@ describe('Atom', () => {
 
         assert.equal(atom.get('foo'), 5);
         assert.equal(atom.get('bar'), false);
-        assert.arrayEqual(atom.get('baz') as Vector3d, [3, 4.5, -7]);
+        assert.arrayEqual(atom.get('baz') as Vector3D, [3, 4.5, -7]);
         assert.equal(atom.get('hey'), 'test');
 
         atom.set('foo', '56');

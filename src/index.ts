@@ -7,5 +7,5 @@ export { Frame, Array3D } from './frame';
 export { Selection } from './selection';
 export { Trajectory } from './trajectory';
 export { MemoryReader, MemoryWriter } from './browser';
-export { Vector3d, Matrix3 } from './utils';
+export { Vector3D, Matrix3 } from './utils';
 export * from './misc';

@@ -8,7 +8,7 @@ import { POINTER, chfl_vector3d } from './libchemfiles';
 
 import { CellShape } from './cell';
 import { BondOrder } from './topology';
-import { Matrix3, Vector3d } from './utils';
+import { Matrix3, Vector3D } from './utils';
 
 /**
  * Call the provided callback and clean the WASM stack before returning
@@ -32,7 +32,7 @@ interface TypeMap {
     bool: [c_bool_ptr, boolean];
     'char*': [c_char_ptr, string];
     'char*[]': [c_char_ptr_ptr, string[]];
-    chfl_vector3d: [chfl_vector3d, Vector3d];
+    chfl_vector3d: [chfl_vector3d, Vector3D];
     chfl_matrix3: [c_double_ptr, Matrix3];
     chfl_property_kind: [chfl_property_kind_ptr, number];
     chfl_cellshape: [chfl_cellshape_ptr, CellShape];
@@ -51,7 +51,7 @@ interface Ref<T extends keyof TypeMap> {
 }
 
 interface AllocOptions {
-    initial: string | Vector3d;
+    initial: string | Vector3D;
     count: number;
 }
 
@@ -188,12 +188,12 @@ export function getValue<T extends keyof TypeMap>(
         return lib.UTF8ToString(ref.ptr);
     } else if (ref.type === 'chfl_vector3d') {
         const start = ref.ptr / sizes.SIZEOF_DOUBLE;
-        return (lib.HEAPF64.slice(start, start + 3) as unknown) as Vector3d;
+        return (lib.HEAPF64.slice(start, start + 3) as unknown) as Vector3D;
     } else if (ref.type === 'chfl_matrix3') {
         const start = ref.ptr / sizes.SIZEOF_DOUBLE;
-        const a = (lib.HEAPF64.slice(start + 0, start + 3) as unknown) as Vector3d;
-        const b = (lib.HEAPF64.slice(start + 3, start + 6) as unknown) as Vector3d;
-        const c = (lib.HEAPF64.slice(start + 6, start + 9) as unknown) as Vector3d;
+        const a = (lib.HEAPF64.slice(start + 0, start + 3) as unknown) as Vector3D;
+        const b = (lib.HEAPF64.slice(start + 3, start + 6) as unknown) as Vector3D;
+        const c = (lib.HEAPF64.slice(start + 6, start + 9) as unknown) as Vector3D;
         return [a, b, c];
     } else if (ref.type === 'chfl_property_kind') {
         return lib.getValue(ref.ptr, 'i32');
@@ -210,7 +210,7 @@ function checkString(value?: unknown): asserts value is string {
     assert(value !== undefined && typeof value === 'string');
 }
 
-function checkVector3d(value?: unknown): asserts value is Vector3d {
+function checkVector3d(value?: unknown): asserts value is Vector3D {
     assert(value !== undefined && Array.isArray(value) && value.length === 3);
 }
 
