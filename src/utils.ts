@@ -5,7 +5,7 @@ import { lastError } from './misc';
 import { getValue, stackAlloc } from './stack';
 
 /** Simple 3D vector */
-export interface Vector3d {
+export interface Vector3D {
     0: number;
     1: number;
     2: number;
@@ -15,9 +15,9 @@ export interface Vector3d {
 
 /** 3x3 matrix */
 export interface Matrix3 {
-    0: Vector3d;
-    1: Vector3d;
-    2: Vector3d;
+    0: Vector3D;
+    1: Vector3D;
+    2: Vector3D;
 
     length: number;
 }

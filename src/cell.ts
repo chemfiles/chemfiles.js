@@ -10,7 +10,7 @@ import { lib } from './misc';
 import { Pointer } from './c_ptr';
 
 import { getValue, stackAlloc, stackAutoclean } from './stack';
-import { Matrix3, Vector3d, check } from './utils';
+import { Matrix3, Vector3D, check } from './utils';
 
 /** Available cell shapes in Chemfiles */
 export enum CellShape {
@@ -108,7 +108,7 @@ export class UnitCell extends Pointer<CHFL_CELL> {
      * @param lengths lengths of the unit cell vectors, in Ångströms
      * @param angles  angles between the unit cell vectors, in degrees
      */
-    constructor(lengths: Vector3d, angles?: Vector3d) {
+    constructor(lengths: Vector3D, angles?: Vector3D) {
         const ptr = stackAutoclean(() => {
             if (angles === undefined) {
                 const ref = stackAlloc('chfl_vector3d', { initial: lengths });
@@ -131,7 +131,7 @@ export class UnitCell extends Pointer<CHFL_CELL> {
      * cell.delete();
      * ```
      */
-    get lengths(): Vector3d {
+    get lengths(): Vector3D {
         return stackAutoclean(() => {
             const ref = stackAlloc('chfl_vector3d');
             check(lib._chfl_cell_lengths(this.const_ptr, ref.ptr));
@@ -151,7 +151,7 @@ export class UnitCell extends Pointer<CHFL_CELL> {
      * cell.delete();
      * ```
      */
-    set lengths(value: Vector3d) {
+    set lengths(value: Vector3D) {
         stackAutoclean(() => {
             const ref = stackAlloc('chfl_vector3d', { initial: value });
             check(lib._chfl_cell_set_lengths(this.ptr, ref.ptr));
@@ -167,7 +167,7 @@ export class UnitCell extends Pointer<CHFL_CELL> {
      * cell.delete();
      * ```
      */
-    get angles(): Vector3d {
+    get angles(): Vector3D {
         return stackAutoclean(() => {
             const ref = stackAlloc('chfl_vector3d');
             check(lib._chfl_cell_angles(this.const_ptr, ref.ptr));
@@ -191,7 +191,7 @@ export class UnitCell extends Pointer<CHFL_CELL> {
      * cell.delete();
      * ```
      */
-    set angles(value: Vector3d) {
+    set angles(value: Vector3D) {
         stackAutoclean(() => {
             const ref = stackAlloc('chfl_vector3d', { initial: value });
             check(lib._chfl_cell_set_angles(this.ptr, ref.ptr));
@@ -286,7 +286,7 @@ export class UnitCell extends Pointer<CHFL_CELL> {
      * @param  vector vector to be wrapped inside the cell, in Ångströms
      * @return        wrapped vector
      */
-    public wrap(vector: Vector3d): Vector3d {
+    public wrap(vector: Vector3D): Vector3D {
         return stackAutoclean(() => {
             const ref = stackAlloc('chfl_vector3d', { initial: vector });
             check(lib._chfl_cell_wrap(this.const_ptr, ref.ptr));

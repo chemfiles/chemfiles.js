@@ -1,7 +1,7 @@
 import { assert as chaiAssert } from 'chai';
-import { Vector3d, setWarningCallback } from 'chemfiles';
+import { Vector3D, setWarningCallback } from 'chemfiles';
 
-function arrayEqual(a: Vector3d, b: Vector3d, eps = 1e-33): void {
+function arrayEqual(a: Vector3D, b: Vector3D, eps = 1e-33): void {
     assert.equal(a.length, 3, 'length must be 3 for a');
     assert.equal(b.length, 3, 'length must be 3 for b');
     assert.approximately(a[0], b[0], eps);

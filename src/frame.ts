@@ -12,7 +12,7 @@ import { BondOrder, Topology } from './topology';
 
 import { PropertyType, createProperty, getProperty } from './property';
 import { getValue, stackAlloc, stackAutoclean } from './stack';
-import { Vector3d, check, isUnsignedInteger } from './utils';
+import { Vector3D, check, isUnsignedInteger } from './utils';
 
 /**
  * An Array of Vector3d allowing direct access into WASM memory. It can be
@@ -45,9 +45,9 @@ import { Vector3d, check, isUnsignedInteger } from './utils';
 export interface Array3D {
     readonly length: number;
     /** @hidden */
-    [i: number]: Vector3d;
+    [i: number]: Vector3D;
     /** @hidden */
-    [Symbol.iterator](): Generator<Vector3d, void, void>;
+    [Symbol.iterator](): Generator<Vector3D, void, void>;
 }
 
 /**
@@ -424,7 +424,7 @@ export class Frame extends Pointer<CHFL_FRAME> {
      * @param position   position of the atom, in Ångströms
      * @param velocities velocity of the atom, in Å/fs
      */
-    public addAtom(atom: Atom, position: Vector3d, velocities?: Vector3d): void {
+    public addAtom(atom: Atom, position: Vector3D, velocities?: Vector3D): void {
         return stackAutoclean(() => {
             const pos = stackAlloc('chfl_vector3d', { initial: position });
             if (velocities === undefined) {

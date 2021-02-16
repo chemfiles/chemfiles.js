@@ -8,7 +8,7 @@ import {
     Topology,
     Trajectory,
     UnitCell,
-    Vector3d,
+    Vector3D,
 } from 'chemfiles';
 import * as chemfiles from 'chemfiles';
 
@@ -349,7 +349,7 @@ describe('Frame', () => {
 
         assert.equal(frame.get('foo'), 5);
         assert.equal(frame.get('bar'), false);
-        assert.arrayEqual(frame.get('baz') as Vector3d, [3, 4.5, -7]);
+        assert.arrayEqual(frame.get('baz') as Vector3D, [3, 4.5, -7]);
         assert.equal(frame.get('hey'), 'test');
 
         frame.set('foo', '56');
