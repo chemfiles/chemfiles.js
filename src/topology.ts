@@ -50,7 +50,7 @@ export enum BondOrder {
  *
  * It will also contain all the [[Residue]] of the system.
  */
-export class Topology extends Pointer<CHFL_TOPOLOGY> {
+export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     /** @hidden
      * Create a new Atom from a raw pointer
      */

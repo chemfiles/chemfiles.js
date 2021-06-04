@@ -98,7 +98,7 @@ function createArray3D(ptr: chfl_vector3d, length: number): Array3D {
  * system. If some information is missing (topology or velocity or unit
  * cell), the corresponding data is filled with a default value.
  */
-export class Frame extends Pointer<CHFL_FRAME> {
+export class Frame extends Pointer<CHFL_FRAME, never> {
     /**
      * Create a new independent copy of the given `frame`.
      *
