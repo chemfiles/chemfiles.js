@@ -6,6 +6,9 @@ const ROOT = path.join(__dirname, '..');
 const BUILDIR = path.join(ROOT, 'build');
 const LIBDIR = path.join(ROOT, 'lib');
 
+process.env.EM_NODE_JS = process.env.NODE;
+delete process.env.NODE;
+
 // cmake configure
 fs.mkdirSync(BUILDIR, { recursive: true });
 if (!fs.existsSync(path.join(BUILDIR, 'CMakeCache.txt'))) {
