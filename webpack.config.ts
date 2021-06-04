@@ -13,14 +13,26 @@ const defaultConfig: webpack.Configuration = {
             { test: /\.ts?$/, loader: 'ts-loader', options: { configFile: 'tsconfig-build.json' } },
         ],
     },
+
     plugins: [
         new CopyPlugin({
+            // copy src/libchemfiles/index.d.ts to dist/src/libchemfiles/index.d.ts
+            // so that dts-bundle-generator can find it
             patterns: [{ from: 'src/libchemfiles/index.d.ts', to: 'src/libchemfiles/' }],
         }),
     ],
 
     resolve: {
         extensions: ['.js', '.ts'],
+        fallback: {
+            assert: false,
+            crypto: false,
+            fs: false,
+            os: false,
+            path: false,
+            util: false,
+            vm: false,
+        },
     },
 };
 
@@ -37,11 +49,6 @@ const node: webpack.Configuration = {
 
 const web: webpack.Configuration = {
     ...defaultConfig,
-    // Prevent webpack from messing with emscripten code loading wasm
-    node: {
-        fs: 'empty',
-        process: false,
-    },
     output: {
         filename: '[name].min.js',
         library: 'chemfiles',

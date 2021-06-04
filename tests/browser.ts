@@ -2,19 +2,6 @@ import { Atom, FS, Frame, MemoryReader, MemoryWriter, ready } from 'chemfiles';
 
 import { assert } from './utils';
 
-// node 10 do not export TextEncoder & TextDecoder as globals, let's do it ourself
-/* eslint-disable */
-if (
-    typeof process !== 'undefined' &&
-    process.release.name === 'node' &&
-    process.version.includes('v10.')
-) {
-    const util = require('util');
-    global.TextEncoder = util.TextEncoder;
-    global.TextDecoder = util.TextDecoder;
-}
-/* eslint-enable */
-
 const TEST_XYZ_DATA = new TextEncoder().encode(`3
 
 C 0 0 0

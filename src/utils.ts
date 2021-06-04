@@ -68,3 +68,9 @@ export function autogrowStrBuffer(callback: StrCallback, initial = 128): string 
     lib.stackRestore(sp);
     return result;
 }
+
+export function assert(condition: boolean, message: string): void {
+    if (!condition) {
+        throw Error(message);
+    }
+}

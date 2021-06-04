@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 
 import { Atom, FS, Frame, Topology, Trajectory, UnitCell, ready } from 'chemfiles';
 

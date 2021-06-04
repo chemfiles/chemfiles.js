@@ -46,7 +46,7 @@ export class UnitCell extends Pointer<CHFL_CELL> {
      * Create a new [[UnitCell]] from a raw pointer
      */
     public static __from_ptr(ptr: CHFL_CELL, isConst: boolean): UnitCell {
-        const parent = new Pointer(ptr, isConst);
+        const parent = new Pointer(ptr, isConst, 'UnitCell');
         const cell = Object.create(UnitCell.prototype) as UnitCell;
         Object.assign(cell, parent);
         return cell;
@@ -119,7 +119,7 @@ export class UnitCell extends Pointer<CHFL_CELL> {
                 return lib._chfl_cell_triclinic(lengthRef.ptr, anglesRef.ptr);
             }
         });
-        super(ptr, false);
+        super(ptr, false, 'UnitCell');
     }
 
     /**

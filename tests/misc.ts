@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 
 import * as chemfiles from 'chemfiles';
 import { assert } from './utils';

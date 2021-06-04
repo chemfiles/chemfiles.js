@@ -1,5 +1,3 @@
-import { strict as assert } from 'assert';
-
 import * as sizes from '../lib/wasm-sizes';
 import { lib } from './misc';
 import { c_bool_ptr, c_char_ptr, c_char_ptr_ptr, c_double_ptr, c_uint64_ptr } from './libchemfiles';
@@ -8,7 +6,7 @@ import { POINTER, chfl_vector3d } from './libchemfiles';
 
 import { CellShape } from './cell';
 import { BondOrder } from './topology';
-import { Matrix3, Vector3D } from './utils';
+import { Matrix3, Vector3D, assert } from './utils';
 
 /**
  * Call the provided callback and clean the WASM stack before returning
@@ -188,12 +186,12 @@ export function getValue<T extends keyof TypeMap>(
         return lib.UTF8ToString(ref.ptr);
     } else if (ref.type === 'chfl_vector3d') {
         const start = ref.ptr / sizes.SIZEOF_DOUBLE;
-        return (lib.HEAPF64.slice(start, start + 3) as unknown) as Vector3D;
+        return lib.HEAPF64.slice(start, start + 3) as unknown as Vector3D;
     } else if (ref.type === 'chfl_matrix3') {
         const start = ref.ptr / sizes.SIZEOF_DOUBLE;
-        const a = (lib.HEAPF64.slice(start + 0, start + 3) as unknown) as Vector3D;
-        const b = (lib.HEAPF64.slice(start + 3, start + 6) as unknown) as Vector3D;
-        const c = (lib.HEAPF64.slice(start + 6, start + 9) as unknown) as Vector3D;
+        const a = lib.HEAPF64.slice(start + 0, start + 3) as unknown as Vector3D;
+        const b = lib.HEAPF64.slice(start + 3, start + 6) as unknown as Vector3D;
+        const c = lib.HEAPF64.slice(start + 6, start + 9) as unknown as Vector3D;
         return [a, b, c];
     } else if (ref.type === 'chfl_property_kind') {
         return lib.getValue(ref.ptr, 'i32');
@@ -207,11 +205,17 @@ export function getValue<T extends keyof TypeMap>(
 }
 
 function checkString(value?: unknown): asserts value is string {
-    assert(value !== undefined && typeof value === 'string');
+    assert(
+        value !== undefined && typeof value === 'string',
+        `expected a string value, got a ${typeof value} instead`
+    );
 }
 
 function checkVector3d(value?: unknown): asserts value is Vector3D {
-    assert(value !== undefined && Array.isArray(value) && value.length === 3);
+    assert(
+        value !== undefined && Array.isArray(value) && value.length === 3,
+        `expected a Vector3D value, got a ${typeof value} instead`
+    );
 }
 
 export function getUint64(ptr: POINTER): number {

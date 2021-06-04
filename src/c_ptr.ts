@@ -12,6 +12,7 @@ export class Pointer<T extends CHFL_PTR, Extra = never> {
     // store extra data for child classes
     protected _extra: Partial<Extra>;
     private _ptr: T;
+    private _className: string;
     private _isConst: boolean;
 
     /**
@@ -23,12 +24,14 @@ export class Pointer<T extends CHFL_PTR, Extra = never> {
      * @param ptr     address of the chemfiles object
      * @param isConst is the object behind the pointer const?
      */
-    constructor(ptr: T, isConst: boolean) {
+    constructor(ptr: T, isConst: boolean, className: string) {
         if (ptr === 0) {
             throw Error(lastError());
         }
+
         this._ptr = ptr;
         this._isConst = isConst;
+        this._className = className;
         this._extra = {};
         Object.preventExtensions(this);
     }
@@ -50,7 +53,7 @@ export class Pointer<T extends CHFL_PTR, Extra = never> {
      */
     get ptr(): T {
         if (this._isConst) {
-            throw Error(`this ${this.constructor.name} can not be modified`);
+            throw Error(`this ${this._className} can not be modified`);
         }
         return this.const_ptr;
     }
