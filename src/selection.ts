@@ -1,5 +1,3 @@
-import { strict as assert } from 'assert';
-
 import { SIZEOF_CHFL_MATCH, SIZEOF_UINT64_T } from '../lib/wasm-sizes';
 import { CHFL_SELECTION, POINTER } from './libchemfiles';
 import { lib } from './misc';
@@ -8,7 +6,7 @@ import { Pointer } from './c_ptr';
 import { Frame } from './frame';
 
 import { getUint64, getValue, stackAlloc, stackAutoclean } from './stack';
-import { autogrowStrBuffer, check } from './utils';
+import { assert, autogrowStrBuffer, check } from './utils';
 
 assert(SIZEOF_CHFL_MATCH === 5 * SIZEOF_UINT64_T, 'wrong size for chfl_match');
 
@@ -43,7 +41,7 @@ export class Selection extends Pointer<CHFL_SELECTION> {
      */
     public static clone(selection: Selection): Selection {
         const ptr = lib._chfl_selection_copy(selection.const_ptr);
-        const parent = new Pointer(ptr, false);
+        const parent = new Pointer(ptr, false, 'Selection');
         const newSelection = Object.create(Selection.prototype) as Selection;
         Object.assign(newSelection, parent);
         return newSelection;
@@ -74,7 +72,7 @@ export class Selection extends Pointer<CHFL_SELECTION> {
             const ref = stackAlloc('char*', { initial: selection });
             return lib._chfl_selection(ref.ptr);
         });
-        super(ptr, false);
+        super(ptr, false, 'Selection');
     }
 
     /**

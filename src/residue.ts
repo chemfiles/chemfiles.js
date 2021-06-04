@@ -1,5 +1,3 @@
-import { strict as assert } from 'assert';
-
 import { CHFL_GENERIC_ERROR, CHFL_RESIDUE } from './libchemfiles';
 import { lib } from './misc';
 
@@ -7,7 +5,13 @@ import { Pointer } from './c_ptr';
 
 import { PropertyType, createProperty, getProperty } from './property';
 import { getValue, stackAlloc, stackAutoclean } from './stack';
-import { autogrowStrBuffer, check, isUnsignedInteger, numberEmscriptenUint64 } from './utils';
+import {
+    assert,
+    autogrowStrBuffer,
+    check,
+    isUnsignedInteger,
+    numberEmscriptenUint64,
+} from './utils';
 
 interface ResidueExtra {
     atoms: ReadonlyArray<number>;
@@ -23,7 +27,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
      * Create a new [[Residue]] from a raw pointer
      */
     public static __from_ptr(ptr: CHFL_RESIDUE, isConst: boolean): Residue {
-        const parent = new Pointer(ptr, isConst);
+        const parent = new Pointer(ptr, isConst, 'Residue');
         const atom = Object.create(Residue.prototype) as Residue;
         Object.assign(atom, parent);
         return atom;
@@ -92,7 +96,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
                 return lib._chfl_residue_with_id(nameRef.ptr, lo, hi);
             }
         });
-        super(ptr, false);
+        super(ptr, false, 'Residue');
         this._extra.atoms = undefined;
     }
 

@@ -1,5 +1,3 @@
-import { strict as assert } from 'assert';
-
 import * as sizes from '../lib/wasm-sizes';
 import { CHFL_FRAME, chfl_bond_order, chfl_vector3d } from './libchemfiles';
 import { lib } from './misc';
@@ -12,7 +10,7 @@ import { BondOrder, Topology } from './topology';
 
 import { PropertyType, createProperty, getProperty } from './property';
 import { getValue, stackAlloc, stackAutoclean } from './stack';
-import { Vector3D, check, isUnsignedInteger } from './utils';
+import { Vector3D, assert, check, isUnsignedInteger } from './utils';
 
 /**
  * An Array of Vector3d allowing direct access into WASM memory. It can be
@@ -70,7 +68,7 @@ function createArray3D(ptr: chfl_vector3d, length: number): Array3D {
     };
 
     return new Proxy(object, {
-        get: (self: typeof object, key: string | number) => {
+        get: (self: typeof object, key: string | symbol) => {
             if (key in self) {
                 return self[key as keyof typeof object];
             } else {
@@ -82,7 +80,7 @@ function createArray3D(ptr: chfl_vector3d, length: number): Array3D {
                 }
             }
         },
-        set: (self: typeof object, key: string | number, value: ArrayLike<number>) => {
+        set: (self: typeof object, key: string | symbol, value: ArrayLike<number>) => {
             const i = Number(key);
             if (!isUnsignedInteger(i) || value.length !== 3) {
                 return false;
@@ -126,7 +124,7 @@ export class Frame extends Pointer<CHFL_FRAME> {
      */
     public static clone(frame: Frame): Frame {
         const ptr = lib._chfl_frame_copy(frame.const_ptr);
-        const parent = new Pointer(ptr, false);
+        const parent = new Pointer(ptr, false, 'Frame');
         const copy = Object.create(Frame.prototype) as Frame;
         Object.assign(copy, parent);
         return copy;
@@ -146,7 +144,7 @@ export class Frame extends Pointer<CHFL_FRAME> {
      */
     constructor() {
         const ptr = lib._chfl_frame();
-        super(ptr, false);
+        super(ptr, false, 'Frame');
     }
 
     /**

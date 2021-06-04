@@ -1,13 +1,19 @@
 import { strict as assert } from 'assert';
 import path from 'path';
+import webpack from 'webpack';
+
 import * as webpackConfig from './webpack.config';
 
-const web = (webpackConfig as any)[1];
-assert(web.target === 'web');
+const webpackWebConfig = (webpackConfig as any)[1];
+assert(webpackWebConfig.target === 'web');
 
-web.resolve.alias = {
+webpackWebConfig.output.filename = undefined;
+webpackWebConfig.resolve.alias = {
     chemfiles: path.resolve(__dirname, 'dist/chemfiles.min.js'),
 };
+
+// allow tests to access path
+webpackWebConfig.resolve.fallback.path = require.resolve('path-browserify');
 
 module.exports = (config: any) => {
     config.set({
@@ -21,7 +27,7 @@ module.exports = (config: any) => {
         },
         exclude: ['tests/doc.ts'],
         files: [{ pattern: 'tests/data/*', included: false, served: true }, 'tests/*.ts'],
-        frameworks: ['mocha', 'detectBrowsers'],
+        frameworks: ['webpack', 'mocha', 'detectBrowsers'],
         preprocessors: {
             'tests/*.ts': ['webpack'],
         },
@@ -33,10 +39,8 @@ module.exports = (config: any) => {
         },
 
         webpack: {
-            ...web,
+            ...webpackWebConfig,
             entry: undefined,
-            output: undefined,
-            plugins: undefined,
         },
         webpackMiddleware: {
             stats: 'errors-only',

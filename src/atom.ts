@@ -24,7 +24,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
      * Create a new [[Atom]] from a raw pointer
      */
     public static __from_ptr(ptr: CHFL_ATOM, isConst: boolean): Atom {
-        const parent = new Pointer(ptr, isConst);
+        const parent = new Pointer(ptr, isConst, 'Atom');
         const atom = Object.create(Atom.prototype) as Atom;
         Object.assign(atom, parent);
         return atom;
@@ -88,7 +88,7 @@ export class Atom extends Pointer<CHFL_ATOM> {
             const value = stackAlloc('char*', { initial: name });
             return lib._chfl_atom(value.ptr);
         });
-        super(ptr, false);
+        super(ptr, false, 'Atom');
 
         if (type !== undefined) {
             this.type = type;

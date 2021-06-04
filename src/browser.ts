@@ -3,8 +3,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
-import assert from 'assert';
-
 import { FS, ready } from './misc';
 import { Trajectory } from './trajectory';
 
@@ -83,7 +81,9 @@ class MemoryTrajectory extends Trajectory {
      * ```
      */
     public get path(): string {
-        assert(this._extra.jsPath !== undefined);
+        if (this._extra.jsPath === undefined) {
+            throw Error('jsPath should not be undefined');
+        }
         return this._extra.jsPath;
     }
 }

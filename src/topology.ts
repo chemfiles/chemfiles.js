@@ -1,5 +1,3 @@
-import { strict as assert } from 'assert';
-
 import { CHFL_TOPOLOGY } from './libchemfiles';
 import {
     CHFL_BOND_AMIDE,
@@ -19,7 +17,7 @@ import { Pointer } from './c_ptr';
 import { Residue } from './residue';
 
 import { getValue, stackAlloc, stackAutoclean } from './stack';
-import { check, isUnsignedInteger } from './utils';
+import { assert, check, isUnsignedInteger } from './utils';
 
 /**
  * A [[BondOrder]] describe the order of a bond (single, double, etc.).
@@ -57,7 +55,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY> {
      * Create a new Atom from a raw pointer
      */
     public static __from_ptr(ptr: CHFL_TOPOLOGY, isConst: boolean): Topology {
-        const parent = new Pointer(ptr, isConst);
+        const parent = new Pointer(ptr, isConst, 'Topology');
         const atom = Object.create(Topology.prototype) as Topology;
         Object.assign(atom, parent);
         return atom;
@@ -104,7 +102,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY> {
      * ```
      */
     constructor() {
-        super(lib._chfl_topology(), false);
+        super(lib._chfl_topology(), false, 'Topology');
     }
 
     /**

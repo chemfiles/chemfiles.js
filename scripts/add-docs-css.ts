@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import fs from 'fs';
+import path from 'path';
 
 const css = path.join(__dirname, '..', 'dist', 'docs', 'assets', 'css', 'main.css');
 
@@ -9,6 +9,10 @@ const custom = `
 }
 
 .tsd-sources {
+    display: none;
+}
+
+.tsd-type-parameters {
     display: none;
 }
 `;

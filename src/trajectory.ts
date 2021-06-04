@@ -1,5 +1,3 @@
-import { strict as assert } from 'assert';
-
 import { CHFL_TRAJECTORY } from './libchemfiles';
 import { lib } from './misc';
 
@@ -9,7 +7,7 @@ import { Frame } from './frame';
 import { Topology } from './topology';
 
 import { getValue, stackAlloc, stackAutoclean } from './stack';
-import { check, isUnsignedInteger } from './utils';
+import { assert, check, isUnsignedInteger } from './utils';
 
 /**
  * A [[Trajectory]] represent a physical file, from which we can read [[Frame]].
@@ -62,7 +60,7 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, { jsPath: string }> {
                 );
             }
         });
-        super(ptr, false);
+        super(ptr, false, 'Trajectory');
         // Store the path used to open the trajectory directly in javascript
         // to enable the MemoryTrajectory use case (cf browser.ts)
         this._extra.jsPath = path;
