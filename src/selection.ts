@@ -20,7 +20,7 @@ assert(SIZEOF_CHFL_MATCH === 5 * SIZEOF_UINT64_T, 'wrong size for chfl_match');
  * [full documentation](https://chemfiles.org/chemfiles/latest/selections.html)
  * to know the allowed selectors and how to use them.
  */
-export class Selection extends Pointer<CHFL_SELECTION> {
+export class Selection extends Pointer<CHFL_SELECTION, never> {
     /**
      * Create a new independent copy of the given `selection`.
      *

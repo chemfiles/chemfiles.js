@@ -41,7 +41,7 @@ export enum CellShape {
  * |  0     0    c_z |
  * ```
  */
-export class UnitCell extends Pointer<CHFL_CELL> {
+export class UnitCell extends Pointer<CHFL_CELL, never> {
     /** @hidden
      * Create a new [[UnitCell]] from a raw pointer
      */

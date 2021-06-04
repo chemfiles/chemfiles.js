@@ -19,7 +19,7 @@ import { autogrowStrBuffer, check } from './utils';
  * the atom type will be shared between all particles of the same type:
  * ``'H'``, ``'Ow'``, ``'CH3'``.
  */
-export class Atom extends Pointer<CHFL_ATOM> {
+export class Atom extends Pointer<CHFL_ATOM, never> {
     /** @hidden
      * Create a new [[Atom]] from a raw pointer
      */
