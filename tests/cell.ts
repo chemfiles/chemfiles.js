@@ -21,6 +21,18 @@ describe('UnitCell', () => {
         copy.delete();
     });
 
+    it('can be built from a matrix', () => {
+        // prettier-ignore
+        const cell = new UnitCell([
+            [3, 0, 0],
+            [0, 4, 0],
+            [0, 0, 5],
+        ]);
+        assert.arrayEqual(cell.lengths, [3, 4, 5]);
+
+        cell.delete();
+    });
+
     it('has lengths', () => {
         const cell = new UnitCell([1, 1, 1]);
         assert.arrayEqual(cell.lengths, [1, 1, 1]);

@@ -6,7 +6,7 @@ import { POINTER, chfl_vector3d } from './libchemfiles';
 
 import { CellShape } from './cell';
 import { BondOrder } from './topology';
-import { Matrix3, Vector3D, assert } from './utils';
+import { Matrix3, Vector3D, assert, isMatrix3, isVector3D } from './utils';
 
 /**
  * Call the provided callback and clean the WASM stack before returning
@@ -49,7 +49,7 @@ interface Ref<T extends keyof TypeMap> {
 }
 
 interface AllocOptions {
-    initial: string | Vector3D;
+    initial: string | Vector3D | Matrix3;
     count: number;
 }
 
@@ -69,8 +69,8 @@ export function stackAlloc<T extends keyof TypeMap>(
 
     if (opts.initial !== undefined) {
         assert(
-            type === 'char*' || type === 'chfl_vector3d',
-            'Can only pass initial value to stackAlloc if type is char* or chfl_vector3d'
+            type === 'char*' || type === 'chfl_vector3d' || type === 'chfl_matrix3',
+            'Can only pass initial value to stackAlloc if type is char*, chfl_vector3d, or chfl_matrix3'
         );
     }
 
@@ -101,6 +101,19 @@ export function stackAlloc<T extends keyof TypeMap>(
         }
     } else if (type === 'chfl_matrix3') {
         ptr = lib.stackAlloc(sizes.SIZEOF_CHFL_VECTOR3D * 3) as c_double_ptr;
+        if (opts.initial !== undefined) {
+            checkMatrix3(opts.initial);
+            const start = ptr / sizes.SIZEOF_DOUBLE;
+            lib.HEAPF64[start + 0] = opts.initial[0][0];
+            lib.HEAPF64[start + 1] = opts.initial[0][1];
+            lib.HEAPF64[start + 2] = opts.initial[0][2];
+            lib.HEAPF64[start + 3] = opts.initial[1][0];
+            lib.HEAPF64[start + 4] = opts.initial[1][1];
+            lib.HEAPF64[start + 5] = opts.initial[1][2];
+            lib.HEAPF64[start + 6] = opts.initial[2][0];
+            lib.HEAPF64[start + 7] = opts.initial[2][1];
+            lib.HEAPF64[start + 8] = opts.initial[2][2];
+        }
     } else if (type === 'chfl_property_kind') {
         ptr = lib.stackAlloc(sizes.SIZEOF_CHFL_PROPERTY_KIND) as chfl_property_kind_ptr;
     } else if (type === 'chfl_cellshape') {
@@ -212,10 +225,11 @@ function checkString(value?: unknown): asserts value is string {
 }
 
 function checkVector3d(value?: unknown): asserts value is Vector3D {
-    assert(
-        value !== undefined && Array.isArray(value) && value.length === 3,
-        `expected a Vector3D value, got a ${typeof value} instead`
-    );
+    assert(isVector3D(value), `expected a Vector3D value, got a ${typeof value} instead`);
+}
+
+function checkMatrix3(value?: unknown): asserts value is Matrix3 {
+    assert(isMatrix3(value), `expected a Matrix3 value, got a ${typeof value} instead`);
 }
 
 export function getUint64(ptr: POINTER): number {
