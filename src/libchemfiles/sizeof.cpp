@@ -26,6 +26,7 @@ int main() {
     PRINT_SIZE(chfl_property_kind);
     PRINT_SIZE(chfl_cellshape);
     PRINT_SIZE(chfl_bond_order);
+    PRINT_SIZE(chfl_format_metadata);
 
     return 0;
 }

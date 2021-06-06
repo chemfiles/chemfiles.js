@@ -7,3 +7,4 @@ export const SIZEOF_CHFL_MATCH = 40;
 export const SIZEOF_CHFL_PROPERTY_KIND = 4;
 export const SIZEOF_CHFL_CELLSHAPE = 4;
 export const SIZEOF_CHFL_BOND_ORDER = 4;
+export const SIZEOF_CHFL_FORMAT_METADATA = 28;

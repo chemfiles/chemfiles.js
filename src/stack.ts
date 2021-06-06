@@ -21,7 +21,7 @@ export function stackAutoclean<T>(callback: () => T): T {
 }
 
 /**
- * Mapping between c types => [WASM types, javascript type]
+ * Mapping between C types => [WASM types, TypeScript type]
  */
 interface TypeMap {
     uint64_t: [c_uint64_ptr, number];
