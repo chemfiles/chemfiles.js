@@ -14,7 +14,7 @@
     "build:libchemfiles": "rm -rf lib && ts-node scripts/build-libchemfiles.ts",
     "build:dts": "dts-bundle-generator dist/src/index.d.ts --out-file dist/chemfiles.d.ts",
     "lint": "ts-node scripts/lint.ts && eslint . && prettier --check src tests scripts",
-    "docs": "typedoc && ts-node scripts/add-docs-css.ts"
+    "docs": "typedoc src/index.ts && ts-node scripts/add-docs-css.ts"
   },
   "repository": {
     "type": "git",

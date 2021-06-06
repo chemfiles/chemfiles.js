@@ -1,0 +1,9 @@
+{
+  "out": "dist/docs/",
+  "tsconfig": "tsconfig-build.json",
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "hideGenerator": true,
+  "includeVersion": true,
+  "readme": "none"
+}
