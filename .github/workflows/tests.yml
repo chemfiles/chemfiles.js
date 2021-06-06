@@ -21,9 +21,13 @@ jobs:
         run: |
           node --version
           npm --version
-      - run: npm test
-      - name: collect coverage
+      - name: run tests (node & web)
+        run: npm test
+      - name: collect test coverage
         run: |
           npm run coverage
           npm install -g codecov
           codecov
+      - name: ensure all function are used
+        run: |
+          python scripts/check-used-functions.py
