@@ -105,6 +105,9 @@ describe('Topology', () => {
         topology.addBond(1, 3);
         assert.deepEqual(topology.impropers, [[0, 1, 2, 3]]);
 
+        topology.clearBonds();
+        assert.deepEqual(topology.bonds, []);
+
         topology.delete();
     });
 

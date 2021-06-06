@@ -203,6 +203,29 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
+     * Remove all existing bonds, angles, dihedral angles and improper dihedral
+     * angles in this [[Topology]].
+     *
+     * ```typescript doctest
+     * const topology = new chemfiles.Topology();
+     * topology.resize(4);
+     *
+     * topology.addBond(0, 1);
+     * topology.addBond(3, 1);
+     *
+     * assert.equal(topology.bonds.length, 2);
+     *
+     * topology.clearBonds();
+     * assert.equal(topology.bonds.length, 0);
+     *
+     * topology.delete();
+     * ```
+     */
+    public clearBonds(): void {
+        check(lib._chfl_topology_clear_bonds(this.ptr));
+    }
+
+    /**
      * Get the atom at the given index inside this [[Topology]].
      *
      * This function increase the reference count of this topology, memory will

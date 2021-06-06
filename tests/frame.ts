@@ -101,6 +101,11 @@ describe('Frame', () => {
         assert.deepEqual(topology.bonds, [[1, 2]]);
         topology.delete();
 
+        frame.clearBonds();
+        topology = frame.topology();
+        assert.deepEqual(topology.bonds, []);
+        topology.delete();
+
         frame.delete();
     });
 
