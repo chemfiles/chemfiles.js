@@ -10,7 +10,7 @@ import { lib } from './misc';
 import { Pointer } from './c_ptr';
 
 import { getValue, stackAlloc, stackAutoclean } from './stack';
-import { Matrix3, Vector3D, check } from './utils';
+import { Matrix3, Vector3D, check, isMatrix3, isVector3D } from './utils';
 
 /** Available cell shapes in Chemfiles */
 export enum CellShape {
@@ -108,15 +108,51 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
      * @param lengths lengths of the unit cell vectors, in Ångströms
      * @param angles  angles between the unit cell vectors, in degrees
      */
-    constructor(lengths: Vector3D, angles?: Vector3D) {
-        const ptr = stackAutoclean(() => {
-            if (angles === undefined) {
-                angles = [90.0, 90.0, 90.0] as Vector3D;
-            }
+    constructor(lengths: Vector3D, angles?: Vector3D);
 
-            const lengthRef = stackAlloc('chfl_vector3d', { initial: lengths });
-            const anglesRef = stackAlloc('chfl_vector3d', { initial: angles });
-            return lib._chfl_cell(lengthRef.ptr, anglesRef.ptr);
+    /**
+     * Create a new [[UnitCell]] with given cell `matrix`.
+     *
+     * If `matrix` contains only zeros, then an infinite cell is created. If
+     * only the diagonal of the matrix is non-zero, then the cell is
+     * `Orthorhombic`. Else a `Triclinic` cell is created. The matrix entries
+     * should be in Angstroms.
+     *
+     * This function allocate WASM memory, which must be released with
+     * [[UnitCell.delete]].
+     *
+     * ```typescript doctest
+     * const cell = new chemfiles.UnitCell([
+     *     [10, 0, 0],
+     *     [0, 10, 0],
+     *     [0, 0, 10],
+     * ]);
+     * assert.equal(cell.shape, chemfiles.CellShape.Orthorhombic);
+     * assert.arrayEqual(cell.lengths, [10, 10, 10], 1e-12);
+     * assert.arrayEqual(cell.angles, [90, 90, 90], 1e-12);
+     * cell.delete();
+     * ```
+     *
+     * @param matrix matrix containing the three cell vectors
+     */
+    constructor(matrix: Matrix3);
+
+    constructor(lengths: Vector3D | Matrix3, angles?: Vector3D) {
+        const ptr = stackAutoclean(() => {
+            if (isVector3D(lengths)) {
+                if (angles === undefined) {
+                    angles = [90.0, 90.0, 90.0] as Vector3D;
+                }
+
+                const lengthRef = stackAlloc('chfl_vector3d', { initial: lengths });
+                const anglesRef = stackAlloc('chfl_vector3d', { initial: angles });
+                return lib._chfl_cell(lengthRef.ptr, anglesRef.ptr);
+            } else if (isMatrix3(lengths)) {
+                const matrixRef = stackAlloc('chfl_matrix3', { initial: lengths });
+                return lib._chfl_cell_from_matrix(matrixRef.ptr);
+            } else {
+                throw Error('expected a Vector3D or a Matrix3 as first parameter');
+            }
         });
         super(ptr, false, 'UnitCell');
     }

@@ -22,6 +22,26 @@ export interface Matrix3 {
     length: number;
 }
 
+export function isVector3D(o: unknown): o is Vector3D {
+    return (
+        Array.isArray(o) &&
+        o.length === 3 &&
+        typeof o[0] === 'number' &&
+        typeof o[1] === 'number' &&
+        typeof o[2] === 'number'
+    );
+}
+
+export function isMatrix3(o: unknown): o is Matrix3 {
+    return (
+        Array.isArray(o) &&
+        o.length === 3 &&
+        isVector3D(o[0]) &&
+        isVector3D(o[1]) &&
+        isVector3D(o[2])
+    );
+}
+
 export function check(status: chfl_status): void {
     if (status === CHFL_SUCCESS) {
         return;
