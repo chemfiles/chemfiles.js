@@ -16,7 +16,7 @@ describe('Miscelaneous chemfiles functions', () => {
     });
 
     it('has a version', () => {
-        assert.isTrue(chemfiles.version().startsWith('0.9'));
+        assert.isTrue(chemfiles.version().startsWith('0.10'));
     });
 
     it('has warning messages', () => {

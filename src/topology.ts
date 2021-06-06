@@ -3,8 +3,8 @@ import {
     CHFL_BOND_AMIDE,
     CHFL_BOND_AROMATIC,
     CHFL_BOND_DOUBLE,
-    CHFL_BOND_QINTUPLET,
     CHFL_BOND_QUADRUPLE,
+    CHFL_BOND_QUINTUPLET,
     CHFL_BOND_SINGLE,
     CHFL_BOND_TRIPLE,
     CHFL_BOND_UNKNOWN,
@@ -36,8 +36,8 @@ export enum BondOrder {
     Triple = CHFL_BOND_TRIPLE,
     /** order for quadruple bonds (present in some metals) */
     Quadruple = CHFL_BOND_QUADRUPLE,
-    /** order for qintuplet bonds (present in some metals) */
-    Qintuplet = CHFL_BOND_QINTUPLET,
+    /** order for quintuplet bonds (present in some metals) */
+    Quintuplet = CHFL_BOND_QUINTUPLET,
     /** order for amide bonds */
     Amide = CHFL_BOND_AMIDE,
     /** order for aromatic bonds */

@@ -33,15 +33,15 @@ describe('UnitCell', () => {
 
     it('has angles', () => {
         let cell = new UnitCell([1, 1, 1]);
-        assert.arrayEqual(cell.angles, [90, 90, 90]);
+        assert.arrayEqual(cell.angles, [90, 90, 90], 1e-12);
 
         cell.shape = CellShape.Triclinic;
         cell.angles = [90, 110, 80];
-        assert.arrayEqual(cell.angles, [90, 110, 80]);
+        assert.arrayEqual(cell.angles, [90, 110, 80], 1e-12);
         cell.delete();
 
         cell = new UnitCell([1, 1, 1], [120, 80, 66]);
-        assert.arrayEqual(cell.angles, [120, 80, 66]);
+        assert.arrayEqual(cell.angles, [120, 80, 66], 1e-12);
         cell.delete();
     });
 
@@ -53,7 +53,7 @@ describe('UnitCell', () => {
         assert.equal(cell.shape, CellShape.Triclinic);
         cell.delete();
 
-        cell = new UnitCell([1, 1, 1], [90, 90, 90]);
+        cell = new UnitCell([1, 1, 1], [90, 110, 90]);
         assert.equal(cell.shape, CellShape.Triclinic);
         cell.delete();
     });

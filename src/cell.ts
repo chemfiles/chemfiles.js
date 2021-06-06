@@ -82,9 +82,9 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
     }
 
     /**
-     * Create a new [[UnitCell]] with given cell `lengths`. If the cell `angles`
-     * are given, the cell [[shape|CellShape]] will be `Triclinic`, else it will
-     * be `Orthorhombic`.
+     * Create a new [[UnitCell]] with given cell `lengths`. The cell `angles`
+     * default to `[90, 90, 90]`. If the cell angles are not [90, 90, 90], the
+     * [[shape|CellShape]] will be `Triclinic`, else it will be `Orthorhombic`.
      *
      * This function allocate WASM memory, which must be released with
      * [[UnitCell.delete]].
@@ -92,16 +92,16 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 10, 10]);
      * assert.equal(cell.shape, chemfiles.CellShape.Orthorhombic);
-     * assert.arrayEqual(cell.lengths, [10, 10, 10]);
-     * assert.arrayEqual(cell.angles, [90, 90, 90]);
+     * assert.arrayEqual(cell.lengths, [10, 10, 10], 1e-12);
+     * assert.arrayEqual(cell.angles, [90, 90, 90], 1e-12);
      * cell.delete();
      * ```
      * &nbsp;
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 10, 10], [120, 90, 90]);
      * assert.equal(cell.shape, chemfiles.CellShape.Triclinic);
-     * assert.arrayEqual(cell.lengths, [10, 10, 10]);
-     * assert.arrayEqual(cell.angles, [120, 90, 90]);
+     * assert.arrayEqual(cell.lengths, [10, 10, 10], 1e-12);
+     * assert.arrayEqual(cell.angles, [120, 90, 90], 1e-12);
      * cell.delete();
      * ```
      *
@@ -111,13 +111,12 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
     constructor(lengths: Vector3D, angles?: Vector3D) {
         const ptr = stackAutoclean(() => {
             if (angles === undefined) {
-                const ref = stackAlloc('chfl_vector3d', { initial: lengths });
-                return lib._chfl_cell(ref.ptr);
-            } else {
-                const lengthRef = stackAlloc('chfl_vector3d', { initial: lengths });
-                const anglesRef = stackAlloc('chfl_vector3d', { initial: angles });
-                return lib._chfl_cell_triclinic(lengthRef.ptr, anglesRef.ptr);
+                angles = [90.0, 90.0, 90.0] as Vector3D;
             }
+
+            const lengthRef = stackAlloc('chfl_vector3d', { initial: lengths });
+            const anglesRef = stackAlloc('chfl_vector3d', { initial: angles });
+            return lib._chfl_cell(lengthRef.ptr, anglesRef.ptr);
         });
         super(ptr, false, 'UnitCell');
     }
@@ -163,7 +162,7 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
      *
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 20, 33], [120, 80, 90]);
-     * assert.arrayEqual(cell.angles, [120, 80, 90]);
+     * assert.arrayEqual(cell.angles, [120, 80, 90], 1e-12);
      * cell.delete();
      * ```
      */
@@ -184,10 +183,10 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
      *
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 20, 33], [120, 80, 90]);
-     * assert.arrayEqual(cell.angles, [120, 80, 90]);
+     * assert.arrayEqual(cell.angles, [120, 80, 90], 1e-12);
      *
      * cell.angles = [65, 80, 90];
-     * assert.arrayEqual(cell.angles, [65, 80, 90]);
+     * assert.arrayEqual(cell.angles, [65, 80, 90], 1e-12);
      * cell.delete();
      * ```
      */
@@ -225,10 +224,10 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
      *
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 20, 33], [90, 90, 90]);
-     * assert.equal(cell.shape, chemfiles.CellShape.Triclinic);
-     *
-     * cell.shape = chemfiles.CellShape.Orthorhombic;
      * assert.equal(cell.shape, chemfiles.CellShape.Orthorhombic);
+     *
+     * cell.shape = chemfiles.CellShape.Triclinic;
+     * assert.equal(cell.shape, chemfiles.CellShape.Triclinic);
      * cell.delete();
      * ```
      */

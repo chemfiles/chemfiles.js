@@ -17,6 +17,7 @@ type c_char_ptr_ptr = POINTER & { readonly [tag]: 'char array pointer' };
 type c_bool_ptr = POINTER & { readonly [tag]: 'bool pointer' };
 type c_double_ptr = POINTER & { readonly [tag]: 'double pointer' };
 type c_uint64_ptr = POINTER & { readonly [tag]: 'uint64_t pointer' };
+type c_int64_ptr = POINTER & { readonly [tag]: 'int64_t pointer' };
 type chfl_bond_order_ptr = POINTER & { readonly [tag]: 'chfl_bond_order pointer' };
 type chfl_property_kind_ptr = POINTER & { readonly [tag]: 'chfl_property_kind pointer' };
 type chfl_cellshape_ptr = POINTER & { readonly [tag]: 'chfl_cellshape pointer' };
@@ -27,7 +28,8 @@ type c_bool = number;
 type c_double = number;
 
 type chfl_vector3d = c_double_ptr;
-type chfl_match_ptr = POINTER;
+type chfl_match_ptr = POINTER & { readonly [tag]: 'chfl_match pointer' };
+type chfl_format_metadata_ptr = POINTER & { readonly [tag]: 'chfl_format_metadata pointer' };
 
 type LLVMType = 'i8' | 'i16' | 'i32' | 'i64' | 'float' | 'double' | '*';
 
@@ -89,7 +91,7 @@ export declare const CHFL_BOND_SINGLE: chfl_bond_order;
 export declare const CHFL_BOND_DOUBLE: chfl_bond_order;
 export declare const CHFL_BOND_TRIPLE: chfl_bond_order;
 export declare const CHFL_BOND_QUADRUPLE: chfl_bond_order;
-export declare const CHFL_BOND_QINTUPLET: chfl_bond_order;
+export declare const CHFL_BOND_QUINTUPLET: chfl_bond_order;
 export declare const CHFL_BOND_AMIDE: chfl_bond_order;
 export declare const CHFL_BOND_AROMATIC: chfl_bond_order;
 export type chfl_property_kind = number & { readonly [tag]: 'chfl_property_kind' };
@@ -103,18 +105,20 @@ export declare const CHFL_CELL_TRICLINIC: chfl_cellshape;
 export declare const CHFL_CELL_INFINITE: chfl_cellshape;
 
 export interface ChemfilesModule extends EmscriptenModule {
-    // 'chfl_version' at types.h:147
+    // 'chfl_version' at types.h:150
     _chfl_version(): c_char_ptr;
-    // 'chfl_free' at types.h:176
-    _chfl_free(objet: CHFL_PTR): void;
-    // 'chfl_last_error' at misc.h:21
+    // 'chfl_last_error' at misc.h:23
     _chfl_last_error(): c_char_ptr;
-    // 'chfl_clear_errors' at misc.h:31
+    // 'chfl_clear_errors' at misc.h:33
     _chfl_clear_errors(): chfl_status;
-    // 'chfl_set_warning_callback' at misc.h:40
+    // 'chfl_set_warning_callback' at misc.h:42
     _chfl_set_warning_callback(callback: number): chfl_status;
-    // 'chfl_add_configuration' at misc.h:56
+    // 'chfl_add_configuration' at misc.h:58
     _chfl_add_configuration(path: c_char_ptr): chfl_status;
+    // 'chfl_formats_list' at misc.h:71
+    _chfl_formats_list(metadata: chfl_format_metadata_ptr, count: c_uint64_ptr): chfl_status;
+    // 'chfl_free' at misc.h:80
+    _chfl_free(object: CHFL_PTR): void;
     // 'chfl_property_bool' at property.h:37
     _chfl_property_bool(value: c_bool): CHFL_PROPERTY;
     // 'chfl_property_double' at property.h:47
@@ -186,9 +190,9 @@ export interface ChemfilesModule extends EmscriptenModule {
     // 'chfl_residue_atoms_count' at residue.h:109
     _chfl_residue_atoms_count(residue: CHFL_RESIDUE, count: c_uint64_ptr): chfl_status;
     // 'chfl_residue_atoms' at residue.h:123
-    _chfl_residue_atoms(residue: CHFL_RESIDUE, atoms: c_uint64_ptr, natoms_lo: number, natoms_hi: number): chfl_status;
+    _chfl_residue_atoms(residue: CHFL_RESIDUE, atoms: c_uint64_ptr, count_lo: number, count_hi: number): chfl_status;
     // 'chfl_residue_id' at residue.h:136
-    _chfl_residue_id(residue: CHFL_RESIDUE, id: c_uint64_ptr): chfl_status;
+    _chfl_residue_id(residue: CHFL_RESIDUE, id: c_int64_ptr): chfl_status;
     // 'chfl_residue_name' at residue.h:148
     _chfl_residue_name(residue: CHFL_RESIDUE, name: c_char_ptr, buffsize_lo: number, buffsize_hi: number): chfl_status;
     // 'chfl_residue_add_atom' at residue.h:157
@@ -237,43 +241,45 @@ export interface ChemfilesModule extends EmscriptenModule {
     _chfl_topology_add_bond(topology: CHFL_TOPOLOGY, i_lo: number, i_hi: number, j_lo: number, j_hi: number): chfl_status;
     // 'chfl_topology_remove_bond' at topology.h:197
     _chfl_topology_remove_bond(topology: CHFL_TOPOLOGY, i_lo: number, i_hi: number, j_lo: number, j_hi: number): chfl_status;
-    // 'chfl_topology_residues_count' at topology.h:207
+    // 'chfl_topology_clear_bonds' at topology.h:207
+    _chfl_topology_clear_bonds(topology: CHFL_TOPOLOGY): chfl_status;
+    // 'chfl_topology_residues_count' at topology.h:215
     _chfl_topology_residues_count(topology: CHFL_TOPOLOGY, count: c_uint64_ptr): chfl_status;
-    // 'chfl_topology_add_residue' at topology.h:219
+    // 'chfl_topology_add_residue' at topology.h:227
     _chfl_topology_add_residue(topology: CHFL_TOPOLOGY, residue: CHFL_RESIDUE): chfl_status;
-    // 'chfl_topology_residues_linked' at topology.h:230
+    // 'chfl_topology_residues_linked' at topology.h:238
     _chfl_topology_residues_linked(topology: CHFL_TOPOLOGY, first: CHFL_RESIDUE, second: CHFL_RESIDUE, result: c_bool_ptr): chfl_status;
-    // 'chfl_topology_bond_with_order' at topology.h:243
+    // 'chfl_topology_bond_with_order' at topology.h:251
     _chfl_topology_bond_with_order(topology: CHFL_TOPOLOGY, i_lo: number, i_hi: number, j_lo: number, j_hi: number, bond_order: chfl_bond_order): chfl_status;
-    // 'chfl_topology_bond_orders' at topology.h:257
+    // 'chfl_topology_bond_orders' at topology.h:265
     _chfl_topology_bond_orders(topology: CHFL_TOPOLOGY, orders: chfl_bond_order_ptr, nbonds_lo: number, nbonds_hi: number): chfl_status;
-    // 'chfl_topology_bond_order' at topology.h:270
+    // 'chfl_topology_bond_order' at topology.h:278
     _chfl_topology_bond_order(topology: CHFL_TOPOLOGY, i_lo: number, i_hi: number, j_lo: number, j_hi: number, order: chfl_bond_order_ptr): chfl_status;
-    // 'chfl_cell' at cell.h:35
-    _chfl_cell(lengths: chfl_vector3d): CHFL_CELL;
-    // 'chfl_cell_triclinic' at cell.h:52
-    _chfl_cell_triclinic(lengths: chfl_vector3d, angles: chfl_vector3d): CHFL_CELL;
-    // 'chfl_cell_from_frame' at cell.h:67
+    // 'chfl_cell' at cell.h:40
+    _chfl_cell(lengths: chfl_vector3d, angles: chfl_vector3d): CHFL_CELL;
+    // 'chfl_cell_from_matrix' at cell.h:55
+    _chfl_cell_from_matrix(matrix: chfl_vector3d): CHFL_CELL;
+    // 'chfl_cell_from_frame' at cell.h:68
     _chfl_cell_from_frame(frame: CHFL_FRAME): CHFL_CELL;
-    // 'chfl_cell_copy' at cell.h:77
+    // 'chfl_cell_copy' at cell.h:78
     _chfl_cell_copy(cell: CHFL_CELL): CHFL_CELL;
-    // 'chfl_cell_volume' at cell.h:84
+    // 'chfl_cell_volume' at cell.h:85
     _chfl_cell_volume(cell: CHFL_CELL, volume: c_double_ptr): chfl_status;
-    // 'chfl_cell_lengths' at cell.h:93
+    // 'chfl_cell_lengths' at cell.h:94
     _chfl_cell_lengths(cell: CHFL_CELL, lengths: chfl_vector3d): chfl_status;
-    // 'chfl_cell_set_lengths' at cell.h:104
+    // 'chfl_cell_set_lengths' at cell.h:110
     _chfl_cell_set_lengths(cell: CHFL_CELL, lengths: chfl_vector3d): chfl_status;
-    // 'chfl_cell_angles' at cell.h:113
+    // 'chfl_cell_angles' at cell.h:119
     _chfl_cell_angles(cell: CHFL_CELL, angles: chfl_vector3d): chfl_status;
-    // 'chfl_cell_set_angles' at cell.h:126
+    // 'chfl_cell_set_angles' at cell.h:137
     _chfl_cell_set_angles(cell: CHFL_CELL, angles: chfl_vector3d): chfl_status;
-    // 'chfl_cell_matrix' at cell.h:144
+    // 'chfl_cell_matrix' at cell.h:146
     _chfl_cell_matrix(cell: CHFL_CELL, matrix: chfl_vector3d): chfl_status;
-    // 'chfl_cell_shape' at cell.h:153
+    // 'chfl_cell_shape' at cell.h:155
     _chfl_cell_shape(cell: CHFL_CELL, shape: chfl_cellshape_ptr): chfl_status;
-    // 'chfl_cell_set_shape' at cell.h:162
+    // 'chfl_cell_set_shape' at cell.h:164
     _chfl_cell_set_shape(cell: CHFL_CELL, shape: chfl_cellshape): chfl_status;
-    // 'chfl_cell_wrap' at cell.h:171
+    // 'chfl_cell_wrap' at cell.h:173
     _chfl_cell_wrap(cell: CHFL_CELL, vector: chfl_vector3d): chfl_status;
     // 'chfl_frame' at frame.h:25
     _chfl_frame(): CHFL_FRAME;
@@ -327,29 +333,37 @@ export interface ChemfilesModule extends EmscriptenModule {
     _chfl_frame_bond_with_order(frame: CHFL_FRAME, i_lo: number, i_hi: number, j_lo: number, j_hi: number, bond_order: chfl_bond_order): chfl_status;
     // 'chfl_frame_remove_bond' at frame.h:321
     _chfl_frame_remove_bond(frame: CHFL_FRAME, i_lo: number, i_hi: number, j_lo: number, j_hi: number): chfl_status;
-    // 'chfl_frame_add_residue' at frame.h:333
+    // 'chfl_frame_clear_bonds' at frame.h:331
+    _chfl_frame_clear_bonds(frame: CHFL_FRAME): chfl_status;
+    // 'chfl_frame_add_residue' at frame.h:341
     _chfl_frame_add_residue(frame: CHFL_FRAME, residue: CHFL_RESIDUE): chfl_status;
     // 'chfl_trajectory_open' at trajectory.h:26
     _chfl_trajectory_open(path: c_char_ptr, mode: c_char): CHFL_TRAJECTORY;
     // 'chfl_trajectory_with_format' at trajectory.h:43
     _chfl_trajectory_with_format(path: c_char_ptr, mode: c_char, format: c_char_ptr): CHFL_TRAJECTORY;
-    // 'chfl_trajectory_path' at trajectory.h:56
-    _chfl_trajectory_path(trajectory: CHFL_TRAJECTORY, path: c_char_ptr_ptr): chfl_status;
-    // 'chfl_trajectory_read' at trajectory.h:68
+    // 'chfl_trajectory_memory_reader' at trajectory.h:59
+    _chfl_trajectory_memory_reader(memory: c_char_ptr, size_lo: number, size_hi: number, format: c_char_ptr): CHFL_TRAJECTORY;
+    // 'chfl_trajectory_memory_writer' at trajectory.h:74
+    _chfl_trajectory_memory_writer(format: c_char_ptr): CHFL_TRAJECTORY;
+    // 'chfl_trajectory_path' at trajectory.h:86
+    _chfl_trajectory_path(trajectory: CHFL_TRAJECTORY, path: c_char_ptr, buffsize_lo: number, buffsize_hi: number): chfl_status;
+    // 'chfl_trajectory_read' at trajectory.h:98
     _chfl_trajectory_read(trajectory: CHFL_TRAJECTORY, frame: CHFL_FRAME): chfl_status;
-    // 'chfl_trajectory_read_step' at trajectory.h:80
+    // 'chfl_trajectory_read_step' at trajectory.h:110
     _chfl_trajectory_read_step(trajectory: CHFL_TRAJECTORY, step_lo: number, step_hi: number, frame: CHFL_FRAME): chfl_status;
-    // 'chfl_trajectory_write' at trajectory.h:89
+    // 'chfl_trajectory_write' at trajectory.h:119
     _chfl_trajectory_write(trajectory: CHFL_TRAJECTORY, frame: CHFL_FRAME): chfl_status;
-    // 'chfl_trajectory_set_topology' at trajectory.h:100
+    // 'chfl_trajectory_set_topology' at trajectory.h:130
     _chfl_trajectory_set_topology(trajectory: CHFL_TRAJECTORY, topology: CHFL_TOPOLOGY): chfl_status;
-    // 'chfl_trajectory_topology_file' at trajectory.h:114
+    // 'chfl_trajectory_topology_file' at trajectory.h:144
     _chfl_trajectory_topology_file(trajectory: CHFL_TRAJECTORY, path: c_char_ptr, format: c_char_ptr): chfl_status;
-    // 'chfl_trajectory_set_cell' at trajectory.h:124
+    // 'chfl_trajectory_set_cell' at trajectory.h:154
     _chfl_trajectory_set_cell(trajectory: CHFL_TRAJECTORY, cell: CHFL_CELL): chfl_status;
-    // 'chfl_trajectory_nsteps' at trajectory.h:134
+    // 'chfl_trajectory_nsteps' at trajectory.h:164
     _chfl_trajectory_nsteps(trajectory: CHFL_TRAJECTORY, nsteps: c_uint64_ptr): chfl_status;
-    // 'chfl_trajectory_close' at trajectory.h:144
+    // 'chfl_trajectory_memory_buffer' at trajectory.h:178
+    _chfl_trajectory_memory_buffer(trajectory: CHFL_TRAJECTORY, data: c_char_ptr_ptr, size: c_uint64_ptr): chfl_status;
+    // 'chfl_trajectory_close' at trajectory.h:188
     _chfl_trajectory_close(trajectory: CHFL_TRAJECTORY): void;
     // 'chfl_selection' at selection.h:24
     _chfl_selection(selection: c_char_ptr): CHFL_SELECTION;
@@ -361,7 +375,7 @@ export interface ChemfilesModule extends EmscriptenModule {
     _chfl_selection_string(selection: CHFL_SELECTION, string: c_char_ptr, buffsize_lo: number, buffsize_hi: number): chfl_status;
     // 'chfl_selection_evaluate' at selection.h:75
     _chfl_selection_evaluate(selection: CHFL_SELECTION, frame: CHFL_FRAME, n_matches: c_uint64_ptr): chfl_status;
-    // 'chfl_selection_matches' at selection.h:101
+    // 'chfl_selection_matches' at selection.h:87
     _chfl_selection_matches(selection: CHFL_SELECTION, matches: chfl_match_ptr, n_matches_lo: number, n_matches_hi: number): chfl_status;
 }
 

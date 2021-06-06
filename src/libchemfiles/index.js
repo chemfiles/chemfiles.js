@@ -29,7 +29,7 @@ module.exports = {
     CHFL_BOND_DOUBLE: 2,
     CHFL_BOND_TRIPLE: 3,
     CHFL_BOND_QUADRUPLE: 4,
-    CHFL_BOND_QINTUPLET: 5,
+    CHFL_BOND_QUINTUPLET: 5,
     CHFL_BOND_AMIDE: 254,
     CHFL_BOND_AROMATIC: 255,
     // chfl_property_kind values
