@@ -654,6 +654,34 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
+     * Remove all existing bonds, angles, dihedral angles and improper dihedral
+     * angles in this [[Frame]].
+     *
+     * ```typescript doctest
+     * const frame = new chemfiles.Frame();
+     * frame.resize(4);
+     *
+     * frame.addBond(0, 1);
+     * frame.addBond(3, 1);
+     *
+     * let topology = frame.topology();
+     * assert.equal(topology.bonds.length, 2);
+     * topology.delete();
+     *
+     * frame.clearBonds();
+     *
+     * topology = frame.topology();
+     * assert.equal(topology.bonds.length, 0);
+     * topology.delete();
+     *
+     * frame.delete();
+     * ```
+     */
+    public clearBonds(): void {
+        check(lib._chfl_frame_clear_bonds(this.ptr));
+    }
+
+    /**
      * Add the given `residue` at the end of the residue list of this frame's
      * [[Topology]].
      *
