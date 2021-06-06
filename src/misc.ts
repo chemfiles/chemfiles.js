@@ -1,8 +1,15 @@
+import * as sizes from '../lib/wasm-sizes';
 import { ChemfilesModule, loadChemfiles } from './libchemfiles';
-import { c_char_ptr } from './libchemfiles';
+import {
+    CHFL_PTR,
+    POINTER,
+    c_bool_ptr,
+    c_char_ptr,
+    chfl_format_metadata_ptr,
+} from './libchemfiles';
 
-import { stackAlloc, stackAutoclean } from './stack';
-import { check } from './utils';
+import { getValue, stackAlloc, stackAutoclean } from './stack';
+import { assert, check } from './utils';
 
 /**
  * Get the version of chemfiles being used as a string
@@ -120,6 +127,137 @@ export function ready(callback: () => void): void {
         // register it to be called below
         READY_CALLBACKS.push(callback);
     }
+}
+
+/** `FormatMetadata` contains metadata associated with one format */
+export interface FormatMetadata {
+    /** Name of the format */
+    name: string;
+    /** Extension associated with the format, or `undefined` if there is no
+     * associated extension */
+    extension?: string;
+    /** Extended, user-facing description of the format */
+    description: string;
+    /** URL pointing to the format definition/reference */
+    reference: string;
+
+    /** Is reading files in this format implemented? */
+    read: boolean;
+    /** Is writing files in this format implemented? */
+    write: boolean;
+    /** Does this format support in-memory IO? */
+    memory: boolean;
+
+    /** Does this format support storing atomic positions? */
+    positions: boolean;
+    /** Does this format support storing atomic velocities? */
+    velocities: boolean;
+    /** Does this format support storing unit cell information? */
+    unitCell: boolean;
+    /** Does this format support storing atom names or types? */
+    atoms: boolean;
+    /** Does this format support storing bonds between atoms? */
+    bonds: boolean;
+    /** Does this format support storing residues? */
+    residues: boolean;
+}
+
+const CHFL_FORMAT_METADATA_PADDING = 3;
+
+assert(
+    sizes.SIZEOF_CHFL_FORMAT_METADATA ===
+        4 * sizes.SIZEOF_VOID_P + 9 * sizes.SIZEOF_BOOL + CHFL_FORMAT_METADATA_PADDING,
+    'sizeof(sizeof_chfl_format_metadata) does not match the typescript code'
+);
+
+export function formatsList(): FormatMetadata[] {
+    return stackAutoclean(() => {
+        const metadata = [] as FormatMetadata[];
+
+        const formats = lib.stackAlloc(sizes.SIZEOF_VOID_P);
+        const countRef = stackAlloc('uint64_t');
+        check(lib._chfl_formats_list(formats as chfl_format_metadata_ptr, countRef.ptr));
+        const count = getValue(countRef);
+
+        let ptr = lib.getValue(formats, '*') as POINTER;
+        for (let i = 0; i < count; i++) {
+            const name = lib.UTF8ToString(lib.getValue(ptr, '*') as c_char_ptr);
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            ptr = (ptr + sizes.SIZEOF_VOID_P) as POINTER;
+
+            const extension_ptr = lib.getValue(ptr, '*') as c_char_ptr;
+            const extension = extension_ptr === 0 ? undefined : lib.UTF8ToString(extension_ptr);
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            ptr = (ptr + sizes.SIZEOF_VOID_P) as POINTER;
+
+            const description = lib.UTF8ToString(lib.getValue(ptr, '*') as c_char_ptr);
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            ptr = (ptr + sizes.SIZEOF_VOID_P) as POINTER;
+
+            const reference = lib.UTF8ToString(lib.getValue(ptr, '*') as c_char_ptr);
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            ptr = (ptr + sizes.SIZEOF_VOID_P) as POINTER;
+
+            const read = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+
+            const write = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+
+            const memory = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+
+            const positions = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+
+            const velocities = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+
+            const unitCell = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+
+            const atoms = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+
+            const bonds = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+
+            const residues = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            ptr = (ptr + CHFL_FORMAT_METADATA_PADDING) as POINTER;
+
+            metadata.push({
+                atoms,
+                bonds,
+                description,
+                extension,
+                memory,
+                name,
+                positions,
+                read,
+                reference,
+                residues,
+                unitCell,
+                velocities,
+                write,
+            });
+        }
+
+        lib._chfl_free(lib.getValue(formats, '*') as CHFL_PTR);
+
+        return metadata;
+    });
 }
 
 /** @hidden
