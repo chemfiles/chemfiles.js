@@ -57,7 +57,7 @@ describe('MemoryReader', () => {
 
 let EXAMPLE_FRAME: Frame;
 const EXPECTED_XYZ = `2
-Written by the chemfiles library
+Properties=species:S:1:pos:R:3
 C 1 2 3
 C 5 6 7
 `;

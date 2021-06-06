@@ -1,6 +1,6 @@
 {
   "name": "chemfiles",
-  "version": "0.9.3",
+  "version": "0.10.0-dev",
   "description": "Modern library for chemistry trajectories reading and writing ",
   "main": "dist/chemfiles.min.js",
   "types": "dist/chemfiles.d.ts",

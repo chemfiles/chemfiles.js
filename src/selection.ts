@@ -1,5 +1,5 @@
 import { SIZEOF_CHFL_MATCH, SIZEOF_UINT64_T } from '../lib/wasm-sizes';
-import { CHFL_SELECTION, POINTER } from './libchemfiles';
+import { CHFL_SELECTION, POINTER, chfl_match_ptr } from './libchemfiles';
 import { lib } from './misc';
 
 import { Pointer } from './c_ptr';
@@ -152,7 +152,7 @@ export class Selection extends Pointer<CHFL_SELECTION, never> {
             const count = getValue(countRef);
 
             const matches = lib.stackAlloc(count * SIZEOF_CHFL_MATCH);
-            check(lib._chfl_selection_matches(this.const_ptr, matches, count, 0));
+            check(lib._chfl_selection_matches(this.const_ptr, matches as chfl_match_ptr, count, 0));
 
             const selectionSize = this.size;
             const results = [];

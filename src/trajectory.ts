@@ -7,7 +7,7 @@ import { Frame } from './frame';
 import { Topology } from './topology';
 
 import { getValue, stackAlloc, stackAutoclean } from './stack';
-import { assert, check, isUnsignedInteger } from './utils';
+import { assert, autogrowStrBuffer, check, isUnsignedInteger } from './utils';
 
 /**
  * A [[Trajectory]] represent a physical file, from which we can read [[Frame]].
@@ -77,9 +77,9 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, { jsPath: string }> {
      */
     get path(): string {
         return stackAutoclean(() => {
-            const value = stackAlloc('char*[]', { count: 1 });
-            check(lib._chfl_trajectory_path(this.const_ptr, value.ptr));
-            return getValue(value, { count: 1 })[0];
+            return autogrowStrBuffer((ptr, size) => {
+                check(lib._chfl_trajectory_path(this.const_ptr, ptr, size, 0));
+            });
         });
     }
 

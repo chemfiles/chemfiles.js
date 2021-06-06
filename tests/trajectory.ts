@@ -190,7 +190,7 @@ describe('Trajectory', () => {
 
         const expected =
             '4\n' +
-            'Written by the chemfiles library\n' +
+            'Properties=species:S:1:pos:R:3\n' +
             'X 1 2 3\n' +
             'X 1 2 3\n' +
             'X 1 2 3\n' +
