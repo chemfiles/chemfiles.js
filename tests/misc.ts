@@ -5,7 +5,7 @@ import { assert } from './utils';
 
 import { DATA_ROOT, setupDataFiles } from './data';
 
-describe('Miscelaneous chemfiles functions', () => {
+describe('Miscellaneous chemfiles functions', () => {
     before((done) => {
         chemfiles.ready(() => {
             setupDataFiles()

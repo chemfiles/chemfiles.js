@@ -21,7 +21,11 @@ export function version(): string {
  * Use [[clearErrors]] to reset this to an empty string.
  *
  * ```typescript doctest
- * // TODO: write doc example once Trajectory class written
+ * try {
+ *     const trajectory = chemfiles.Trajectory("not-here");
+ * } catch (error) {
+ *     assert.equal(chemfiles.lastError(), error.message);
+ * }
  * ```
  */
 export function lastError(): string {
@@ -32,7 +36,13 @@ export function lastError(): string {
  * Clear the last error thrown by a chemfiles function.
  *
  * ```typescript doctest
- * // TODO: write doc example once Trajectory class written
+ * try {
+ *     const trajectory = chemfiles.Trajectory("not-here");
+ * } catch (error) {
+ *     assert.equal(chemfiles.lastError(), error.message);
+ *     chemfiles.clearErrors();
+ *     assert.equal(chemfiles.lastError(), "");
+ * }
  * ```
  */
 export function clearErrors(): void {
