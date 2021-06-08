@@ -97,7 +97,7 @@ describe('MemoryWriter', () => {
         trajectory.close();
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-        const content = FS.readFile(path, { encoding: 'binary' }) as Uint8Array;
+        const content = FS.readFile(path, { encoding: 'binary' });
         const data = new TextDecoder().decode(content);
         assert.equal(data, EXPECTED_XYZ);
 
@@ -112,7 +112,7 @@ describe('MemoryWriter', () => {
         trajectory.close();
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-        const content = FS.readFile(path, { encoding: 'binary' }) as Uint8Array;
+        const content = FS.readFile(path, { encoding: 'binary' });
         const data = new TextDecoder().decode(content);
         assert.equal(data, EXPECTED_XYZ);
 

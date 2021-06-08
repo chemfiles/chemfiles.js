@@ -8,60 +8,29 @@
 // ===========================================================================
 
 // === Manual declarations
+import { EmscriptenModule, POINTER } from "./emscripten";
+export { FileSystem } from "./emscripten";
+
 declare const tag: unique symbol;
-type POINTER = number & { readonly [tag]: 'pointer' };
 
 export type CHFL_PTR = POINTER & { readonly [tag]: 'chemfiles pointer' };
-type c_char_ptr = POINTER & { readonly [tag]: 'char pointer' };
-type c_char_ptr_ptr = POINTER & { readonly [tag]: 'char array pointer' };
-type c_bool_ptr = POINTER & { readonly [tag]: 'bool pointer' };
-type c_double_ptr = POINTER & { readonly [tag]: 'double pointer' };
-type c_uint64_ptr = POINTER & { readonly [tag]: 'uint64_t pointer' };
-type c_int64_ptr = POINTER & { readonly [tag]: 'int64_t pointer' };
-type chfl_bond_order_ptr = POINTER & { readonly [tag]: 'chfl_bond_order pointer' };
-type chfl_property_kind_ptr = POINTER & { readonly [tag]: 'chfl_property_kind pointer' };
-type chfl_cellshape_ptr = POINTER & { readonly [tag]: 'chfl_cellshape pointer' };
-type function_ptr = POINTER & { readonly [tag]: 'function pointer' };
+export type c_char_ptr = POINTER & { readonly [tag]: 'char pointer' };
+export type c_char_ptr_ptr = POINTER & { readonly [tag]: 'char array pointer' };
+export type c_bool_ptr = POINTER & { readonly [tag]: 'bool pointer' };
+export type c_double_ptr = POINTER & { readonly [tag]: 'double pointer' };
+export type c_uint64_ptr = POINTER & { readonly [tag]: 'uint64_t pointer' };
+export type c_int64_ptr = POINTER & { readonly [tag]: 'int64_t pointer' };
+export type chfl_bond_order_ptr = POINTER & { readonly [tag]: 'chfl_bond_order pointer' };
+export type chfl_property_kind_ptr = POINTER & { readonly [tag]: 'chfl_property_kind pointer' };
+export type chfl_cellshape_ptr = POINTER & { readonly [tag]: 'chfl_cellshape pointer' };
 
-type c_char = number;
-type c_bool = number;
-type c_double = number;
+export type c_char = number;
+export type c_bool = number;
+export type c_double = number;
 
-type chfl_vector3d = c_double_ptr;
-type chfl_match_ptr = POINTER & { readonly [tag]: 'chfl_match pointer' };
-type chfl_format_metadata_ptr = POINTER & { readonly [tag]: 'chfl_format_metadata pointer' };
-
-type LLVMType = 'i8' | 'i16' | 'i32' | 'i64' | 'float' | 'double' | '*';
-
-export interface EmscriptenModule {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    FS: any;
-
-    HEAP8: Int8Array;
-    HEAP16: Int16Array;
-    HEAP32: Int32Array;
-    HEAPU8: Uint8Array;
-    HEAPU16: Uint16Array;
-    HEAPU32: Uint32Array;
-    HEAPF32: Float32Array;
-    HEAPF64: Float64Array;
-
-    getValue(ptr: POINTER, type: LLVMType): number;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setValue(ptr: POINTER, value: any, type: LLVMType): void;
-    UTF8ToString(ptr: c_char_ptr, maxBytesToRead?: number): string;
-    stringToUTF8(str: string, ptr: c_char_ptr, maxBytesToWrite: number): void;
-
-    stackSave(): number;
-    stackAlloc(size: number): POINTER;
-    stackRestore(saved: number): void;
-
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    addFunction(fn: Function, signature: string): function_ptr;
-
-    _malloc(size: number): POINTER;
-    _free(ptr: POINTER): void;
-}
+export type chfl_vector3d = c_double_ptr;
+export type chfl_match_ptr = POINTER & { readonly [tag]: 'chfl_match pointer' };
+export type chfl_format_metadata_ptr = POINTER & { readonly [tag]: 'chfl_format_metadata pointer' };
 
 export declare function loadChemfiles(): Promise<ChemfilesModule>;
 // === End of manual declarations

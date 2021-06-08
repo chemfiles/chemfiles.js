@@ -1,7 +1,6 @@
 import * as sizes from '../lib/wasm-sizes';
 import { lib } from './misc';
 import {
-    POINTER,
     c_bool_ptr,
     c_char_ptr,
     c_char_ptr_ptr,
@@ -169,14 +168,14 @@ export function getValue<T extends keyof TypeMap>(
 ): TypeMap[T][1] {
     // deal with arrays first
     if (opts.count !== undefined) {
-        let current = ref.ptr as POINTER;
+        let current = ref.ptr as number;
         if (ref.type === 'char*[]') {
             const values = [];
             for (let i = 0; i < opts.count; i++) {
                 const ptr = lib.getValue(current, '*') as c_char_ptr;
                 values.push(lib.UTF8ToString(ptr));
                 // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-                current = (current + sizes.SIZEOF_VOID_P) as POINTER;
+                current += sizes.SIZEOF_VOID_P;
             }
             return values;
         } else if (ref.type === 'uint64_t[]') {
@@ -184,7 +183,7 @@ export function getValue<T extends keyof TypeMap>(
             for (let i = 0; i < opts.count; i++) {
                 values.push(lib.getValue(current, 'i64'));
                 // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-                current = (current + sizes.SIZEOF_UINT64_T) as POINTER;
+                current += sizes.SIZEOF_UINT64_T;
             }
             return values;
         } else if (ref.type === 'chfl_bond_order[]') {
@@ -192,7 +191,7 @@ export function getValue<T extends keyof TypeMap>(
             for (let i = 0; i < opts.count; i++) {
                 values.push(lib.getValue(current, 'i32'));
                 // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-                current = (current + sizes.SIZEOF_CHFL_BOND_ORDER) as POINTER;
+                current += sizes.SIZEOF_CHFL_BOND_ORDER;
             }
             return values;
         } else {
