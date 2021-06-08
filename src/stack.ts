@@ -1,8 +1,18 @@
 import * as sizes from '../lib/wasm-sizes';
 import { lib } from './misc';
-import { c_bool_ptr, c_char_ptr, c_char_ptr_ptr, c_double_ptr, c_uint64_ptr } from './libchemfiles';
-import { chfl_bond_order_ptr, chfl_cellshape_ptr, chfl_property_kind_ptr } from './libchemfiles';
-import { POINTER, chfl_vector3d } from './libchemfiles';
+import {
+    POINTER,
+    c_bool_ptr,
+    c_char_ptr,
+    c_char_ptr_ptr,
+    c_double_ptr,
+    c_int64_ptr,
+    c_uint64_ptr,
+    chfl_bond_order_ptr,
+    chfl_cellshape_ptr,
+    chfl_property_kind_ptr,
+    chfl_vector3d,
+} from './libchemfiles';
 
 import { CellShape } from './cell';
 import { BondOrder } from './topology';
@@ -24,6 +34,7 @@ export function stackAutoclean<T>(callback: () => T): T {
  * Mapping between C types => [WASM types, TypeScript type]
  */
 interface TypeMap {
+    int64_t: [c_int64_ptr, number];
     uint64_t: [c_uint64_ptr, number];
     'uint64_t[]': [c_uint64_ptr, number[]];
     double: [c_double_ptr, number];
@@ -81,6 +92,8 @@ export function stackAlloc<T extends keyof TypeMap>(
     // and then scalar values or fixed size array
     if (type === 'uint64_t') {
         ptr = lib.stackAlloc(sizes.SIZEOF_UINT64_T) as c_uint64_ptr;
+    } else if (type === 'int64_t') {
+        ptr = lib.stackAlloc(sizes.SIZEOF_INT64_T) as c_int64_ptr;
     } else if (type === 'double') {
         ptr = lib.stackAlloc(sizes.SIZEOF_DOUBLE) as c_double_ptr;
     } else if (type === 'bool') {
@@ -94,7 +107,7 @@ export function stackAlloc<T extends keyof TypeMap>(
         ptr = lib.stackAlloc(sizes.SIZEOF_CHFL_VECTOR3D) as chfl_vector3d;
         if (opts.initial !== undefined) {
             checkVector3d(opts.initial);
-            const start = ptr / sizes.SIZEOF_DOUBLE;
+            const start = ptr / lib.HEAPF64.BYTES_PER_ELEMENT;
             lib.HEAPF64[start + 0] = opts.initial[0];
             lib.HEAPF64[start + 1] = opts.initial[1];
             lib.HEAPF64[start + 2] = opts.initial[2];
@@ -103,7 +116,7 @@ export function stackAlloc<T extends keyof TypeMap>(
         ptr = lib.stackAlloc(sizes.SIZEOF_CHFL_VECTOR3D * 3) as c_double_ptr;
         if (opts.initial !== undefined) {
             checkMatrix3(opts.initial);
-            const start = ptr / sizes.SIZEOF_DOUBLE;
+            const start = ptr / lib.HEAPF64.BYTES_PER_ELEMENT;
             lib.HEAPF64[start + 0] = opts.initial[0][0];
             lib.HEAPF64[start + 1] = opts.initial[0][1];
             lib.HEAPF64[start + 2] = opts.initial[0][2];
@@ -143,7 +156,8 @@ export function stackAlloc<T extends keyof TypeMap>(
     return { ptr, type };
 }
 
-// required for the lib.getValue call with LLVM types
+// required to ensure that the right sizes are used in the lib.getValue calls
+// with LLVM types below for non-integer types
 assert(sizes.SIZEOF_BOOL === 1, 'sizeof(bool) must be 1 in WASM');
 assert(sizes.SIZEOF_CHFL_PROPERTY_KIND === 4, 'sizeof(chfl_property_kind) must be 4 in WASM');
 assert(sizes.SIZEOF_CHFL_CELLSHAPE === 4, 'sizeof(chfl_cellshape) must be 4 in WASM');
@@ -168,7 +182,7 @@ export function getValue<T extends keyof TypeMap>(
         } else if (ref.type === 'uint64_t[]') {
             const values = [];
             for (let i = 0; i < opts.count; i++) {
-                values.push(getUint64(current));
+                values.push(lib.getValue(current, 'i64'));
                 // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                 current = (current + sizes.SIZEOF_UINT64_T) as POINTER;
             }
@@ -190,7 +204,9 @@ export function getValue<T extends keyof TypeMap>(
 
     // and then scalar values or fixed size array
     if (ref.type === 'uint64_t') {
-        return getUint64(ref.ptr);
+        return lib.getValue(ref.ptr, 'i64');
+    } else if (ref.type === 'int64_t') {
+        return lib.getValue(ref.ptr, 'i64');
     } else if (ref.type === 'double') {
         return lib.getValue(ref.ptr, 'double');
     } else if (ref.type === 'bool') {
@@ -198,10 +214,10 @@ export function getValue<T extends keyof TypeMap>(
     } else if (ref.type === 'char*') {
         return lib.UTF8ToString(ref.ptr);
     } else if (ref.type === 'chfl_vector3d') {
-        const start = ref.ptr / sizes.SIZEOF_DOUBLE;
+        const start = ref.ptr / lib.HEAPF64.BYTES_PER_ELEMENT;
         return lib.HEAPF64.slice(start, start + 3) as unknown as Vector3D;
     } else if (ref.type === 'chfl_matrix3') {
-        const start = ref.ptr / sizes.SIZEOF_DOUBLE;
+        const start = ref.ptr / lib.HEAPF64.BYTES_PER_ELEMENT;
         const a = lib.HEAPF64.slice(start + 0, start + 3) as unknown as Vector3D;
         const b = lib.HEAPF64.slice(start + 3, start + 6) as unknown as Vector3D;
         const c = lib.HEAPF64.slice(start + 6, start + 9) as unknown as Vector3D;
@@ -230,15 +246,4 @@ function checkVector3d(value?: unknown): asserts value is Vector3D {
 
 function checkMatrix3(value?: unknown): asserts value is Matrix3 {
     assert(isMatrix3(value), `expected a Matrix3 value, got a ${typeof value} instead`);
-}
-
-export function getUint64(ptr: POINTER): number {
-    // little dance to extract an unsigned 64-bit integer without using
-    // `BigUint64Array`, which is not yet available on all browsers
-    const SIZEOF_UINT32_T = sizes.SIZEOF_UINT64_T / 2;
-    const lo = lib.HEAP32[ptr / SIZEOF_UINT32_T];
-    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-    ptr = (ptr + SIZEOF_UINT32_T) as POINTER;
-    const hi = lib.HEAP32[ptr / SIZEOF_UINT32_T];
-    return (hi & 0xffffff) * 0x40000000 + (lo & 0xffffffff);
 }

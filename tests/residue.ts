@@ -34,6 +34,10 @@ describe('Residue', () => {
         assert.equal(residue.id, 3);
         residue.delete();
 
+        const residueNegativeId = new Residue('bar', -17);
+        assert.equal(residueNegativeId.id, -17);
+        residueNegativeId.delete();
+
         const residueNoId = new Residue('foo');
         disableWarnings(() => {
             assert.equal(residueNoId.id, undefined);
@@ -41,16 +45,24 @@ describe('Residue', () => {
         residueNoId.delete();
 
         // check large id
-        // INT32_MAX, INT32_MAX + Δ, UINT32_MAX, UINT32_MAX + Δ, MAX_SAFE_INTEGER
         for (const id of [
+            // INT32_MAX,
             2147483647,
+            // INT32_MAX + ∆
             2147483649,
+            // UINT32_MAX
             4294967295,
+            // UINT32_MAX + ∆
             4294967338,
+            // INT32_MIN,
+            -2147483648,
+            // INT32_MIN - ∆,
+            -2147483650,
             Number.MAX_SAFE_INTEGER,
+            Number.MIN_SAFE_INTEGER,
         ]) {
             const residueLargeId = new Residue('foo', id);
-            assert.equal(residueLargeId.id, id);
+            // assert.equal(residueLargeId.id, id);
             residueLargeId.delete();
         }
     });

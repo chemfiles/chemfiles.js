@@ -19,6 +19,7 @@ int main() {
     PRINT_SIZE(double);
     PRINT_SIZE(bool);
     PRINT_SIZE(uint64_t);
+    PRINT_SIZE(int64_t);
 
     PRINT_SIZE(chfl_vector3d);
     PRINT_SIZE(chfl_match);

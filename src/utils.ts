@@ -50,12 +50,6 @@ export function check(status: chfl_status): void {
     }
 }
 
-export function numberEmscriptenUint64(value: number): { lo: number; hi: number } {
-    const lo = value & 0x7fffffff;
-    const hi = (value - lo) / 0x40000000;
-    return { lo, hi };
-}
-
 export function isUnsignedInteger(value: number): boolean {
     return Number.isInteger(value) && value >= 0;
 }
