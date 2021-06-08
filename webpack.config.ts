@@ -18,7 +18,7 @@ const defaultConfig: webpack.Configuration = {
         new CopyPlugin({
             // copy src/libchemfiles/index.d.ts to dist/src/libchemfiles/index.d.ts
             // so that dts-bundle-generator can find it
-            patterns: [{ from: 'src/libchemfiles/index.d.ts', to: 'src/libchemfiles/' }],
+            patterns: [{ from: 'src/libchemfiles/*.d.ts', to: '' }],
         }),
     ],
 

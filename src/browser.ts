@@ -1,19 +1,16 @@
 /// <reference lib="dom" />
 
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-
 import { FS, ready } from './misc';
 import { Trajectory } from './trajectory';
 
 let PREFIX: string;
 if (typeof window === 'object') {
     PREFIX = '/chemfiles';
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     ready(() => FS.mkdir(PREFIX));
 } else {
     // eslint-disable-next-line
     const os = require('os');
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
     PREFIX = os.tmpdir() as string;
 }
 
@@ -59,7 +56,7 @@ class MemoryTrajectory extends Trajectory {
      * ensure all content is flushed to the buffer.
      */
     public asUint8Array(): Uint8Array {
-        return FS.readFile(this.path, { encoding: 'binary' }) as Uint8Array;
+        return FS.readFile(this.path, { encoding: 'binary' });
     }
 
     /**
@@ -115,7 +112,7 @@ export class MemoryReader extends MemoryTrajectory {
         }
 
         const path = normalizePath(filename);
-        FS.writeFile(path, data, { encoding: 'binary' });
+        FS.writeFile(path, data);
 
         super(path, 'r', format);
     }

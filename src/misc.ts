@@ -2,7 +2,7 @@ import * as sizes from '../lib/wasm-sizes';
 import { ChemfilesModule, loadChemfiles } from './libchemfiles';
 import {
     CHFL_PTR,
-    POINTER,
+    FileSystem,
     c_bool_ptr,
     c_char_ptr,
     chfl_format_metadata_ptr,
@@ -179,63 +179,63 @@ export function formatsList(): FormatMetadata[] {
         check(lib._chfl_formats_list(formats as chfl_format_metadata_ptr, countRef.ptr));
         const count = getValue(countRef);
 
-        let ptr = lib.getValue(formats, '*') as POINTER;
+        let ptr = lib.getValue(formats, '*');
         for (let i = 0; i < count; i++) {
             const name = lib.UTF8ToString(lib.getValue(ptr, '*') as c_char_ptr);
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            ptr = (ptr + sizes.SIZEOF_VOID_P) as POINTER;
+            ptr = ptr + sizes.SIZEOF_VOID_P;
 
             const extension_ptr = lib.getValue(ptr, '*') as c_char_ptr;
             const extension = extension_ptr === 0 ? undefined : lib.UTF8ToString(extension_ptr);
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            ptr = (ptr + sizes.SIZEOF_VOID_P) as POINTER;
+            ptr = ptr + sizes.SIZEOF_VOID_P;
 
             const description = lib.UTF8ToString(lib.getValue(ptr, '*') as c_char_ptr);
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            ptr = (ptr + sizes.SIZEOF_VOID_P) as POINTER;
+            ptr = ptr + sizes.SIZEOF_VOID_P;
 
             const reference = lib.UTF8ToString(lib.getValue(ptr, '*') as c_char_ptr);
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            ptr = (ptr + sizes.SIZEOF_VOID_P) as POINTER;
+            ptr = ptr + sizes.SIZEOF_VOID_P;
 
             const read = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+            ptr = ptr + sizes.SIZEOF_BOOL;
 
             const write = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+            ptr = ptr + sizes.SIZEOF_BOOL;
 
             const memory = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+            ptr = ptr + sizes.SIZEOF_BOOL;
 
             const positions = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+            ptr = ptr + sizes.SIZEOF_BOOL;
 
             const velocities = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+            ptr = ptr + sizes.SIZEOF_BOOL;
 
             const unitCell = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+            ptr = ptr + sizes.SIZEOF_BOOL;
 
             const atoms = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+            ptr = ptr + sizes.SIZEOF_BOOL;
 
             const bonds = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+            ptr = ptr + sizes.SIZEOF_BOOL;
 
             const residues = getValue({ ptr: ptr as c_bool_ptr, type: 'bool' });
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            ptr = (ptr + sizes.SIZEOF_BOOL) as POINTER;
+            ptr = ptr + sizes.SIZEOF_BOOL;
 
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            ptr = (ptr + CHFL_FORMAT_METADATA_PADDING) as POINTER;
+            ptr = ptr + CHFL_FORMAT_METADATA_PADDING;
 
             metadata.push({
                 atoms,
@@ -274,8 +274,7 @@ export let lib: ChemfilesModule;
  * https://emscripten.org/docs/api_reference/Filesystem-API.html
  * for the corresponding documentation.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export let FS: any;
+export let FS: FileSystem;
 
 loadChemfiles()
     .then((new_instance) => {
