@@ -1,11 +1,11 @@
 import { SIZEOF_CHFL_MATCH, SIZEOF_UINT64_T } from '../lib/wasm-sizes';
-import { CHFL_SELECTION, POINTER, chfl_match_ptr } from './libchemfiles';
+import { CHFL_SELECTION, POINTER, c_uint64_ptr, chfl_match_ptr } from './libchemfiles';
 import { lib } from './misc';
 
 import { Pointer } from './c_ptr';
 import { Frame } from './frame';
 
-import { getUint64, getValue, stackAlloc, stackAutoclean } from './stack';
+import { getValue, stackAlloc, stackAutoclean } from './stack';
 import { assert, autogrowStrBuffer, check } from './utils';
 
 assert(SIZEOF_CHFL_MATCH === 5 * SIZEOF_UINT64_T, 'wrong size for chfl_match');
@@ -162,14 +162,14 @@ export class Selection extends Pointer<CHFL_SELECTION, never> {
                 // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                 ptr = (ptr + SIZEOF_UINT64_T) as POINTER;
                 if (selectionSize === 1) {
-                    results.push(getUint64(ptr));
+                    results.push(getValue({ ptr: ptr as c_uint64_ptr, type: 'uint64_t' }));
                     // skip the other 'atoms'
                     // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                     ptr = (ptr + 4 * SIZEOF_UINT64_T) as POINTER;
                 } else {
                     const match = [];
                     for (let atom = 0; atom < selectionSize; atom++) {
-                        match.push(getUint64(ptr));
+                        match.push(getValue({ ptr: ptr as c_uint64_ptr, type: 'uint64_t' }));
                         // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                         ptr = (ptr + SIZEOF_UINT64_T) as POINTER;
                     }

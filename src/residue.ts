@@ -5,13 +5,7 @@ import { Pointer } from './c_ptr';
 
 import { PropertyType, createProperty, getProperty } from './property';
 import { getValue, stackAlloc, stackAutoclean } from './stack';
-import {
-    assert,
-    autogrowStrBuffer,
-    check,
-    isUnsignedInteger,
-    numberEmscriptenUint64,
-} from './utils';
+import { assert, autogrowStrBuffer, check, isUnsignedInteger } from './utils';
 
 interface ResidueExtra {
     atoms: ReadonlyArray<number>;
@@ -28,9 +22,9 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
      */
     public static __from_ptr(ptr: CHFL_RESIDUE, isConst: boolean): Residue {
         const parent = new Pointer(ptr, isConst, 'Residue');
-        const atom = Object.create(Residue.prototype) as Residue;
-        Object.assign(atom, parent);
-        return atom;
+        const residue = Object.create(Residue.prototype) as Residue;
+        Object.assign(residue, parent);
+        return residue;
     }
 
     /**
@@ -91,8 +85,8 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
             if (id === undefined) {
                 return lib._chfl_residue(nameRef.ptr);
             } else {
-                assert(isUnsignedInteger(id), 'residue id must be a positive integer');
-                const { lo, hi } = numberEmscriptenUint64(id);
+                assert(Number.isInteger(id), 'residue id must be an integer');
+                const { lo, hi } = numberToEmscriptenInt64(id);
                 return lib._chfl_residue_with_id(nameRef.ptr, lo, hi);
             }
         });
@@ -112,7 +106,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
      */
     get id(): number | undefined {
         return stackAutoclean(() => {
-            const value = stackAlloc('uint64_t');
+            const value = stackAlloc('int64_t');
             const status = lib._chfl_residue_id(this.const_ptr, value.ptr);
             if (status === CHFL_GENERIC_ERROR) {
                 return undefined;
@@ -310,4 +304,25 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
             return getValue(names, { count });
         });
     }
+}
+
+/**
+ * Split an integer (up to MAX_SAFE_INTEGER) into high & low bits to be able to
+ * call function taking `int64_t` as argument.
+ */
+function numberToEmscriptenInt64(value: number): { lo: number; hi: number } {
+    let hi = Math.floor(Math.abs(value) / 2147483647);
+    let lo = Math.abs(value) % 2147483647;
+
+    // I have no idea how this works or why the code below is required. I guess
+    // something related to using 2-complement for signed integers???
+    if (value < 0) {
+        hi = ~hi;
+        lo = ~lo;
+
+        lo += 1;
+        hi += 1;
+    }
+
+    return { lo, hi };
 }
