@@ -1,0 +1,906 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Atom | chemfiles - v0.9.3</title>
+	<meta name="description" content="Documentation for chemfiles - v0.9.3">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">chemfiles - v0.9.3</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../index.html">chemfiles - v0.9.3</a>
+				</li>
+				<li>
+					<a href="Atom.html">Atom</a>
+				</li>
+			</ul>
+			<h1>Class Atom</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>An <a href="Atom.html">Atom</a> is a particle in the current <a href="Frame.html">Frame</a>. It stores the following
+						atomic properties:</p>
+						<ul>
+							<li>atom name;</li>
+							<li>atom type;</li>
+							<li>atom mass;</li>
+							<li>atom charge.</li>
+						</ul>
+					</div>
+					<p>The atom name is usually an unique identifier (<code>&#39;H1&#39;</code>, <code>&#39;C_a&#39;</code>) while
+						the atom type will be shared between all particles of the same type:
+					<code>&#39;H&#39;</code>, <code>&#39;Ow&#39;</code>, <code>&#39;CH3&#39;</code>.</p>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="tsd-signature-type">Pointer</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CHFL_ATOM</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">&gt;</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">Atom</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="Atom.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Atom.html#VdWRadius" class="tsd-kind-icon">VdWRadius</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Atom.html#atomicNumber" class="tsd-kind-icon">atomic<wbr>Number</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="Atom.html#charge" class="tsd-kind-icon">charge</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Atom.html#covalentRadius" class="tsd-kind-icon">covalent<wbr>Radius</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Atom.html#fullName" class="tsd-kind-icon">full<wbr>Name</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="Atom.html#mass" class="tsd-kind-icon">mass</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="Atom.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="Atom.html#type" class="tsd-kind-icon">type</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Atom.html#delete" class="tsd-kind-icon">delete</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Atom.html#get" class="tsd-kind-icon">get</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Atom.html#properties" class="tsd-kind-icon">properties</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Atom.html#set" class="tsd-kind-icon">set</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="Atom.html#clone" class="tsd-kind-icon">clone</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Atom<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Atom.html" class="tsd-signature-type" data-tsd-kind="Class">Atom</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides Pointer&lt;CHFL_ATOM, never&gt;.constructor</p>
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L86">atom.ts:86</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a new <a href="Atom.html">Atom</a> with the given <code>name</code>. If <code>type</code> is given, use
+									it as the atom type. Else the atom name is used as atom type.</p>
+								</div>
+								<p>This function allocate WASM memory, which must be released with
+								<a href="Atom.html#delete">Atom.delete</a>.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Fe&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;Fe&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">type</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;Fe&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+								<p>&nbsp;</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Fe-3&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;Fe&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;Fe-3&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">type</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;Fe&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>name of the new Atom</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> type: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>atomic type of the new Atom</p>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="Atom.html" class="tsd-signature-type" data-tsd-kind="Class">Atom</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="VdWRadius" class="tsd-anchor"></a>
+					<h3>VdWRadius</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> VdWRadius<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L281">atom.ts:281</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Van der Walls radius of this <a href="Atom.html">Atom</a>, as guessed from the type.</p>
+								</div>
+								<p>If no radius can be found, the radius will be 0.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">VdWRadius</span><span style="color: #000000">, </span><span style="color: #098658">1.7</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+								<p>&nbsp;</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;CH4&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">VdWRadius</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="atomicNumber" class="tsd-anchor"></a>
+					<h3>atomic<wbr>Number</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> atomicNumber<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L331">atom.ts:331</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Atomic number of this <a href="Atom.html">Atom</a>, as guessed from the type.</p>
+								</div>
+								<p>If no number can be found, it will be 0.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">atomicNumber</span><span style="color: #000000">, </span><span style="color: #098658">6</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+								<p>&nbsp;</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;CH4&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">atomicNumber</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="charge" class="tsd-anchor"></a>
+					<h3>charge</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> charge<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> charge<span class="tsd-signature-symbol">(</span>charge<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L142">atom.ts:142</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the charge of this <a href="Atom.html">Atom</a>, in number of the electron charge <em>e</em>.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">charge</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L164">atom.ts:164</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set the charge of this <a href="Atom.html">Atom</a>, in number of the electron charge <em>e</em>.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">charge</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">charge</span><span style="color: #000000"> = </span><span style="color: #098658">1.2</span><span style="color: #000000">;</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">charge</span><span style="color: #000000">, </span><span style="color: #098658">1.2</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>charge: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>new charge for the atom</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="covalentRadius" class="tsd-anchor"></a>
+					<h3>covalent<wbr>Radius</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> covalentRadius<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L306">atom.ts:306</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Covalent radius of this <a href="Atom.html">Atom</a>, as guessed from the type.</p>
+								</div>
+								<p>If no radius can be found, the radius will be 0.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">covalentRadius</span><span style="color: #000000">, </span><span style="color: #098658">0.77</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+								<p>&nbsp;</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;CH4&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">covalentRadius</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="fullName" class="tsd-anchor"></a>
+					<h3>full<wbr>Name</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> fullName<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L258">atom.ts:258</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Full name of this <a href="Atom.html">Atom</a>, as guessed from the type.</p>
+								</div>
+								<p>For example, the full name associated with <code>type = &#39;He&#39;</code> is <code>&#39;Helium&#39;</code>.
+								If no name can be found, the full name will be an empty string.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">fullName</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;Carbon&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+								<p>&nbsp;</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;CH4&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">fullName</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="mass" class="tsd-anchor"></a>
+					<h3>mass</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> mass<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> mass<span class="tsd-signature-symbol">(</span>mass<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L107">atom.ts:107</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the mass of this <a href="Atom.html">Atom</a>, in atomic mass units.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">mass</span><span style="color: #000000">, </span><span style="color: #098658">12.011</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L129">atom.ts:129</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set the mass of this <a href="Atom.html">Atom</a>, in atomic mass units.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">mass</span><span style="color: #000000">, </span><span style="color: #098658">12.011</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">mass</span><span style="color: #000000"> = </span><span style="color: #098658">14.0</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">mass</span><span style="color: #000000">, </span><span style="color: #098658">14.0</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>mass: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>new mass for the atom</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> name<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L177">atom.ts:177</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the name of this <a href="Atom.html">Atom</a></p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L197">atom.ts:197</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set the name of this <a href="Atom.html">Atom</a></p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;O&#039;</span><span style="color: #000000">;</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;O&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>new name for the atom</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="type" class="tsd-anchor"></a>
+					<h3>type</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> type<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> type<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L213">atom.ts:213</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the type of this <a href="Atom.html">Atom</a></p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C1&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">type</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L233">atom.ts:233</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set the type of this <a href="Atom.html">Atom</a></p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C1&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">type</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">type</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;O&#039;</span><span style="color: #000000">;</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">type</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;O&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>type: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>new atomic type for this atom</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="delete" class="tsd-anchor"></a>
+					<h3>delete</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from Pointer.delete</p>
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/c_ptr.ts#L46">c_ptr.ts:46</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Delete the WASM-allocated object and release the corresponding memory.</p>
+								</div>
+								<p>Since JavaScript have no way to inject behavior when the GC is called,
+									users need to call this function manually when they are done with the
+								object.</p>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="get" class="tsd-anchor"></a>
+					<h3>get</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../index.html#PropertyType" class="tsd-signature-type" data-tsd-kind="Type alias">PropertyType</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L356">atom.ts:356</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the property of this atom with the given <code>name</code>, or undefined
+									if the property does not exists.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;number&#039;</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;number&#039;</span><span style="color: #000000">), </span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;not existing&#039;</span><span style="color: #000000">), </span><span style="color: #0000FF">undefined</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>name of the property</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../index.html#PropertyType" class="tsd-signature-type" data-tsd-kind="Type alias">PropertyType</a></h4>
+							<p>value of the property if it exists</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="properties" class="tsd-anchor"></a>
+					<h3>properties</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">properties<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L418">atom.ts:418</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the name of all properties set on this <a href="Atom.html">Atom</a>.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;number&#039;</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;string&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;val&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">deepEqual</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">properties</span><span style="color: #000000">(), [</span><span style="color: #A31515">&#039;string&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;number&#039;</span><span style="color: #000000">])</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
+							<p>array containing the name of all properties</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="set" class="tsd-anchor"></a>
+					<h3>set</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><a href="../index.html#PropertyType" class="tsd-signature-type" data-tsd-kind="Type alias">PropertyType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L395">atom.ts:395</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set a property of this atom, with the given <code>name</code> and <code>value</code>.</p>
+								</div>
+								<p>The new value overwrite any pre-existing property with the same name.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// number property</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;number&#039;</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// string property</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;string&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;val&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// boolean property</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;bool&#039;</span><span style="color: #000000">, </span><span style="color: #0000FF">false</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// vector3d property</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;vector&#039;</span><span style="color: #000000">, [</span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">4</span><span style="color: #000000">, -</span><span style="color: #098658">2</span><span style="color: #000000">]);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>name of the new property</p>
+									</div>
+								</li>
+								<li>
+									<h5>value: <a href="../index.html#PropertyType" class="tsd-signature-type" data-tsd-kind="Type alias">PropertyType</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>value of the new property</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="clone" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> clone</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">clone<span class="tsd-signature-symbol">(</span>atom<span class="tsd-signature-symbol">: </span><a href="Atom.html" class="tsd-signature-type" data-tsd-kind="Class">Atom</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Atom.html" class="tsd-signature-type" data-tsd-kind="Class">Atom</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/atom.ts#L57">atom.ts:57</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a new independent copy of the given <code>atom</code>.</p>
+								</div>
+								<p>This function allocate WASM memory, which must be released with
+								<a href="Atom.html#delete">Atom.delete</a>.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">copy</span><span style="color: #000000"> = </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">Atom</span><span style="color: #000000">.</span><span style="color: #795E26">clone</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">copy</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// only atom is modified, not copy</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;O&#039;</span><span style="color: #000000">;</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;O&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">copy</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+<span style="color: #001080">copy</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>atom: <a href="Atom.html" class="tsd-signature-type" data-tsd-kind="Class">Atom</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="Atom.html">Atom</a> to copy</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="Atom.html" class="tsd-signature-type" data-tsd-kind="Class">Atom</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../index.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="../enums/BondOrder.html" class="tsd-kind-icon">Bond<wbr>Order</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/CellShape.html" class="tsd-kind-icon">Cell<wbr>Shape</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
+						<a href="Atom.html" class="tsd-kind-icon">Atom</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+								<a href="Atom.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="Atom.html#VdWRadius" class="tsd-kind-icon">VdWRadius</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="Atom.html#atomicNumber" class="tsd-kind-icon">atomic<wbr>Number</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="Atom.html#charge" class="tsd-kind-icon">charge</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="Atom.html#covalentRadius" class="tsd-kind-icon">covalent<wbr>Radius</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="Atom.html#fullName" class="tsd-kind-icon">full<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="Atom.html#mass" class="tsd-kind-icon">mass</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="Atom.html#name" class="tsd-kind-icon">name</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="Atom.html#type" class="tsd-kind-icon">type</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="Atom.html#delete" class="tsd-kind-icon">delete</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Atom.html#get" class="tsd-kind-icon">get</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Atom.html#properties" class="tsd-kind-icon">properties</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Atom.html#set" class="tsd-kind-icon">set</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="Atom.html#clone" class="tsd-kind-icon">clone</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-class">
+						<a href="Frame.html" class="tsd-kind-icon">Frame</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="MemoryReader.html" class="tsd-kind-icon">Memory<wbr>Reader</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="MemoryWriter.html" class="tsd-kind-icon">Memory<wbr>Writer</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="Residue.html" class="tsd-kind-icon">Residue</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="Selection.html" class="tsd-kind-icon">Selection</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="Topology.html" class="tsd-kind-icon">Topology</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="Trajectory.html" class="tsd-kind-icon">Trajectory</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="UnitCell.html" class="tsd-kind-icon">Unit<wbr>Cell</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/Array3D.html" class="tsd-kind-icon">Array3D</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/Matrix3.html" class="tsd-kind-icon">Matrix3</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/Vector3D.html" class="tsd-kind-icon">Vector3D</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#PropertyType" class="tsd-kind-icon">Property<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#WarningCallback" class="tsd-kind-icon">Warning<wbr>Callback</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="../index.html#FS" class="tsd-kind-icon">FS</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#addConfiguration" class="tsd-kind-icon">add<wbr>Configuration</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#clearErrors" class="tsd-kind-icon">clear<wbr>Errors</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#lastError" class="tsd-kind-icon">last<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#ready" class="tsd-kind-icon">ready</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#setWarningCallback" class="tsd-kind-icon">set<wbr>Warning<wbr>Callback</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#version" class="tsd-kind-icon">version</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

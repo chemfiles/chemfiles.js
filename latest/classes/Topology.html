@@ -1,0 +1,1214 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Topology | chemfiles - v0.9.3</title>
+	<meta name="description" content="Documentation for chemfiles - v0.9.3">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">chemfiles - v0.9.3</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../index.html">chemfiles - v0.9.3</a>
+				</li>
+				<li>
+					<a href="Topology.html">Topology</a>
+				</li>
+			</ul>
+			<h1>Class Topology</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A <a href="Topology.html">Topology</a> contains the definition of all the atoms in the system,
+						and the liaisons between the atoms (bonds, angles, dihedrals, ...).</p>
+					</div>
+					<p>It will also contain all the <a href="Residue.html">Residue</a> of the system.</p>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="tsd-signature-type">Pointer</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CHFL_TOPOLOGY</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">&gt;</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">Topology</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="Topology.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Topology.html#angles" class="tsd-kind-icon">angles</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Topology.html#bondOrders" class="tsd-kind-icon">bond<wbr>Orders</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Topology.html#bonds" class="tsd-kind-icon">bonds</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Topology.html#dihedrals" class="tsd-kind-icon">dihedrals</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Topology.html#impropers" class="tsd-kind-icon">impropers</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Topology.html#residuesCount" class="tsd-kind-icon">residues<wbr>Count</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Topology.html#size" class="tsd-kind-icon">size</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Topology.html#addAtom" class="tsd-kind-icon">add<wbr>Atom</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Topology.html#addBond" class="tsd-kind-icon">add<wbr>Bond</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Topology.html#addResidue" class="tsd-kind-icon">add<wbr>Residue</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Topology.html#atom" class="tsd-kind-icon">atom</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Topology.html#bondOrder" class="tsd-kind-icon">bond<wbr>Order</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Topology.html#delete" class="tsd-kind-icon">delete</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Topology.html#remove" class="tsd-kind-icon">remove</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Topology.html#removeBond" class="tsd-kind-icon">remove<wbr>Bond</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Topology.html#residue" class="tsd-kind-icon">residue</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Topology.html#residueForAtom" class="tsd-kind-icon">residue<wbr>For<wbr>Atom</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Topology.html#residuesLinked" class="tsd-kind-icon">residues<wbr>Linked</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Topology.html#resize" class="tsd-kind-icon">resize</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="Topology.html#clone" class="tsd-kind-icon">clone</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Topology<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Topology.html" class="tsd-signature-type" data-tsd-kind="Class">Topology</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides Pointer&lt;CHFL_TOPOLOGY, never&gt;.constructor</p>
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L104">topology.ts:104</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a new empty <a href="Topology.html">Topology</a>.</p>
+								</div>
+								<p>This function allocate WASM memory, which must be released with
+								<a href="Topology.html#delete">Topology.delete</a>.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">size</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="Topology.html" class="tsd-signature-type" data-tsd-kind="Class">Topology</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="angles" class="tsd-anchor"></a>
+					<h3>angles</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> angles<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L599">topology.ts:599</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the list of all angles in this <a href="Topology.html">Topology</a>.</p>
+								</div>
+								<p>Each angle is represented as a triplet of atom indices, with the middle
+								index being the center of the angle.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">deepEqual</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">angles</span><span style="color: #000000">, [[</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">], [</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">], [</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">]]);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="bondOrders" class="tsd-anchor"></a>
+					<h3>bond<wbr>Orders</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> bondOrders<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../enums/BondOrder.html" class="tsd-signature-type" data-tsd-kind="Enumeration">BondOrder</a><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L544">topology.ts:544</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the list of bond order for all bonds in this <a href="Topology.html">Topology</a>. The values
+									are in the same order as the bonds in <a href="Topology.html#bonds">Topology.bonds</a>.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">BondOrder</span><span style="color: #000000">.</span><span style="color: #001080">Amide</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">deepEqual</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">bondOrders</span><span style="color: #000000">, [</span>
+<span style="color: #000000">    </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">BondOrder</span><span style="color: #000000">.</span><span style="color: #001080">Amide</span><span style="color: #000000">, </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">BondOrder</span><span style="color: #000000">.</span><span style="color: #001080">Unknown</span>
+<span style="color: #000000">]);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../enums/BondOrder.html" class="tsd-signature-type" data-tsd-kind="Enumeration">BondOrder</a><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="bonds" class="tsd-anchor"></a>
+					<h3>bonds</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> bonds<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L508">topology.ts:508</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the list of all bonds in this <a href="Topology.html">Topology</a>.</p>
+								</div>
+								<p>Each bond is represented as a pair of atom indices.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">deepEqual</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">bonds</span><span style="color: #000000">, [[</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">], [</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">], [</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">]]);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="dihedrals" class="tsd-anchor"></a>
+					<h3>dihedrals</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> dihedrals<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L641">topology.ts:641</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the list of all dihedral angles in this <a href="Topology.html">Topology</a>.</p>
+								</div>
+								<p>Each dihedral angle is represented as a quadruplet of atom indices,
+									with the two middle indexes being the two central atoms of the dihedral
+								angle.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">deepEqual</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">dihedrals</span><span style="color: #000000">, [[</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">]]);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="impropers" class="tsd-anchor"></a>
+					<h3>impropers</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> impropers<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L683">topology.ts:683</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the list of all improper dihedral angles in this <a href="Topology.html">Topology</a>.</p>
+								</div>
+								<p>Each improper  dihedral angle is represented as a quadruplet of atom
+								indices, with the second index being the center of the improper dihedral.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">deepEqual</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">impropers</span><span style="color: #000000">, [[</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">]]);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="residuesCount" class="tsd-anchor"></a>
+					<h3>residues<wbr>Count</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> residuesCount<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L482">topology.ts:482</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the current number of residues in this <a href="Topology.html">Topology</a>.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">residuesCount</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">residue</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Residue</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;PRO&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addResidue</span><span style="color: #000000">(</span><span style="color: #001080">residue</span><span style="color: #000000">);</span>
+<span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">residue</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Residue</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;LYS&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addResidue</span><span style="color: #000000">(</span><span style="color: #001080">residue</span><span style="color: #000000">);</span>
+<span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">residuesCount</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="size" class="tsd-anchor"></a>
+					<h3>size</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> size<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L299">topology.ts:299</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the current number of atoms in this <a href="Topology.html">Topology</a>.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">size</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #098658">33</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">size</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="addAtom" class="tsd-anchor"></a>
+					<h3>add<wbr>Atom</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Atom<span class="tsd-signature-symbol">(</span>atom<span class="tsd-signature-symbol">: </span><a href="Atom.html" class="tsd-signature-type" data-tsd-kind="Class">Atom</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L248">topology.ts:248</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add a copy of the given <code>atom</code> at the end of this <a href="Topology.html">Topology</a>.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">size</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Mg&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addAtom</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">size</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>atom: <a href="Atom.html" class="tsd-signature-type" data-tsd-kind="Class">Atom</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>atom that will be added to the topology</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="addBond" class="tsd-anchor"></a>
+					<h3>add<wbr>Bond</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Bond<span class="tsd-signature-symbol">(</span>i<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, j<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, order<span class="tsd-signature-symbol">?: </span><a href="../enums/BondOrder.html" class="tsd-signature-type" data-tsd-kind="Enumeration">BondOrder</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L159">topology.ts:159</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add a bond between the atoms at indexes <code>i</code> and <code>j</code> in this <a href="Topology.html">Topology</a>,
+									optionally setting the bond <code>order</code>.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">BondOrder</span><span style="color: #000000">.</span><span style="color: #001080">Triple</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">deepEqual</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">bonds</span><span style="color: #000000">, [[</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">], [</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">]]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">deepEqual</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">bondOrders</span><span style="color: #000000">, [</span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">BondOrder</span><span style="color: #000000">.</span><span style="color: #001080">Unknown</span><span style="color: #000000">, </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">BondOrder</span><span style="color: #000000">.</span><span style="color: #001080">Triple</span><span style="color: #000000">]);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>i: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>index of the first atom of the bond</p>
+									</div>
+								</li>
+								<li>
+									<h5>j: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>index of the second atom of the bond</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> order: <a href="../enums/BondOrder.html" class="tsd-signature-type" data-tsd-kind="Enumeration">BondOrder</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>order of the bond</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="addResidue" class="tsd-anchor"></a>
+					<h3>add<wbr>Residue</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Residue<span class="tsd-signature-symbol">(</span>residue<span class="tsd-signature-symbol">: </span><a href="Residue.html" class="tsd-signature-type" data-tsd-kind="Class">Residue</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L416">topology.ts:416</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add the given <code>residue</code> at the end of the residue list for this
+									<a href="Topology.html">Topology</a>.</p>
+								</div>
+								<p>The residue must contain only atoms that are not already in another
+									residue in this topology, and the <a href="Residue.html#id">residue id</a> if defined
+								must be different from all other residue id in this topology.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">residuesCount</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">residue</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Residue</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;PRO&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addResidue</span><span style="color: #000000">(</span><span style="color: #001080">residue</span><span style="color: #000000">);</span>
+<span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">residue</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Residue</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;LYS&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addResidue</span><span style="color: #000000">(</span><span style="color: #001080">residue</span><span style="color: #000000">);</span>
+<span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">residuesCount</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>residue: <a href="Residue.html" class="tsd-signature-type" data-tsd-kind="Class">Residue</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>residue to be added to the topology</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="atom" class="tsd-anchor"></a>
+					<h3>atom</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">atom<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Atom.html" class="tsd-signature-type" data-tsd-kind="Class">Atom</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L225">topology.ts:225</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the atom at the given index inside this <a href="Topology.html">Topology</a>.</p>
+								</div>
+								<p>This function increase the reference count of this topology, memory will
+								not be released before the atom is itself released with <a href="Atom.html#delete">Atom.delete</a>.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">atom</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;C&#039;</span><span style="color: #000000">;</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>index: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>index of the atom in the topology</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="Atom.html" class="tsd-signature-type" data-tsd-kind="Class">Atom</a></h4>
+							<p>A modifiable reference to the Atom</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="bondOrder" class="tsd-anchor"></a>
+					<h3>bond<wbr>Order</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">bond<wbr>Order<span class="tsd-signature-symbol">(</span>i<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, j<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../enums/BondOrder.html" class="tsd-signature-type" data-tsd-kind="Enumeration">BondOrder</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L572">topology.ts:572</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the order of the bond between atoms at indexes <code>i</code> and <code>j</code>.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">BondOrder</span><span style="color: #000000">.</span><span style="color: #001080">Amide</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">bondOrder</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">), </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">BondOrder</span><span style="color: #000000">.</span><span style="color: #001080">Amide</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">bondOrder</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">), </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">BondOrder</span><span style="color: #000000">.</span><span style="color: #001080">Unknown</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>i: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>j: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../enums/BondOrder.html" class="tsd-signature-type" data-tsd-kind="Enumeration">BondOrder</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="delete" class="tsd-anchor"></a>
+					<h3>delete</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from Pointer.delete</p>
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/c_ptr.ts#L46">c_ptr.ts:46</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Delete the WASM-allocated object and release the corresponding memory.</p>
+								</div>
+								<p>Since JavaScript have no way to inject behavior when the GC is called,
+									users need to call this function manually when they are done with the
+								object.</p>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="remove" class="tsd-anchor"></a>
+					<h3>remove</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">remove<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L281">topology.ts:281</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Remove the <a href="Atom.html">Atom</a> at the given <code>index</code> from this <a href="Topology.html">Topology</a>.</p>
+								</div>
+								<p>This shifts all the atoms indexes larger than <code>index</code> by 1 (<code>n</code> becomes
+								<code>n - 1</code>).</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">size</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Mg&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addAtom</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+<span style="color: #001080">atom</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Atom</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Na&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addAtom</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">size</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">remove</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">size</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000"> = </span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">atom</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;Na&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>index: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="removeBond" class="tsd-anchor"></a>
+					<h3>remove<wbr>Bond</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">remove<wbr>Bond<span class="tsd-signature-symbol">(</span>i<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, j<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L199">topology.ts:199</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Remove any existing bond between the atoms at indexes <code>i</code> and <code>j</code> in
+									this <a href="Topology.html">Topology</a>.</p>
+								</div>
+								<p>This function does nothing if there is no bond between <code>i</code> and <code>j</code>.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addBond</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">deepEqual</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">bonds</span><span style="color: #000000">, [[</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">], [</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">]]);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">removeBond</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">deepEqual</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">bonds</span><span style="color: #000000">, [[</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">]]);</span>
+
+<span style="color: #008000">// does nothing</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">removeBond</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">deepEqual</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">bonds</span><span style="color: #000000">, [[</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">]]);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>i: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>index of the second atom of the bond</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5>j: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="residue" class="tsd-anchor"></a>
+					<h3>residue</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">residue<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Residue.html" class="tsd-signature-type" data-tsd-kind="Class">Residue</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L341">topology.ts:341</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get read-only access to the <a href="Residue.html">Residue</a> at the given <code>index</code> inside this
+									<a href="Topology.html">Topology</a>.</p>
+								</div>
+								<p>The residue index in the topology does not necessarily match the residue
+								id.</p>
+								<p>This function increase the reference count of this topology, memory will
+									not be released before the residue is itself released with
+								<a href="Residue.html#delete">Residue.delete</a>.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">residue</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Residue</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;ALA&#039;</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addResidue</span><span style="color: #000000">(</span><span style="color: #001080">residue</span><span style="color: #000000">);</span>
+<span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">residue</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Residue</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;GLU&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addResidue</span><span style="color: #000000">(</span><span style="color: #001080">residue</span><span style="color: #000000">);</span>
+<span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">residue</span><span style="color: #000000"> = </span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">residue</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;ALA&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #001080">id</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+<span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>index: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>index of the residue in the topology</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="Residue.html" class="tsd-signature-type" data-tsd-kind="Class">Residue</a></h4>
+							<p>A non-modifiable reference to the <a href="Residue.html">Residue</a></p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="residueForAtom" class="tsd-anchor"></a>
+					<h3>residue<wbr>For<wbr>Atom</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">residue<wbr>For<wbr>Atom<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="Residue.html" class="tsd-signature-type" data-tsd-kind="Class">Residue</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L380">topology.ts:380</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get read-only access to the residue containing the atom with given
+									<code>index</code>, or <code>undefined</code> if the atom is not part of a residue.</p>
+								</div>
+								<p>This function increase the reference count of this topology, memory will
+									not be released before the residue is itself released with
+								<a href="Residue.html#delete">Residue.delete</a>.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">residue</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Residue</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;PRO&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #795E26">addAtom</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+<span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #795E26">addAtom</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addResidue</span><span style="color: #000000">(</span><span style="color: #001080">residue</span><span style="color: #000000">);</span>
+<span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">residue</span><span style="color: #000000"> = </span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">residueForAtom</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;PRO&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">isTrue</span><span style="color: #000000">(</span><span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #795E26">contains</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">));</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">isTrue</span><span style="color: #000000">(</span><span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #795E26">contains</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">));</span>
+<span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">residue</span><span style="color: #000000"> = </span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">residueForAtom</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">residue</span><span style="color: #000000">, </span><span style="color: #0000FF">undefined</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>index: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>index of the atom in the topology</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="Residue.html" class="tsd-signature-type" data-tsd-kind="Class">Residue</a></h4>
+							<p>A non-modifiable reference to the <a href="Residue.html">Residue</a></p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="residuesLinked" class="tsd-anchor"></a>
+					<h3>residues<wbr>Linked</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">residues<wbr>Linked<span class="tsd-signature-symbol">(</span>first<span class="tsd-signature-symbol">: </span><a href="Residue.html" class="tsd-signature-type" data-tsd-kind="Class">Residue</a>, second<span class="tsd-signature-symbol">: </span><a href="Residue.html" class="tsd-signature-type" data-tsd-kind="Class">Residue</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L448">topology.ts:448</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Check if the two <a href="Residue.html">Residue</a> <code>first</code> and <code>second</code> from this <a href="Topology.html">Topology</a>
+										are linked together, <em>i.e.</em> if there is a bond between one atom in the
+									first residue and one atom in the second one.</p>
+								</div>
+								<p>If the two residues are not part of this topology, the behavior is
+								undefined.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">residuesCount</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">residue</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Residue</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;PRO&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addResidue</span><span style="color: #000000">(</span><span style="color: #001080">residue</span><span style="color: #000000">);</span>
+<span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">residue</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Residue</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;LYS&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">addResidue</span><span style="color: #000000">(</span><span style="color: #001080">residue</span><span style="color: #000000">);</span>
+<span style="color: #001080">residue</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">residuesCount</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>first: <a href="Residue.html" class="tsd-signature-type" data-tsd-kind="Class">Residue</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>first residue to test</p>
+									</div>
+								</li>
+								<li>
+									<h5>second: <a href="Residue.html" class="tsd-signature-type" data-tsd-kind="Class">Residue</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>second residue to test</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p><code>true</code> if the two residues are bonded, <code>false</code> otherwise</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="resize" class="tsd-anchor"></a>
+					<h3>resize</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">resize<span class="tsd-signature-symbol">(</span>size<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L133">topology.ts:133</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Resize this <a href="Topology.html">Topology</a> to contain <code>size</code> atoms.</p>
+								</div>
+								<p>If the new number of atoms is bigger than the current number, new atoms
+									will be created with an empty name and type. If it is lower than the
+									current number of atoms, the last atoms will be removed, together with
+								the associated bonds, angles and dihedrals.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">size</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #098658">12</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">size</span><span style="color: #000000">, </span><span style="color: #098658">12</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">atom</span><span style="color: #000000"> = </span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">atom</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #001080">type</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">atom</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>size: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>new size of the topology</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="clone" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> clone</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">clone<span class="tsd-signature-symbol">(</span>topology<span class="tsd-signature-symbol">: </span><a href="Topology.html" class="tsd-signature-type" data-tsd-kind="Class">Topology</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Topology.html" class="tsd-signature-type" data-tsd-kind="Class">Topology</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/topology.ts#L87">topology.ts:87</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a new independent copy of the given <code>topology</code>.</p>
+								</div>
+								<p>This function allocate WASM memory, which must be released with
+								<a href="Topology.html#delete">Topology.delete</a>.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">topology</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">Topology</span><span style="color: #000000">();</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">copy</span><span style="color: #000000"> = </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">Topology</span><span style="color: #000000">.</span><span style="color: #795E26">clone</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">size</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">copy</span><span style="color: #000000">.</span><span style="color: #001080">size</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// only topology is modified, not copy</span>
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #098658">12</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #001080">size</span><span style="color: #000000">, </span><span style="color: #098658">12</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">copy</span><span style="color: #000000">.</span><span style="color: #001080">size</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">topology</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+<span style="color: #001080">copy</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>topology: <a href="Topology.html" class="tsd-signature-type" data-tsd-kind="Class">Topology</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="Topology.html">Topology</a> to copy</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="Topology.html" class="tsd-signature-type" data-tsd-kind="Class">Topology</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../index.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="../enums/BondOrder.html" class="tsd-kind-icon">Bond<wbr>Order</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/CellShape.html" class="tsd-kind-icon">Cell<wbr>Shape</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="Atom.html" class="tsd-kind-icon">Atom</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="Frame.html" class="tsd-kind-icon">Frame</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="MemoryReader.html" class="tsd-kind-icon">Memory<wbr>Reader</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="MemoryWriter.html" class="tsd-kind-icon">Memory<wbr>Writer</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="Residue.html" class="tsd-kind-icon">Residue</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="Selection.html" class="tsd-kind-icon">Selection</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
+						<a href="Topology.html" class="tsd-kind-icon">Topology</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+								<a href="Topology.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="Topology.html#angles" class="tsd-kind-icon">angles</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="Topology.html#bondOrders" class="tsd-kind-icon">bond<wbr>Orders</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="Topology.html#bonds" class="tsd-kind-icon">bonds</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="Topology.html#dihedrals" class="tsd-kind-icon">dihedrals</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="Topology.html#impropers" class="tsd-kind-icon">impropers</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="Topology.html#residuesCount" class="tsd-kind-icon">residues<wbr>Count</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="Topology.html#size" class="tsd-kind-icon">size</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Topology.html#addAtom" class="tsd-kind-icon">add<wbr>Atom</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Topology.html#addBond" class="tsd-kind-icon">add<wbr>Bond</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Topology.html#addResidue" class="tsd-kind-icon">add<wbr>Residue</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Topology.html#atom" class="tsd-kind-icon">atom</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Topology.html#bondOrder" class="tsd-kind-icon">bond<wbr>Order</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="Topology.html#delete" class="tsd-kind-icon">delete</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Topology.html#remove" class="tsd-kind-icon">remove</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Topology.html#removeBond" class="tsd-kind-icon">remove<wbr>Bond</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Topology.html#residue" class="tsd-kind-icon">residue</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Topology.html#residueForAtom" class="tsd-kind-icon">residue<wbr>For<wbr>Atom</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Topology.html#residuesLinked" class="tsd-kind-icon">residues<wbr>Linked</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Topology.html#resize" class="tsd-kind-icon">resize</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="Topology.html#clone" class="tsd-kind-icon">clone</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-class">
+						<a href="Trajectory.html" class="tsd-kind-icon">Trajectory</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="UnitCell.html" class="tsd-kind-icon">Unit<wbr>Cell</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/Array3D.html" class="tsd-kind-icon">Array3D</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/Matrix3.html" class="tsd-kind-icon">Matrix3</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/Vector3D.html" class="tsd-kind-icon">Vector3D</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#PropertyType" class="tsd-kind-icon">Property<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#WarningCallback" class="tsd-kind-icon">Warning<wbr>Callback</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="../index.html#FS" class="tsd-kind-icon">FS</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#addConfiguration" class="tsd-kind-icon">add<wbr>Configuration</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#clearErrors" class="tsd-kind-icon">clear<wbr>Errors</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#lastError" class="tsd-kind-icon">last<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#ready" class="tsd-kind-icon">ready</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#setWarningCallback" class="tsd-kind-icon">set<wbr>Warning<wbr>Callback</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#version" class="tsd-kind-icon">version</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

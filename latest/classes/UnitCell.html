@@ -1,0 +1,672 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>UnitCell | chemfiles - v0.9.3</title>
+	<meta name="description" content="Documentation for chemfiles - v0.9.3">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">chemfiles - v0.9.3</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../index.html">chemfiles - v0.9.3</a>
+				</li>
+				<li>
+					<a href="UnitCell.html">UnitCell</a>
+				</li>
+			</ul>
+			<h1>Class UnitCell</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>An <a href="UnitCell.html">UnitCell</a> represent the box containing the atoms, and its periodicity.</p>
+					</div>
+					<p>An unit cell is fully represented by three lengths (a, b, c); and three
+						angles (alpha, beta, gamma). The angles are stored in degrees, and the
+						lengths in Ångströms. The cell angles are defined as follow: alpha is the
+						angles between the cell vectors <code>b</code> and <code>c</code>; beta as the angle between <code>a</code>
+					and <code>c</code>; and gamma as the angle between <code>a</code> and <code>b</code>.</p>
+					<p>A cell also has a matricial representation, by projecting the three base
+						vector into an orthonormal base. We choose to represent such matrix as an
+					upper triangular matrix:</p>
+					<pre><code><span style="color: #000000">| </span><span style="color: #001080">a_x</span><span style="color: #000000">   </span><span style="color: #001080">b_x</span><span style="color: #000000">   </span><span style="color: #001080">c_x</span><span style="color: #000000"> |</span>
+<span style="color: #000000">|  </span><span style="color: #098658">0</span><span style="color: #000000">    </span><span style="color: #001080">b_y</span><span style="color: #000000">   </span><span style="color: #001080">c_y</span><span style="color: #000000"> |</span>
+<span style="color: #000000">|  </span><span style="color: #098658">0</span><span style="color: #000000">     </span><span style="color: #098658">0</span><span style="color: #000000">    </span><span style="color: #001080">c_z</span><span style="color: #000000"> |</span>
+</code></pre>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="tsd-signature-type">Pointer</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CHFL_CELL</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">&gt;</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">UnitCell</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="UnitCell.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="UnitCell.html#angles" class="tsd-kind-icon">angles</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="UnitCell.html#lengths" class="tsd-kind-icon">lengths</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="UnitCell.html#matrix" class="tsd-kind-icon">matrix</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="UnitCell.html#shape" class="tsd-kind-icon">shape</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="UnitCell.html#volume" class="tsd-kind-icon">volume</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="UnitCell.html#delete" class="tsd-kind-icon">delete</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="UnitCell.html#wrap" class="tsd-kind-icon">wrap</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="UnitCell.html#clone" class="tsd-kind-icon">clone</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Unit<wbr>Cell<span class="tsd-signature-symbol">(</span>lengths<span class="tsd-signature-symbol">: </span><a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a>, angles<span class="tsd-signature-symbol">?: </span><a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="UnitCell.html" class="tsd-signature-type" data-tsd-kind="Class">UnitCell</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides Pointer&lt;CHFL_CELL, never&gt;.constructor</p>
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/cell.ts#L111">cell.ts:111</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a new <a href="UnitCell.html">UnitCell</a> with given cell <code>lengths</code>. If the cell <code>angles</code>
+										are given, the cell <a href="UnitCell.html#shape">CellShape</a> will be <code>Triclinic</code>, else it will
+									be <code>Orthorhombic</code>.</p>
+								</div>
+								<p>This function allocate WASM memory, which must be released with
+								<a href="UnitCell.html#delete">UnitCell.delete</a>.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cell</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">UnitCell</span><span style="color: #000000">([</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">10</span><span style="color: #000000">]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">shape</span><span style="color: #000000">, </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">CellShape</span><span style="color: #000000">.</span><span style="color: #001080">Orthorhombic</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">lengths</span><span style="color: #000000">, [</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">10</span><span style="color: #000000">]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">angles</span><span style="color: #000000">, [</span><span style="color: #098658">90</span><span style="color: #000000">, </span><span style="color: #098658">90</span><span style="color: #000000">, </span><span style="color: #098658">90</span><span style="color: #000000">]);</span>
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+								<p>&nbsp;</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cell</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">UnitCell</span><span style="color: #000000">([</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">10</span><span style="color: #000000">], [</span><span style="color: #098658">120</span><span style="color: #000000">, </span><span style="color: #098658">90</span><span style="color: #000000">, </span><span style="color: #098658">90</span><span style="color: #000000">]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">shape</span><span style="color: #000000">, </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">CellShape</span><span style="color: #000000">.</span><span style="color: #001080">Triclinic</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">lengths</span><span style="color: #000000">, [</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">10</span><span style="color: #000000">]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">angles</span><span style="color: #000000">, [</span><span style="color: #098658">120</span><span style="color: #000000">, </span><span style="color: #098658">90</span><span style="color: #000000">, </span><span style="color: #098658">90</span><span style="color: #000000">]);</span>
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>lengths: <a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>lengths of the unit cell vectors, in Ångströms</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> angles: <a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>angles between the unit cell vectors, in degrees</p>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="UnitCell.html" class="tsd-signature-type" data-tsd-kind="Class">UnitCell</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="angles" class="tsd-anchor"></a>
+					<h3>angles</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> angles<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> angles<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/cell.ts#L170">cell.ts:170</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the angles between this <a href="UnitCell.html">UnitCell</a> vectors, in degrees.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cell</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">UnitCell</span><span style="color: #000000">([</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">], [</span><span style="color: #098658">120</span><span style="color: #000000">, </span><span style="color: #098658">80</span><span style="color: #000000">, </span><span style="color: #098658">90</span><span style="color: #000000">]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">angles</span><span style="color: #000000">, [</span><span style="color: #098658">120</span><span style="color: #000000">, </span><span style="color: #098658">80</span><span style="color: #000000">, </span><span style="color: #098658">90</span><span style="color: #000000">]);</span>
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/cell.ts#L194">cell.ts:194</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set the angles between this <a href="UnitCell.html">UnitCell</a> vectors to the given <code>value</code>, in
+									degrees.</p>
+								</div>
+								<p>This is only possible for cell with <a href="../enums/CellShape.html#Triclinic">triclinic</a>
+								shape.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cell</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">UnitCell</span><span style="color: #000000">([</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">], [</span><span style="color: #098658">120</span><span style="color: #000000">, </span><span style="color: #098658">80</span><span style="color: #000000">, </span><span style="color: #098658">90</span><span style="color: #000000">]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">angles</span><span style="color: #000000">, [</span><span style="color: #098658">120</span><span style="color: #000000">, </span><span style="color: #098658">80</span><span style="color: #000000">, </span><span style="color: #098658">90</span><span style="color: #000000">]);</span>
+
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">angles</span><span style="color: #000000"> = [</span><span style="color: #098658">65</span><span style="color: #000000">, </span><span style="color: #098658">80</span><span style="color: #000000">, </span><span style="color: #098658">90</span><span style="color: #000000">];</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">angles</span><span style="color: #000000">, [</span><span style="color: #098658">65</span><span style="color: #000000">, </span><span style="color: #098658">80</span><span style="color: #000000">, </span><span style="color: #098658">90</span><span style="color: #000000">]);</span>
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="lengths" class="tsd-anchor"></a>
+					<h3>lengths</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> lengths<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> lengths<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/cell.ts#L134">cell.ts:134</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the lengths of this <a href="UnitCell.html">UnitCell</a> vectors, in Ångströms.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cell</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">UnitCell</span><span style="color: #000000">([</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">lengths</span><span style="color: #000000">, [</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">]);</span>
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/cell.ts#L154">cell.ts:154</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set the lengths of this <a href="UnitCell.html">UnitCell</a> vectors to the given <code>value</code>, in Ångströms.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cell</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">UnitCell</span><span style="color: #000000">([</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">lengths</span><span style="color: #000000">, [</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">]);</span>
+
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">lengths</span><span style="color: #000000"> = [</span><span style="color: #098658">11</span><span style="color: #000000">, </span><span style="color: #098658">22</span><span style="color: #000000">, </span><span style="color: #098658">44</span><span style="color: #000000">];</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">lengths</span><span style="color: #000000">, [</span><span style="color: #098658">11</span><span style="color: #000000">, </span><span style="color: #098658">22</span><span style="color: #000000">, </span><span style="color: #098658">44</span><span style="color: #000000">]);</span>
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="matrix" class="tsd-anchor"></a>
+					<h3>matrix</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> matrix<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/Matrix3.html" class="tsd-signature-type" data-tsd-kind="Interface">Matrix3</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/cell.ts#L268">cell.ts:268</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the matricial representation of this <a href="UnitCell.html">UnitCell</a>, i.e. the matrix
+									containing the cell vectors as columns.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cell</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">UnitCell</span><span style="color: #000000">([</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">matrix</span><span style="color: #000000">[</span><span style="color: #098658">0</span><span style="color: #000000">], [</span><span style="color: #098658">10</span><span style="color: #000000">,  </span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">], </span><span style="color: #098658">1e-12</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">matrix</span><span style="color: #000000">[</span><span style="color: #098658">1</span><span style="color: #000000">], [ </span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">], </span><span style="color: #098658">1e-12</span><span style="color: #000000">);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">matrix</span><span style="color: #000000">[</span><span style="color: #098658">2</span><span style="color: #000000">], [ </span><span style="color: #098658">0</span><span style="color: #000000">,  </span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">], </span><span style="color: #098658">1e-12</span><span style="color: #000000">);</span>
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/Matrix3.html" class="tsd-signature-type" data-tsd-kind="Interface">Matrix3</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="shape" class="tsd-anchor"></a>
+					<h3>shape</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> shape<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../enums/CellShape.html" class="tsd-signature-type" data-tsd-kind="Enumeration">CellShape</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> shape<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../enums/CellShape.html" class="tsd-signature-type" data-tsd-kind="Enumeration">CellShape</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/cell.ts#L210">cell.ts:210</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the <a href="../enums/CellShape.html">shape</a> of this <a href="UnitCell.html">UnitCell</a>.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cell</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">UnitCell</span><span style="color: #000000">([</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">], [</span><span style="color: #098658">120</span><span style="color: #000000">, </span><span style="color: #098658">80</span><span style="color: #000000">, </span><span style="color: #098658">90</span><span style="color: #000000">]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">shape</span><span style="color: #000000">, </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">CellShape</span><span style="color: #000000">.</span><span style="color: #001080">Triclinic</span><span style="color: #000000">);</span>
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../enums/CellShape.html" class="tsd-signature-type" data-tsd-kind="Enumeration">CellShape</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/cell.ts#L235">cell.ts:235</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Change the <a href="../enums/CellShape.html">shape</a> of this <a href="UnitCell.html">UnitCell</a> to the given <code>value</code>.</p>
+								</div>
+								<p>Changing from a less restrictive to a more restrictive cell shape is
+									only possible if the corresponding cell angles (<code>[90, 90, 90]</code> for
+									Orthorhombic cells) and cell lengths (<code>[0, 0, 0]</code> for Infinite cells)
+								are set accordingly beforehand.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cell</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">UnitCell</span><span style="color: #000000">([</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">], [</span><span style="color: #098658">90</span><span style="color: #000000">, </span><span style="color: #098658">90</span><span style="color: #000000">, </span><span style="color: #098658">90</span><span style="color: #000000">]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">shape</span><span style="color: #000000">, </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">CellShape</span><span style="color: #000000">.</span><span style="color: #001080">Triclinic</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">shape</span><span style="color: #000000"> = </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">CellShape</span><span style="color: #000000">.</span><span style="color: #001080">Orthorhombic</span><span style="color: #000000">;</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">shape</span><span style="color: #000000">, </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">CellShape</span><span style="color: #000000">.</span><span style="color: #001080">Orthorhombic</span><span style="color: #000000">);</span>
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <a href="../enums/CellShape.html" class="tsd-signature-type" data-tsd-kind="Enumeration">CellShape</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="volume" class="tsd-anchor"></a>
+					<h3>volume</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> volume<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/cell.ts#L248">cell.ts:248</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the volume of this <a href="UnitCell.html">UnitCell</a>, in Ångströms cube.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cell</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">UnitCell</span><span style="color: #000000">([</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">equal</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">volume</span><span style="color: #000000">, </span><span style="color: #098658">10</span><span style="color: #000000"> * </span><span style="color: #098658">20</span><span style="color: #000000"> * </span><span style="color: #098658">33</span><span style="color: #000000">);</span>
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="delete" class="tsd-anchor"></a>
+					<h3>delete</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from Pointer.delete</p>
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/c_ptr.ts#L46">c_ptr.ts:46</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Delete the WASM-allocated object and release the corresponding memory.</p>
+								</div>
+								<p>Since JavaScript have no way to inject behavior when the GC is called,
+									users need to call this function manually when they are done with the
+								object.</p>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="wrap" class="tsd-anchor"></a>
+					<h3>wrap</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">wrap<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/cell.ts#L289">cell.ts:289</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Wrap a given vector inside the unit cell, using periodic boundary
+									conditions.</p>
+								</div>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cell</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">UnitCell</span><span style="color: #000000">([</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #795E26">wrap</span><span style="color: #000000">([</span><span style="color: #098658">27</span><span style="color: #000000">, -</span><span style="color: #098658">24</span><span style="color: #000000">, </span><span style="color: #098658">15</span><span style="color: #000000">]), [-</span><span style="color: #098658">3</span><span style="color: #000000">, -</span><span style="color: #098658">4</span><span style="color: #000000">, </span><span style="color: #098658">15</span><span style="color: #000000">]);</span>
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>vector: <a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>vector to be wrapped inside the cell, in Ångströms</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/Vector3D.html" class="tsd-signature-type" data-tsd-kind="Interface">Vector3D</a></h4>
+							<p>wrapped vector</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="clone" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> clone</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">clone<span class="tsd-signature-symbol">(</span>cell<span class="tsd-signature-symbol">: </span><a href="UnitCell.html" class="tsd-signature-type" data-tsd-kind="Class">UnitCell</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="UnitCell.html" class="tsd-signature-type" data-tsd-kind="Class">UnitCell</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/chemfiles/chemfiles.js/blob/28c6b43/src/cell.ts#L79">cell.ts:79</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a new independent copy of the given <code>cell</code>.</p>
+								</div>
+								<p>This function allocate WASM memory, which must be released with
+								<a href="UnitCell.html#delete">UnitCell.delete</a>.</p>
+								<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cell</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #795E26">UnitCell</span><span style="color: #000000">([</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">22</span><span style="color: #000000">, </span><span style="color: #098658">12</span><span style="color: #000000">]);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">copy</span><span style="color: #000000"> = </span><span style="color: #001080">chemfiles</span><span style="color: #000000">.</span><span style="color: #001080">UnitCell</span><span style="color: #000000">.</span><span style="color: #795E26">clone</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">lengths</span><span style="color: #000000">, [</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">22</span><span style="color: #000000">, </span><span style="color: #098658">12</span><span style="color: #000000">]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">copy</span><span style="color: #000000">.</span><span style="color: #001080">lengths</span><span style="color: #000000">, [</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">22</span><span style="color: #000000">, </span><span style="color: #098658">12</span><span style="color: #000000">]);</span>
+
+<span style="color: #008000">// only cell is modified, not copy</span>
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">lengths</span><span style="color: #000000"> = [</span><span style="color: #098658">33</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">];</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #001080">lengths</span><span style="color: #000000">, [</span><span style="color: #098658">33</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">, </span><span style="color: #098658">33</span><span style="color: #000000">]);</span>
+<span style="color: #001080">assert</span><span style="color: #000000">.</span><span style="color: #795E26">arrayEqual</span><span style="color: #000000">(</span><span style="color: #001080">copy</span><span style="color: #000000">.</span><span style="color: #001080">lengths</span><span style="color: #000000">, [</span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #098658">22</span><span style="color: #000000">, </span><span style="color: #098658">12</span><span style="color: #000000">]);</span>
+
+<span style="color: #001080">cell</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+<span style="color: #001080">copy</span><span style="color: #000000">.</span><span style="color: #795E26">delete</span><span style="color: #000000">();</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>cell: <a href="UnitCell.html" class="tsd-signature-type" data-tsd-kind="Class">UnitCell</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="UnitCell.html">UnitCell</a> to copy</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="UnitCell.html" class="tsd-signature-type" data-tsd-kind="Class">UnitCell</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../index.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="../enums/BondOrder.html" class="tsd-kind-icon">Bond<wbr>Order</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/CellShape.html" class="tsd-kind-icon">Cell<wbr>Shape</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="Atom.html" class="tsd-kind-icon">Atom</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="Frame.html" class="tsd-kind-icon">Frame</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="MemoryReader.html" class="tsd-kind-icon">Memory<wbr>Reader</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="MemoryWriter.html" class="tsd-kind-icon">Memory<wbr>Writer</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="Residue.html" class="tsd-kind-icon">Residue</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="Selection.html" class="tsd-kind-icon">Selection</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="Topology.html" class="tsd-kind-icon">Topology</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="Trajectory.html" class="tsd-kind-icon">Trajectory</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
+						<a href="UnitCell.html" class="tsd-kind-icon">Unit<wbr>Cell</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+								<a href="UnitCell.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="UnitCell.html#angles" class="tsd-kind-icon">angles</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="UnitCell.html#lengths" class="tsd-kind-icon">lengths</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="UnitCell.html#matrix" class="tsd-kind-icon">matrix</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="UnitCell.html#shape" class="tsd-kind-icon">shape</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="UnitCell.html#volume" class="tsd-kind-icon">volume</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="UnitCell.html#delete" class="tsd-kind-icon">delete</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="UnitCell.html#wrap" class="tsd-kind-icon">wrap</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="UnitCell.html#clone" class="tsd-kind-icon">clone</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/Array3D.html" class="tsd-kind-icon">Array3D</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/Matrix3.html" class="tsd-kind-icon">Matrix3</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/Vector3D.html" class="tsd-kind-icon">Vector3D</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#PropertyType" class="tsd-kind-icon">Property<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#WarningCallback" class="tsd-kind-icon">Warning<wbr>Callback</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="../index.html#FS" class="tsd-kind-icon">FS</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#addConfiguration" class="tsd-kind-icon">add<wbr>Configuration</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#clearErrors" class="tsd-kind-icon">clear<wbr>Errors</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#lastError" class="tsd-kind-icon">last<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#ready" class="tsd-kind-icon">ready</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#setWarningCallback" class="tsd-kind-icon">set<wbr>Warning<wbr>Callback</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#version" class="tsd-kind-icon">version</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
