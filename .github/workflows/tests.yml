@@ -9,7 +9,7 @@ jobs:
   npm-test:
     strategy:
       matrix:
-        node-version: ['12', '13', '14']
+        node-version: ['12', '14', '16']
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,9 +17,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - uses: bahmutov/npm-install@v1
-      - run: npm run build
+      - name: node & npm version
+        run: |
+          node --version
+          npm --version
       - run: npm test
-      - run: npx karma start
-      - run: npm run coverage
-      - run: npm install -g codecov
-      - run: codecov
+      - name: collect coverage
+        run: |
+          npm run coverage
+          npm install -g codecov
+          codecov
