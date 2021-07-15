@@ -54,6 +54,11 @@ module.exports = (config: any) => {
                 if (chrome !== -1) {
                     list[chrome] = 'ChromeHeadlessNoSandbox';
                 }
+
+                const safari = list.indexOf('Safari');
+                if (safari !== -1) {
+                    list[safari] = 'SafariNative';
+                }
                 return list;
             },
         },
