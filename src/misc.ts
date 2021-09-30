@@ -260,6 +260,36 @@ export function formatsList(): FormatMetadata[] {
     });
 }
 
+/**
+ * Get the format that chemfiles would use to read a file with the given
+ * `filename`.
+ *
+ * Most of the time, the format is only guessed from the filename extension,
+ * without reading the file to guess the format. When two or more format can
+ * share the same extension (for example CIF and mmCIF), chemfiles tries to read
+ * the file to distinguish between them. If reading fails, the default format
+ * for this extension is returned.
+ *
+ * Opening the file using the returned format string might still fail. For
+ * example, it will fail if the file is not actually formatted according to the
+ * guessed format; or the format/compression combination is not supported (e.g.
+ * `XTC / GZ` will not work since the XTC reader does not support compressed
+ * files).
+ *
+ * @param filename name of the file to read
+ * @returns the name of the format that will be used by default by chemfiles to
+ *          read the file
+ */
+export function guessFormat(filename: string): string {
+    return stackAutoclean(() => {
+        const value = stackAlloc('char*', { initial: filename });
+        // 64 characters should be enough for all formats in chemfiles
+        const format = stackAlloc('char*', { initial: '\0'.repeat(64) });
+        check(lib._chfl_guess_format(value.ptr, format.ptr, 64, 0));
+        return lib.UTF8ToString(format.ptr);
+    });
+}
+
 /** @hidden
  * Instance of the chemfiles WASM module, on which all function should be
  * called. This is only set and available once the WASM code has been fully

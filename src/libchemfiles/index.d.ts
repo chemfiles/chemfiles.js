@@ -86,7 +86,9 @@ export interface ChemfilesModule extends EmscriptenModule {
     _chfl_add_configuration(path: c_char_ptr): chfl_status;
     // 'chfl_formats_list' at misc.h:71
     _chfl_formats_list(metadata: chfl_format_metadata_ptr, count: c_uint64_ptr): chfl_status;
-    // 'chfl_free' at misc.h:80
+    // 'chfl_guess_format' at misc.h:93
+    _chfl_guess_format(path: c_char_ptr, format: c_char_ptr, buffsize_lo: number, buffsize_hi: number): chfl_status;
+    // 'chfl_free' at misc.h:102
     _chfl_free(object: CHFL_PTR): void;
     // 'chfl_property_bool' at property.h:37
     _chfl_property_bool(value: c_bool): CHFL_PROPERTY;
