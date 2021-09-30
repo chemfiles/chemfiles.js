@@ -67,7 +67,7 @@
     "karma-detect-browsers": "^2.3.3",
     "karma-firefox-launcher": "^2.1.0",
     "karma-mocha": "^2",
-    "karma-safarinative-launcher": "^1.1.0",
+    "karma-safari-applescript-launcher": "^0.1.0",
     "karma-webpack": "^5",
     "mocha": "^9",
     "nyc": "^15",
