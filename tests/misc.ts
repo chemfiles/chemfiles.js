@@ -96,4 +96,9 @@ describe('Miscellaneous chemfiles functions', () => {
         assert.equal(b.mass, 67.34);
         b.delete();
     });
+
+    it('can guess file format', () => {
+        assert.equal(chemfiles.guessFormat('test.xyz'), 'XYZ');
+        assert.equal(chemfiles.guessFormat('test.xyz.gz'), 'XYZ / GZ');
+    });
 });
