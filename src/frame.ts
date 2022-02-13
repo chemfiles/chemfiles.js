@@ -17,9 +17,12 @@ import { Vector3D, assert, check, isUnsignedInteger } from './utils';
  * indexed and iterated over.
  *
  * ```typescript doctest
- * # const frame = new chemfiles.Frame();
- * # frame.resize(33);
- * # frame.positions[3] = [2, -3, 8]
+ * const frame = new chemfiles.Frame();
+ * frame.resize(33);
+ * frame.positions[3] = [2, -3, 8]
+ *
+ * // [...]
+ *
  * // get an array from a Frame
  * const positions = frame.positions;
  * assert.equal(positions.length, frame.size);

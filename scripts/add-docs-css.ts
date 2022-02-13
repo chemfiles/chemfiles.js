@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const css = path.join(__dirname, '..', 'dist', 'docs', 'assets', 'css', 'main.css');
+const css = path.join(__dirname, '..', 'dist', 'docs', 'assets', 'style.css');
 
 const custom = `
 .tsd-hierarchy {

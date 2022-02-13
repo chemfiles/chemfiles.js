@@ -54,7 +54,9 @@ export class Selection extends Pointer<CHFL_SELECTION, never> {
      * [[Selection.delete]].
      *
      * ```typescript doctest
-     * # const frame = new chemfiles.Frame();
+     * const frame = new chemfiles.Frame();
+     * // [...]
+     *
      * const selection = new chemfiles.Selection('pairs: name(#1) O and x(#2) < 3.4');
      *
      * // this selection select two atoms at the time
@@ -64,7 +66,9 @@ export class Selection extends Pointer<CHFL_SELECTION, never> {
      * const matches = selection.evaluate(frame);
      *
      * selection.delete();
-     * # frame.delete();
+     *
+     * // [...]
+     * frame.delete();
      * ```
      */
     constructor(selection: string) {
@@ -125,11 +129,12 @@ export class Selection extends Pointer<CHFL_SELECTION, never> {
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
      * // the frame contains carbon, oxygen and hydrogen
-     * # frame.addAtom(new chemfiles.Atom('O'), [0, 0, 0]);
-     * # frame.addAtom(new chemfiles.Atom('H'), [0, 0, 0]);
-     * # frame.addAtom(new chemfiles.Atom('C'), [0, 0, 0]);
-     * # frame.addAtom(new chemfiles.Atom('C'), [0, 0, 0]);
-     * # frame.addAtom(new chemfiles.Atom('H'), [0, 0, 0]);
+     * frame.addAtom(new chemfiles.Atom('O'), [0, 0, 0]);
+     * frame.addAtom(new chemfiles.Atom('H'), [0, 0, 0]);
+     * frame.addAtom(new chemfiles.Atom('C'), [0, 0, 0]);
+     * frame.addAtom(new chemfiles.Atom('C'), [0, 0, 0]);
+     * frame.addAtom(new chemfiles.Atom('H'), [0, 0, 0]);
+     * // [...]
      *
      * let selection = new chemfiles.Selection('name O H');
      * assert.deepEqual(selection.evaluate(frame), [0, 1, 4]);

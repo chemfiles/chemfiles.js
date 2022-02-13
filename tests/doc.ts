@@ -18,18 +18,53 @@ describe('Doctests', () => {
     const context = vm.createContext({
         assert: assert,
         chemfiles: chemfiles,
-        test: it,
+        it: it,
     });
 
-    for (const file of glob.sync(path.join(__dirname, 'doc', '**/*.ts'))) {
-        const basename = path.basename(file);
-        const options = {
-            filename: basename.split('.').slice(0, 2).join('.'),
-            // -4 since that the number of lines added before the actual test
-            lineOffset: parseInt(basename.split('-')[1].split('.')[0], 10) - 4,
-        };
+    for (const filename of glob.sync(path.join(__dirname, '..', 'src', '**/*.ts'))) {
+        if (filename.endsWith('.d.ts')) {
+            continue;
+        }
 
-        const code = fs.readFileSync(file, { encoding: 'utf8' });
-        vm.runInContext(code, context, options);
+        const content = fs.readFileSync(filename, { encoding: 'utf8' });
+        const lines = content.split('\n');
+
+        const code = [];
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+
+            let start;
+            let end;
+            if (line.includes('typescript doctest')) {
+                const prefix = line.search('```');
+                start = i + 1;
+
+                while (i < lines.length) {
+                    i++;
+                    const line = lines[i];
+                    if (line.includes('```')) {
+                        end = i;
+                        break;
+                    }
+                }
+
+                if (end === undefined) {
+                    throw Error('Missing closing ``` in doctest');
+                }
+
+                const example = [];
+                example.push(`it('${path.basename(filename)} (line ${start})', () => {`);
+                for (let j = start; j < end; j++) {
+                    example.push(lines[j].substring(prefix));
+                }
+                example.push('});');
+
+                code.push(example.join('\n'));
+            }
+        }
+
+        for (const snippet of code) {
+            vm.runInContext(snippet, context);
+        }
     }
 });
