@@ -7,7 +7,12 @@ import os
 import sys
 import re
 
-IGNORED = ["_chfl_trajectory_close"]
+IGNORED = [
+    "_chfl_trajectory_close",
+    "_chfl_trajectory_memory_reader",
+    "_chfl_trajectory_memory_writer",
+    "_chfl_trajectory_memory_buffer",
+]
 ERROR = False
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 
