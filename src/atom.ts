@@ -8,7 +8,7 @@ import { getValue, stackAlloc, stackAutoclean } from './stack';
 import { autogrowStrBuffer, check } from './utils';
 
 /**
- * An [[Atom]] is a particle in the current [[Frame]]. It stores the following
+ * An {@link Atom} is a particle in the current {@link Frame}. It stores the following
  * atomic properties:
  * - atom name;
  * - atom type;
@@ -21,7 +21,7 @@ import { autogrowStrBuffer, check } from './utils';
  */
 export class Atom extends Pointer<CHFL_ATOM, never> {
     /** @hidden
-     * Create a new [[Atom]] from a raw pointer
+     * Create a new {@link Atom} from a raw pointer
      */
     public static __from_ptr(ptr: CHFL_ATOM, isConst: boolean): Atom {
         const parent = new Pointer(ptr, isConst, 'Atom');
@@ -34,7 +34,7 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
      * Create a new independent copy of the given `atom`.
      *
      * This function allocate WASM memory, which must be released with
-     * [[Atom.delete]].
+     * {@link Atom.delete}.
      *
      * ```typescript doctest
      * const atom = new chemfiles.Atom('C');
@@ -52,7 +52,7 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
      * copy.delete();
      * ```
      *
-     * @param  atom [[Atom]] to copy
+     * @param  atom {@link Atom} to copy
      */
     public static clone(atom: Atom): Atom {
         const ptr = lib._chfl_atom_copy(atom.const_ptr);
@@ -60,11 +60,11 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
     }
 
     /**
-     * Create a new [[Atom]] with the given `name`. If `type` is given, use
+     * Create a new {@link Atom} with the given `name`. If `type` is given, use
      * it as the atom type. Else the atom name is used as atom type.
      *
      * This function allocate WASM memory, which must be released with
-     * [[Atom.delete]].
+     * {@link Atom.delete}.
      *
      * ```typescript doctest
      * const atom = new chemfiles.Atom('Fe');
@@ -96,7 +96,7 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
     }
 
     /**
-     * Get the mass of this [[Atom]], in atomic mass units.
+     * Get the mass of this {@link Atom}, in atomic mass units.
      *
      * ```typescript doctest
      * const atom = new chemfiles.Atom('C');
@@ -113,7 +113,7 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
     }
 
     /**
-     * Set the mass of this [[Atom]], in atomic mass units.
+     * Set the mass of this {@link Atom}, in atomic mass units.
      *
      * ```typescript doctest
      * const atom = new chemfiles.Atom('C');
@@ -131,7 +131,7 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
     }
 
     /**
-     * Get the charge of this [[Atom]], in number of the electron charge *e*.
+     * Get the charge of this {@link Atom}, in number of the electron charge *e*.
      *
      * ```typescript doctest
      * const atom = new chemfiles.Atom('C');
@@ -148,7 +148,7 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
     }
 
     /**
-     * Set the charge of this [[Atom]], in number of the electron charge *e*.
+     * Set the charge of this {@link Atom}, in number of the electron charge *e*.
      *
      * ```typescript doctest
      * const atom = new chemfiles.Atom('C');
@@ -166,7 +166,7 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
     }
 
     /**
-     * Get the name of this [[Atom]]
+     * Get the name of this {@link Atom}
      *
      * ```typescript doctest
      * const atom = new chemfiles.Atom('C');
@@ -181,7 +181,7 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
     }
 
     /**
-     * Set the name of this [[Atom]]
+     * Set the name of this {@link Atom}
      *
      * ```typescript doctest
      * const atom = new chemfiles.Atom('C');
@@ -202,7 +202,7 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
     }
 
     /**
-     * Get the type of this [[Atom]]
+     * Get the type of this {@link Atom}
      *
      * ```typescript doctest
      * const atom = new chemfiles.Atom('C1', 'C');
@@ -217,7 +217,7 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
     }
 
     /**
-     * Set the type of this [[Atom]]
+     * Set the type of this {@link Atom}
      *
      * ```typescript doctest
      * const atom = new chemfiles.Atom('C1', 'C');
@@ -238,7 +238,7 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
     }
 
     /**
-     * Full name of this [[Atom]], as guessed from the type.
+     * Full name of this {@link Atom}, as guessed from the type.
      *
      * For example, the full name associated with `type = 'He'` is `'Helium'`.
      * If no name can be found, the full name will be an empty string.
@@ -262,7 +262,7 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
     }
 
     /**
-     * Van der Walls radius of this [[Atom]], as guessed from the type.
+     * Van der Walls radius of this {@link Atom}, as guessed from the type.
      *
      * If no radius can be found, the radius will be 0.
      *
@@ -287,7 +287,7 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
     }
 
     /**
-     * Covalent radius of this [[Atom]], as guessed from the type.
+     * Covalent radius of this {@link Atom}, as guessed from the type.
      *
      * If no radius can be found, the radius will be 0.
      *
@@ -312,7 +312,7 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
     }
 
     /**
-     * Atomic number of this [[Atom]], as guessed from the type.
+     * Atomic number of this {@link Atom}, as guessed from the type.
      *
      * If no number can be found, it will be 0.
      *
@@ -402,7 +402,7 @@ export class Atom extends Pointer<CHFL_ATOM, never> {
     }
 
     /**
-     * Get the name of all properties set on this [[Atom]].
+     * Get the name of all properties set on this {@link Atom}.
      *
      * ```typescript doctest
      * const atom = new chemfiles.Atom('C');

@@ -96,17 +96,18 @@ function createArray3D(ptr: chfl_vector3d, length: number): Array3D {
 }
 
 /**
- * A [[Frame]] contains data from one simulation step: the current [[UnitCell]],
- * the [[Topology]], the positions, and the velocities of the particles in the
- * system. If some information is missing (topology or velocity or unit
- * cell), the corresponding data is filled with a default value.
+ * A {@link Frame} contains data from one simulation step: the current
+ * {@link UnitCell}, the {@link Topology}, the positions, and the velocities of
+ * the particles in the system. If some information is missing (topology or
+ * velocity or unit cell), the corresponding data is filled with a default
+ * value.
  */
 export class Frame extends Pointer<CHFL_FRAME, never> {
     /**
      * Create a new independent copy of the given `frame`.
      *
      * This function allocate WASM memory, which must be released with
-     * [[Frame.delete]].
+     * {@link Frame.delete}.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -123,7 +124,7 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
      * frame.delete();
      * copy.delete();
      * ```
-     * @param  frame [[Frame]] to copy
+     * @param  frame {@link Frame} to copy
      */
     public static clone(frame: Frame): Frame {
         const ptr = lib._chfl_frame_copy(frame.const_ptr);
@@ -134,10 +135,10 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Create a new empty [[Frame]].
+     * Create a new empty {@link Frame}.
      *
      * This function allocate WASM memory, which must be released with
-     * [[Frame.delete]].
+     * {@link Frame.delete}.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -151,7 +152,8 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Get the step of this [[Frame]], i.e. the frame number in the trajectory.
+     * Get the step of this {@link Frame}, i.e. the frame number in the
+     * trajectory.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -168,7 +170,7 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Set the step of this [[Frame]] to the given `value`.
+     * Set the step of this {@link Frame} to the given `value`.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -184,10 +186,11 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Get a modifiable reference to the [[UnitCell]] of this [[Frame]].
+     * Get a modifiable reference to the {@link UnitCell} of this {@link Frame}.
      *
      * This function increase the reference count of this frame, memory will not
-     * be released before the cell is itself released with [[UnitCell.delete]].
+     * be released before the cell is itself released with
+     * {@link UnitCell.delete}.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -212,7 +215,8 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Set the [[UnitCell]] of this [[Frame]] to a copy of the given `cell`.
+     * Set the {@link UnitCell} of this {@link Frame} to a copy of the given
+     * `cell`.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -234,12 +238,13 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Get read and write access to the positions of all atoms in this [[Frame]].
+     * Get read and write access to the positions of all atoms in this
+     * {@link Frame}.
      *
-     * If the frame is resized (by writing to it, calling [[Frame.resize]]
-     * [[Frame.addAtom]] or [[Frame.remove]]), the array is invalidated, and
-     * accessing it can produce random results, even in unrelated parts of the
-     * code
+     * If the frame is resized (by writing to it, calling {@link Frame.resize}
+     * {@link Frame.addAtom} or {@link Frame.remove}), the array is invalidated,
+     * and accessing it can produce random results, even in unrelated parts of
+     * the code
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -279,16 +284,16 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
 
     /**
      * Get read and write access to the velocities of all atoms in this
-     * [[Frame]].
+     * {@link Frame}.
      *
      * Velocities might not be present in the frame, in which case this function
      * returns `undefined`. You can add velocities to a frame with
-     * [[Frame.addVelocities]].
+     * {@link Frame.addVelocities}.
      *
-     * If the frame is resized (by writing to it, calling [[Frame.resize]]
-     * [[Frame.addAtom]] or [[Frame.remove]]), the array is invalidated, and
-     * accessing it can produce random results, even in unrelated parts of the
-     * code.
+     * If the frame is resized (by writing to it, calling {@link Frame.resize}
+     * {@link Frame.addAtom} or {@link Frame.remove}), the array is invalidated,
+     * and accessing it can produce random results, even in unrelated parts of
+     * the code.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -336,7 +341,7 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Add velocity data to this [[Frame]].
+     * Add velocity data to this {@link Frame}.
      *
      * The velocities are initialized to zero. If the frame already contains
      * velocities, this function does nothing.
@@ -355,7 +360,7 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Get the number of atoms in this [[Frame]].
+     * Get the number of atoms in this {@link Frame}.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -375,10 +380,10 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Get the atom at the given index inside this [[Frame]].
+     * Get the atom at the given index inside this {@link Frame}.
      *
-     * This function increase the reference count of this frame, memory will
-     * not be released before the atom is itself released with [[Atom.delete]].
+     * This function increase the reference count of this frame, memory will not
+     * be released before the atom is itself released with {@link Atom.delete}.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -401,7 +406,7 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
 
     /**
      * Add a copy of the given `atom` at the corresponding `position` and
-     * `velocity` to this [[Frame]].
+     * `velocity` to this {@link Frame}.
      *
      * If `velocity` is `undefined` and the frame contains velocities, the
      * atom velocity will be set to 0.
@@ -421,7 +426,7 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
      * frame.delete();
      * ```
      *
-     * @param atom       new atom to add to this frame [[Topology]]
+     * @param atom       new atom to add to this frame {@link Topology}
      * @param position   position of the atom, in Ångströms
      * @param velocities velocity of the atom, in Å/fs
      */
@@ -440,11 +445,11 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Remove the atom at the given `index` in this [[Frame]].
+     * Remove the atom at the given `index` in this {@link Frame}.
      *
      * This shifts all the atoms indexes larger than `index` by 1 (`n` becomes
-     * `n - 1`); and invalidate any array obtained using [[Frame.positions]] or
-     * [[Frame.velocities]].
+     * `n - 1`); and invalidate any array obtained using {@link Frame.positions}
+     * or {@link Frame.velocities}.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -475,13 +480,13 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Resize the positions, velocities and topology in this [[Frame]] to have
-     * space for `size` atoms.
+     * Resize the positions, velocities and topology in this {@link Frame} to
+     * have space for `size` atoms.
      *
-     * This function may invalidate any array of the positions or the
-     * velocities if the new size is bigger than the old one. In all cases,
-     * previous data is conserved. This function conserve the presence or
-     * absence of velocities.
+     * This function may invalidate any array of the positions or the velocities
+     * if the new size is bigger than the old one. In all cases, previous data
+     * is conserved. This function conserve the presence or absence of
+     * velocities.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -505,14 +510,14 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Get a **read-only** reference to the [[Topology]] of this [[Frame]].
+     * Get a **read-only** reference to the {@link Topology} of this {@link Frame}.
      *
      * This function increase the reference count of this frame, memory will not
      * be released before the topology is itself released with
-     * [[Topology.delete]].
+     * {@link Topology.delete}.
      *
-     * Changes to the topology are possible through [[Frame.addBond]],
-     * [[Frame.removeBond]] and [[Frame.addResidue]].
+     * Changes to the topology are possible through {@link Frame.addBond},
+     * {@link Frame.removeBond} and {@link Frame.addResidue}.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -534,7 +539,8 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Set the [[Topology]] of this [[Frame]] to a copy of the given [[Topology]].
+     * Set the {@link Topology} of this {@link Frame} to a copy of the given
+     * {@link Topology}.
      *
      * The topology size must match the frame size.
      *
@@ -559,12 +565,12 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Guess the bonds, angles and dihedrals in this [[Frame]].
+     * Guess the bonds, angles and dihedrals in this {@link Frame}.
      *
      * The bonds are guessed using a distance-based algorithm, and then angles
-     * and dihedrals are guessed from the bonds. The distance criterion uses
-     * the Van der Waals radii of the atoms. If this information is missing
-     * for a specific atoms, one can use [[addConfiguration|configuration]]
+     * and dihedrals are guessed from the bonds. The distance criterion uses the
+     * Van der Waals radii of the atoms. If this information is missing for a
+     * specific atoms, one can use {@link addConfiguration | configuration}
      * files to provide it.
      *
      * ```typescript doctest
@@ -590,7 +596,7 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Add a bond between the atoms at indexes `i` and `j` in this [[Frame]],
+     * Add a bond between the atoms at indexes `i` and `j` in this {@link Frame},
      * optionally setting the bond `order`.
      *
      * ```typescript doctest
@@ -623,7 +629,7 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
 
     /**
      * Remove any existing bond between the atoms at indexes `i` and `j` in
-     * this [[Frame]].
+     * this {@link Frame}.
      *
      * This function does nothing if there is no bond between `i` and `j`.
      *
@@ -658,7 +664,7 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
 
     /**
      * Remove all existing bonds, angles, dihedral angles and improper dihedral
-     * angles in this [[Frame]].
+     * angles in this {@link Frame}.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -686,11 +692,11 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
 
     /**
      * Add the given `residue` at the end of the residue list of this frame's
-     * [[Topology]].
+     * {@link Topology}.
      *
      * The residue must contain only atoms that are not already in another
-     * residue in the topology, and the [[Residue.id|residue id]] if defined
-     * must be different from all other residue id in the topology.
+     * residue in the topology, and the {@link Residue.id | residue id} if
+     * defined must be different from all other residue id in the topology.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -721,7 +727,7 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
     /**
      * Get the distance (in Ångströms) between the atoms at indexes `i` and
-     * `j` in this [[Frame]], taking periodic boundary conditions into account.
+     * `j` in this {@link Frame}, taking periodic boundary conditions into account.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -752,7 +758,7 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
 
     /**
      * Get the angle (in radians) formed by the atoms at indexes `i`, `j` and
-     * `k` in this [[Frame]], taking periodic boundary conditions into account.
+     * `k` in this {@link Frame}, taking periodic boundary conditions into account.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -786,7 +792,7 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
 
     /**
      * Get the dihedral angle (in radians) formed by the atoms at indexes `i`,
-     * `j`, `k` and `m` in this [[Frame]], taking periodic boundary conditions
+     * `j`, `k` and `m` in this {@link Frame}, taking periodic boundary conditions
      * into account.
      *
      * ```typescript doctest
@@ -824,7 +830,7 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
 
     /**
      * Get the out of plane distance (in Ångströms) formed by the atoms at
-     * indexes `i`, `j`, `k` and `m` in this [[Frame]], taking periodic
+     * indexes `i`, `j`, `k` and `m` in this {@link Frame}, taking periodic
      * boundary conditions into account.
      *
      * This is the distance between the atom j and the ikm plane. The j atom
@@ -929,7 +935,7 @@ export class Frame extends Pointer<CHFL_FRAME, never> {
     }
 
     /**
-     * Get the name of all properties set on this [[Frame]].
+     * Get the name of all properties set on this {@link Frame}.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();

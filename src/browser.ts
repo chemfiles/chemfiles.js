@@ -52,7 +52,7 @@ class MemoryTrajectory extends Trajectory {
     /**
      * Get the current content of the file as an array of bytes.
      *
-     * When writing a trajectory, you may want to [[close]] the file first to
+     * When writing a trajectory, you may want to {@link close} the file first to
      * ensure all content is flushed to the buffer.
      */
     public asUint8Array(): Uint8Array {
@@ -69,7 +69,7 @@ class MemoryTrajectory extends Trajectory {
     }
 
     /**
-     * Get the path used to open this in-memory [[Trajectory]]
+     * Get the path used to open this in-memory {@link Trajectory}
      *
      * ```typescript
      * const trajectory = new chemfiles.MemoryReader('path/to/file.tng');
@@ -88,7 +88,7 @@ class MemoryTrajectory extends Trajectory {
 /**
  * Read a memory buffer as though it were a formatted file.
  *
- * This class inherits all methods from [[Trajectory]].
+ * This class inherits all methods from {@link Trajectory}.
  */
 export class MemoryReader extends MemoryTrajectory {
     /**
@@ -121,7 +121,7 @@ export class MemoryReader extends MemoryTrajectory {
 /**
  * Write to a memory buffer as though it were a formatted file.
  *
- * This class inherits all methods from [[Trajectory]].
+ * This class inherits all methods from {@link Trajectory}.
  */
 export class MemoryWriter extends MemoryTrajectory {
     /**
@@ -132,9 +132,9 @@ export class MemoryWriter extends MemoryTrajectory {
      * extension. If both `format` and `filename` are provided; `format` takes
      * precedence.
      *
-     * Before getting the file content with [[MemoryWriter.asBlob]] or
-     * [[MemoryWriter.asUint8Array]]; ensure the file is flushed with
-     * [[MemoryWriter.close]].
+     * Before getting the file content with {@link MemoryWriter.asBlob} or
+     * {@link MemoryWriter.asUint8Array}; ensure the file is flushed with
+     * {@link MemoryWriter.close}.
      *
      * @param data      buffer containing the file content
      * @param format    format to use when reading the file

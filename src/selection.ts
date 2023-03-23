@@ -11,7 +11,7 @@ import { assert, autogrowStrBuffer, check } from './utils';
 assert(SIZEOF_CHFL_MATCH === 5 * SIZEOF_UINT64_T, 'wrong size for chfl_match');
 
 /**
- * Select atoms in a [[Frame]] using chemfiles' selection language.
+ * Select atoms in a {@link Frame} using chemfiles' selection language.
  *
  * The selection language is built by combining basic operations. Each basic
  * operation follows the `<selector>[(<variable>)] <operator> <value>`
@@ -25,7 +25,7 @@ export class Selection extends Pointer<CHFL_SELECTION, never> {
      * Create a new independent copy of the given `selection`.
      *
      * This function allocate WASM memory, which must be released with
-     * [[Selection.delete]].
+     * {@link Selection.delete}.
      *
      * ```typescript doctest
      * const selection = new chemfiles.Selection('name O');
@@ -37,7 +37,7 @@ export class Selection extends Pointer<CHFL_SELECTION, never> {
      * selection.delete();
      * copy.delete();
      * ```
-     * @param  selection [[Selection]] to copy
+     * @param  selection {@link Selection} to copy
      */
     public static clone(selection: Selection): Selection {
         const ptr = lib._chfl_selection_copy(selection.const_ptr);
@@ -48,10 +48,10 @@ export class Selection extends Pointer<CHFL_SELECTION, never> {
     }
 
     /**
-     * Create a new [[Selection]] from the given `selection` string.
+     * Create a new {@link Selection} from the given `selection` string.
      *
      * This function allocate WASM memory, which must be released with
-     * [[Selection.delete]].
+     * {@link Selection.delete}.
      *
      * ```typescript doctest
      * const frame = new chemfiles.Frame();
@@ -80,7 +80,7 @@ export class Selection extends Pointer<CHFL_SELECTION, never> {
     }
 
     /**
-     * Get the size of this [[Selection]].
+     * Get the size of this {@link Selection}.
      *
      * The size of a selection is the number of atoms being selected
      * together. This value is 1 for the 'atom' context, 2 for the 'pair' and
@@ -107,7 +107,7 @@ export class Selection extends Pointer<CHFL_SELECTION, never> {
     }
 
     /**
-     * Get the selection string used to create this [[Selection]].
+     * Get the selection string used to create this {@link Selection}.
      *
      * ```typescript doctest
      * const selection = new chemfiles.Selection('name O H');
@@ -122,7 +122,7 @@ export class Selection extends Pointer<CHFL_SELECTION, never> {
     }
 
     /**
-     * Evaluate this [[Selection]] for the given [[Frame]],
+     * Evaluate this {@link Selection} for the given {@link Frame},
      * return a list of matching atoms, either as an array of index or an array
      * of of tuples of indexes.
      *
