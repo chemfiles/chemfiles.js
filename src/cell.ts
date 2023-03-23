@@ -23,7 +23,8 @@ export enum CellShape {
 }
 
 /**
- * An [[UnitCell]] represent the box containing the atoms, and its periodicity.
+ * An {@link UnitCell} represent the box containing the atoms, and its
+ * periodicity.
  *
  * An unit cell is fully represented by three lengths (a, b, c); and three
  * angles (alpha, beta, gamma). The angles are stored in degrees, and the
@@ -43,7 +44,7 @@ export enum CellShape {
  */
 export class UnitCell extends Pointer<CHFL_CELL, never> {
     /** @hidden
-     * Create a new [[UnitCell]] from a raw pointer
+     * Create a new {@link UnitCell} from a raw pointer
      */
     public static __from_ptr(ptr: CHFL_CELL, isConst: boolean): UnitCell {
         const parent = new Pointer(ptr, isConst, 'UnitCell');
@@ -56,7 +57,7 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
      * Create a new independent copy of the given `cell`.
      *
      * This function allocate WASM memory, which must be released with
-     * [[UnitCell.delete]].
+     * {@link UnitCell.delete}.
      *
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 22, 12]);
@@ -74,7 +75,7 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
      * copy.delete();
      * ```
      *
-     * @param  cell [[UnitCell]] to copy
+     * @param  cell {@link UnitCell} to copy
      */
     public static clone(cell: UnitCell): UnitCell {
         const ptr = lib._chfl_cell_copy(cell.const_ptr);
@@ -82,12 +83,13 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
     }
 
     /**
-     * Create a new [[UnitCell]] with given cell `lengths`. The cell `angles`
-     * default to `[90, 90, 90]`. If the cell angles are not [90, 90, 90], the
-     * [[shape|CellShape]] will be `Triclinic`, else it will be `Orthorhombic`.
+     * Create a new {@link UnitCell} with given cell `lengths`. The cell
+     * `angles` default to `[90, 90, 90]`. If the cell angles are not [90, 90,
+     * 90], the {@link shape | CellShape} will be `Triclinic`, else it will be
+     * `Orthorhombic`.
      *
      * This function allocate WASM memory, which must be released with
-     * [[UnitCell.delete]].
+     * {@link UnitCell.delete}.
      *
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 10, 10]);
@@ -111,7 +113,7 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
     constructor(lengths: Vector3D, angles?: Vector3D);
 
     /**
-     * Create a new [[UnitCell]] with given cell `matrix`.
+     * Create a new {@link UnitCell} with given cell `matrix`.
      *
      * If `matrix` contains only zeros, then an infinite cell is created. If
      * only the diagonal of the matrix is non-zero, then the cell is
@@ -119,7 +121,7 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
      * should be in Angstroms.
      *
      * This function allocate WASM memory, which must be released with
-     * [[UnitCell.delete]].
+     * {@link UnitCell.delete}.
      *
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([
@@ -158,7 +160,7 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
     }
 
     /**
-     * Get the lengths of this [[UnitCell]] vectors, in Ångströms.
+     * Get the lengths of this {@link UnitCell} vectors, in Ångströms.
      *
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 20, 33]);
@@ -175,7 +177,8 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
     }
 
     /**
-     * Set the lengths of this [[UnitCell]] vectors to the given `value`, in Ångströms.
+     * Set the lengths of this {@link UnitCell} vectors to the given `value`, in
+     * Ångströms.
      *
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 20, 33]);
@@ -194,7 +197,7 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
     }
 
     /**
-     * Get the angles between this [[UnitCell]] vectors, in degrees.
+     * Get the angles between this {@link UnitCell} vectors, in degrees.
      *
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 20, 33], [120, 80, 90]);
@@ -211,11 +214,11 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
     }
 
     /**
-     * Set the angles between this [[UnitCell]] vectors to the given `value`, in
-     * degrees.
+     * Set the angles between this {@link UnitCell} vectors to the given
+     * `value`, in degrees.
      *
-     * This is only possible for cell with [[CellShape.Triclinic|triclinic]]
-     * shape.
+     * This is only possible for cell with
+     * {@link CellShape.Triclinic | triclinic} shape.
      *
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 20, 33], [120, 80, 90]);
@@ -234,7 +237,7 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
     }
 
     /**
-     * Get the [[CellShape|shape]] of this [[UnitCell]].
+     * Get the {@link CellShape | shape} of this {@link UnitCell}.
      *
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 20, 33], [120, 80, 90]);
@@ -251,12 +254,13 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
     }
 
     /**
-     * Change the [[CellShape|shape]] of this [[UnitCell]] to the given `value`.
+     * Change the {@link CellShape | shape} of this {@link UnitCell} to the
+     * given `value`.
      *
-     * Changing from a less restrictive to a more restrictive cell shape is
-     * only possible if the corresponding cell angles (`[90, 90, 90]` for
-     * Orthorhombic cells) and cell lengths (`[0, 0, 0]` for Infinite cells)
-     * are set accordingly beforehand.
+     * Changing from a less restrictive to a more restrictive cell shape is only
+     * possible if the corresponding cell angles (`[90, 90, 90]` for
+     * Orthorhombic cells) and cell lengths (`[0, 0, 0]` for Infinite cells) are
+     * set accordingly beforehand.
      *
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 20, 33], [90, 90, 90]);
@@ -272,7 +276,7 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
     }
 
     /**
-     * Get the volume of this [[UnitCell]], in Ångströms cube.
+     * Get the volume of this {@link UnitCell}, in Ångströms cube.
      *
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 20, 33]);
@@ -289,8 +293,8 @@ export class UnitCell extends Pointer<CHFL_CELL, never> {
     }
 
     /**
-     * Get the matricial representation of this [[UnitCell]], i.e. the matrix
-     * containing the cell vectors as columns.
+     * Get the matricial representation of this {@link UnitCell}, i.e. the
+     * matrix containing the cell vectors as columns.
      *
      * ```typescript doctest
      * const cell = new chemfiles.UnitCell([10, 20, 33]);

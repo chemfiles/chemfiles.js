@@ -10,24 +10,24 @@ import { getValue, stackAlloc, stackAutoclean } from './stack';
 import { assert, autogrowStrBuffer, check, isUnsignedInteger } from './utils';
 
 /**
- * A [[Trajectory]] represent a physical file, from which we can read [[Frame]].
+ * A {@link Trajectory} represent a physical file, from which we can read
+ * {@link Frame}.
  */
 export class Trajectory extends Pointer<CHFL_TRAJECTORY, { jsPath: string }> {
     /**
-     * Open the file at the given `path` using the given `mode` and
-     * optional file `format`.
+     * Open the file at the given `path` using the given `mode` and optional
+     * file `format`.
      *
-     * Valid modes are `'r'` for read, `'w'` for write and `'a'` for
-     * append.
+     * Valid modes are `'r'` for read, `'w'` for write and `'a'` for append.
      *
-     * The `format` parameter is needed when the file format does not match
-     * the extension, or when there is not standard extension for this format.
-     * If `format` is not provided, the file format will be guessed from the
-     * file extension.
+     * The `format` parameter is needed when the file format does not match the
+     * extension, or when there is not standard extension for this format. If
+     * `format` is not provided, the file format will be guessed from the file
+     * extension.
      *
      * This function allocate WASM memory, which must be released with
-     * [[Trajectory.close]]. When writing files, [[Trajectory.close]] also
-     * flush any un-written buffers.
+     * {@link Trajectory.close}. When writing files, {@link Trajectory.close}
+     * also flush any un-written buffers.
      *
      * ```typescript
      * const trajectory = new chemfiles.Trajectory('path/to/file.nc');
@@ -67,7 +67,7 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, { jsPath: string }> {
     }
 
     /**
-     * Get the path used to open this [[Trajectory]]
+     * Get the path used to open this {@link Trajectory}
      *
      * ```typescript
      * const trajectory = new chemfiles.Trajectory('path/to/file.tng');
@@ -84,7 +84,7 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, { jsPath: string }> {
     }
 
     /**
-     * Get the current number of steps in this [[Trajectory]]
+     * Get the current number of steps in this {@link Trajectory}
      *
      * ```typescript
      * const trajectory = new chemfiles.Trajectory('path/to/file.pdb');
@@ -101,7 +101,7 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, { jsPath: string }> {
     }
 
     /**
-     * Read the next step of this [[Trajectory]] in the provided `frame`.
+     * Read the next step of this {@link Trajectory} in the provided `frame`.
      *
      * ```typescript
      * const trajectory = new chemfiles.Trajectory('trajectory.xyz');
@@ -121,7 +121,7 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, { jsPath: string }> {
     }
 
     /**
-     * Read a specific `step` of this [[Trajectory]] in the provided `frame`.
+     * Read a specific `step` of this {@link Trajectory} in the provided `frame`.
      *
      * ```typescript
      * const trajectory = new chemfiles.Trajectory('trajectory.xyz');
@@ -146,7 +146,7 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, { jsPath: string }> {
     }
 
     /**
-     * Write a [[Frame]] to this [[Trajectory]].
+     * Write a {@link Frame} to this {@link Trajectory}.
      *
      * ```typescript
      * const trajectory = new chemfiles.Trajectory('output.cssr', 'w');
@@ -166,13 +166,13 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, { jsPath: string }> {
     }
 
     /**
-     * Set the [[Topology]] associated with this [[Trajectory]].
+     * Set the {@link Topology} associated with this {@link Trajectory}.
      *
      * The new topology will be used when reading and writing the files,
      * replacing any topology in the frames or files.
      *
-     * If the `topology` parameter is a [[Topology]] instance, it is used
-     * directly. If the `topology` parameter is a string, the first [[Frame]] of
+     * If the `topology` parameter is a {@link Topology} instance, it is used
+     * directly. If the `topology` parameter is a string, the first {@link Frame} of
      * the corresponding file is read, and the topology of this frame is used.
      *
      * When reading from a file, if `format` is not `undefined`, it is used as
@@ -224,10 +224,10 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, { jsPath: string }> {
     }
 
     /**
-     * Set the [[UnitCell]] associated with this [[Trajectory]] to a copy of
+     * Set the {@link UnitCell} associated with this {@link Trajectory} to a copy of
      * `cell`.
      *
-     * This [[UnitCell]] will be used when reading and writing the files,
+     * This {@link UnitCell} will be used when reading and writing the files,
      * replacing any cell in the frames or files.
      *
      * ```typescript
@@ -253,7 +253,7 @@ export class Trajectory extends Pointer<CHFL_TRAJECTORY, { jsPath: string }> {
     }
 
     /**
-     * Close this [[Trajectory]] and write any buffered content to the file.
+     * Close this {@link Trajectory} and write any buffered content to the file.
      *
      * ```typescript
      * const trajectory = new chemfiles.Trajectory('output.mmtf', 'w');

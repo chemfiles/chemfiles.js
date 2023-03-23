@@ -12,13 +12,13 @@ interface ResidueExtra {
 }
 
 /**
- * A [[Residue]] is a group of atoms belonging to the same logical unit.
+ * A {@link Residue} is a group of atoms belonging to the same logical unit.
  * They can be small molecules, amino-acids in a protein, monomers in
  * polymers, *etc*.
  */
 export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
     /** @hidden
-     * Create a new [[Residue]] from a raw pointer
+     * Create a new {@link Residue} from a raw pointer
      */
     public static __from_ptr(ptr: CHFL_RESIDUE, isConst: boolean): Residue {
         const parent = new Pointer(ptr, isConst, 'Residue');
@@ -31,7 +31,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
      * Create a new independent copy of the given `residue`.
      *
      * This function allocate WASM memory, which must be released with
-     * [[Residue.delete]].
+     * {@link Residue.delete}.
      *
      * ```typescript doctest
      * const residue = new chemfiles.Residue('ALA');
@@ -49,7 +49,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
      * copy.delete();
      * ```
      *
-     * @param  residue [[Residue]] to copy
+     * @param  residue {@link Residue} to copy
      */
     public static clone(residue: Residue): Residue {
         const ptr = lib._chfl_residue_copy(residue.const_ptr);
@@ -57,10 +57,10 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
     }
 
     /**
-     * Create a new [[Residue]] with the given `name` and optional residue `id`.
+     * Create a new {@link Residue} with the given `name` and optional residue `id`.
      *
      * This function allocate WASM memory, which must be released with
-     * [[Residue.delete]].
+     * {@link Residue.delete}.
      *
      * ```typescript doctest
      * const residue = new chemfiles.Residue('ALA');
@@ -95,7 +95,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
     }
 
     /**
-     * Get the residue id of this [[Residue]], or undefined if the residue have
+     * Get the residue id of this {@link Residue}, or undefined if the residue have
      * no residue id.
      *
      * ```typescript doctest
@@ -118,7 +118,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
     }
 
     /**
-     * Get the name of this [[Residue]]
+     * Get the name of this {@link Residue}
      *
      * ```typescript doctest
      * const residue = new chemfiles.Residue('ALA');
@@ -133,7 +133,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
     }
 
     /**
-     * Get the list of atoms part of this [[Residue]].
+     * Get the list of atoms part of this {@link Residue}.
      *
      * ```typescript doctest
      * const residue = new chemfiles.Residue('ALA');
@@ -166,7 +166,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
     }
 
     /**
-     * Check if this [[Residue]] contains the given `atom`
+     * Check if this {@link Residue} contains the given `atom`
      *
      * ```typescript doctest
      * const residue = new chemfiles.Residue('ALA');
@@ -280,7 +280,7 @@ export class Residue extends Pointer<CHFL_RESIDUE, ResidueExtra> {
     }
 
     /**
-     * Get the name of all properties set on this [[Residue]].
+     * Get the name of all properties set on this {@link Residue}.
      *
      * ```typescript doctest
      * const residue = new chemfiles.Residue('C');

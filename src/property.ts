@@ -12,8 +12,8 @@ import { getValue, stackAlloc, stackAutoclean } from './stack';
 import { Vector3D, autogrowStrBuffer, check } from './utils';
 
 /**
- * Possible types for properties natively stored in [[Atom]], [[Residue]] or
- * [[Frame]].
+ * Possible types for properties natively stored in {@link Atom},
+ * {@link Residue} or {@link Frame}.
  */
 export type PropertyType = string | boolean | number | Vector3D;
 

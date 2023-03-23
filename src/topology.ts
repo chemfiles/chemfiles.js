@@ -20,7 +20,7 @@ import { getValue, stackAlloc, stackAutoclean } from './stack';
 import { assert, check, isUnsignedInteger } from './utils';
 
 /**
- * A [[BondOrder]] describe the order of a bond (single, double, etc.).
+ * A {@link BondOrder} describe the order of a bond (single, double, etc.).
  *
  * Some possible values are here to support specific file formats, which can
  * store more specific bond types (amide or aromatic for example).
@@ -45,10 +45,10 @@ export enum BondOrder {
 }
 
 /**
- * A [[Topology]] contains the definition of all the atoms in the system,
+ * A {@link Topology} contains the definition of all the atoms in the system,
  * and the liaisons between the atoms (bonds, angles, dihedrals, ...).
  *
- * It will also contain all the [[Residue]] of the system.
+ * It will also contain all the {@link Residue} of the system.
  */
 export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     /** @hidden
@@ -65,7 +65,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
      * Create a new independent copy of the given `topology`.
      *
      * This function allocate WASM memory, which must be released with
-     * [[Topology.delete]].
+     * {@link Topology.delete}.
      *
      * ```typescript doctest
      * const topology = new chemfiles.Topology();
@@ -82,7 +82,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
      * topology.delete();
      * copy.delete();
      * ```
-     * @param  topology [[Topology]] to copy
+     * @param  topology {@link Topology} to copy
      */
     public static clone(topology: Topology): Topology {
         const ptr = lib._chfl_topology_copy(topology.const_ptr);
@@ -90,10 +90,10 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
-     * Create a new empty [[Topology]].
+     * Create a new empty {@link Topology}.
      *
      * This function allocate WASM memory, which must be released with
-     * [[Topology.delete]].
+     * {@link Topology.delete}.
      *
      * ```typescript doctest
      * const topology = new chemfiles.Topology();
@@ -106,7 +106,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
-     * Resize this [[Topology]] to contain `size` atoms.
+     * Resize this {@link Topology} to contain `size` atoms.
      *
      * If the new number of atoms is bigger than the current number, new atoms
      * will be created with an empty name and type. If it is lower than the
@@ -136,7 +136,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
-     * Add a bond between the atoms at indexes `i` and `j` in this [[Topology]],
+     * Add a bond between the atoms at indexes `i` and `j` in this {@link Topology},
      * optionally setting the bond `order`.
      *
      * ```typescript doctest
@@ -171,7 +171,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
 
     /**
      * Remove any existing bond between the atoms at indexes `i` and `j` in
-     * this [[Topology]].
+     * this {@link Topology}.
      *
      * This function does nothing if there is no bond between `i` and `j`.
      *
@@ -204,7 +204,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
 
     /**
      * Remove all existing bonds, angles, dihedral angles and improper dihedral
-     * angles in this [[Topology]].
+     * angles in this {@link Topology}.
      *
      * ```typescript doctest
      * const topology = new chemfiles.Topology();
@@ -226,10 +226,10 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
-     * Get the atom at the given index inside this [[Topology]].
+     * Get the atom at the given index inside this {@link Topology}.
      *
      * This function increase the reference count of this topology, memory will
-     * not be released before the atom is itself released with [[Atom.delete]].
+     * not be released before the atom is itself released with {@link Atom.delete}.
      *
      * ```typescript doctest
      * const topology = new chemfiles.Topology();
@@ -252,7 +252,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
-     * Add a copy of the given `atom` at the end of this [[Topology]].
+     * Add a copy of the given `atom` at the end of this {@link Topology}.
      *
      * ```typescript doctest
      * const topology = new chemfiles.Topology();
@@ -273,7 +273,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
-     * Remove the [[Atom]] at the given `index` from this [[Topology]].
+     * Remove the {@link Atom} at the given `index` from this {@link Topology}.
      *
      * This shifts all the atoms indexes larger than `index` by 1 (`n` becomes
      * `n - 1`).
@@ -307,7 +307,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
-     * Get the current number of atoms in this [[Topology]].
+     * Get the current number of atoms in this {@link Topology}.
      *
      * ```typescript doctest
      * const topology = new chemfiles.Topology();
@@ -328,15 +328,15 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
-     * Get read-only access to the [[Residue]] at the given `index` inside this
-     * [[Topology]].
+     * Get read-only access to the {@link Residue} at the given `index` inside this
+     * {@link Topology}.
      *
      * The residue index in the topology does not necessarily match the residue
      * id.
      *
      * This function increase the reference count of this topology, memory will
      * not be released before the residue is itself released with
-     * [[Residue.delete]].
+     * {@link Residue.delete}.
      *
      * ```typescript doctest
      * const topology = new chemfiles.Topology();
@@ -359,7 +359,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
      * ```
      *
      * @param  index index of the residue in the topology
-     * @return       A non-modifiable reference to the [[Residue]]
+     * @return       A non-modifiable reference to the {@link Residue}
      */
     public residue(index: number): Residue {
         assert(isUnsignedInteger(index), 'residue index should be a positive integer');
@@ -373,7 +373,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
      *
      * This function increase the reference count of this topology, memory will
      * not be released before the residue is itself released with
-     * [[Residue.delete]].
+     * {@link Residue.delete}.
      *
      * ```typescript doctest
      * const topology = new chemfiles.Topology();
@@ -398,7 +398,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
      * ```
      *
      * @param  index index of the atom in the topology
-     * @return       A non-modifiable reference to the [[Residue]]
+     * @return       A non-modifiable reference to the {@link Residue}
      */
     public residueForAtom(index: number): Residue | undefined {
         assert(isUnsignedInteger(index), 'atom index should be a positive integer');
@@ -412,11 +412,11 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
 
     /**
      * Add the given `residue` at the end of the residue list for this
-     * [[Topology]].
+     * {@link Topology}.
      *
      * The residue must contain only atoms that are not already in another
-     * residue in this topology, and the [[Residue.id|residue id]] if defined
-     * must be different from all other residue id in this topology.
+     * residue in this topology, and the {@link Residue.id | residue id} if
+     * defined must be different from all other residue id in this topology.
      *
      * ```typescript doctest
      * const topology = new chemfiles.Topology();
@@ -441,7 +441,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
-     * Check if the two [[Residue]] `first` and `second` from this [[Topology]]
+     * Check if the two {@link Residue} `first` and `second` from this {@link Topology}
      * are linked together, *i.e.* if there is a bond between one atom in the
      * first residue and one atom in the second one.
      *
@@ -484,7 +484,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
-     * Get the current number of residues in this [[Topology]].
+     * Get the current number of residues in this {@link Topology}.
      *
      * ```typescript doctest
      * const topology = new chemfiles.Topology();
@@ -511,7 +511,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
-     * Get the list of all bonds in this [[Topology]].
+     * Get the list of all bonds in this {@link Topology}.
      *
      * Each bond is represented as a pair of atom indices.
      *
@@ -547,8 +547,8 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
-     * Get the list of bond order for all bonds in this [[Topology]]. The values
-     * are in the same order as the bonds in [[Topology.bonds]].
+     * Get the list of bond order for all bonds in this {@link Topology}. The values
+     * are in the same order as the bonds in {@link Topology.bonds}.
      *
      * ```typescript doctest
      * const topology = new chemfiles.Topology();
@@ -601,7 +601,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
-     * Get the list of all angles in this [[Topology]].
+     * Get the list of all angles in this {@link Topology}.
      *
      * Each angle is represented as a triplet of atom indices, with the middle
      * index being the center of the angle.
@@ -642,7 +642,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
-     * Get the list of all dihedral angles in this [[Topology]].
+     * Get the list of all dihedral angles in this {@link Topology}.
      *
      * Each dihedral angle is represented as a quadruplet of atom indices,
      * with the two middle indexes being the two central atoms of the dihedral
@@ -685,7 +685,7 @@ export class Topology extends Pointer<CHFL_TOPOLOGY, never> {
     }
 
     /**
-     * Get the list of all improper dihedral angles in this [[Topology]].
+     * Get the list of all improper dihedral angles in this {@link Topology}.
      *
      * Each improper  dihedral angle is represented as a quadruplet of atom
      * indices, with the second index being the center of the improper dihedral.

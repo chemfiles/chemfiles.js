@@ -25,7 +25,7 @@ export function version(): string {
 /**
  * Get the last error thrown by a chemfiles function.
  *
- * Use [[clearErrors]] to reset this to an empty string.
+ * Use {@link clearErrors} to reset this to an empty string.
  *
  * ```typescript doctest
  * try {
